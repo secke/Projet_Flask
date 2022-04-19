@@ -1,8 +1,6 @@
-form {display: flex;
-/* width: max-content; */
+/* form {display: flex;
 height: 250px;
 flex-direction: column;
-/* margin: 10%; */
 align-items:center;
 justify-content:space-around;
 }
@@ -21,7 +19,6 @@ div {
    
 }
 input {
-   /* border: solid 3px; */
    height: 30px;
    background: #F1F1F1;
-}
+} */

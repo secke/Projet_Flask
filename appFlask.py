@@ -33,6 +33,36 @@ def connexion():
             redirect(url_for('user'))
     return render_template('connexion.html')
 
+##############Page user Post###############################
+
+@app.route('/userpost')
+def userpost():
+    return render_template('userpost.html')
+
+
+##############Page user Album###############################
+
+@app.route('/useralbum')
+def useralbum():
+    return render_template('useralbum.html')
+
+
+##############Page user Todo###############################
+
+@app.route('/usertodo')
+def usertodo():
+    return render_template('usertodo.html')
+
+
+##############Page user Info###############################
+
+@app.route('/userinfo')
+def userinfo():
+    return render_template('userinfo.html')
+
+
+
+
 ############## DEBOGUER #############################################################
 if __name__=='__main__':
     app.run(debug=True) 

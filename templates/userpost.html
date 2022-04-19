@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="principal">
+    <button class="deconnexion">Déconnexion</button>
+    <ul class="menu">
+        <li class="list"><a href="{{ url_for('userpost') }}">Post</a></li>
+        <li class="list" ><a href="{{ url_for('useralbum') }}">Album</a></li>
+        <li class="list"><a href="{{ url_for('usertodo') }}">Todo</a></li>
+        <li class="list"><a href="{{ url_for('userinfo') }}"> Info</a> </li>
+    </ul>
+</nav>
+<main class="main">
+    {% block main %}
+    <div class="block"></div>
+    <div class="block"></div>
+    <div class="block"></div>
+    <div class="block"></div>
+    {% endblock main %}
+</main>
+{% endblock %}

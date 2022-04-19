@@ -1,6 +1,17 @@
 
 /* ##############Debut de Style concernant la page principal############# */
 
+
+*{
+   margin: 0;
+   padding: 0;
+
+}
+body{
+   width: 100%;
+   height: 900px;
+}
+
 .principal{
    width: 100%;
    height: 15%;
@@ -52,7 +63,7 @@ span{
    display: flex;
 }
 
-.bouton_principal{
+.bouton_principal,.deconnexion{
    width: 30%;
    height: 30%;
    margin-top: 15%;
@@ -63,11 +74,12 @@ span{
 }
 
 .btn_ajout{
-   width: 100%;
+   width: 150px;
    height: 100%;
    border-radius: 15px;
+   border: 2px solid #AE25DE;
    color: white;
-   background-color: blueviolet;
+   background-color: #AE25DE;
 }
 
 /* ############Tout ce qui concerne l'ajout des users ################ */
@@ -123,3 +135,151 @@ span{
 
 /* ###################Fin de style concernant la page principale###################### */
 
+
+/* ##############Debut de Style concernant la page user Post############# */
+
+
+.menu{
+   width: 80%;
+   display: flex;
+   justify-content: space-evenly;
+}
+.list{
+   margin-top: 15px;
+   list-style: none;
+   font-size: 60px;
+   color: white;
+   cursor: pointer;
+   height: 50%;
+   width: 17%;
+   text-align: center;
+   align-self: center;
+}
+.list a:hover{
+   background-color: #F5D7FF;
+   color: #532CA6;
+   border-radius: 10px
+   
+}
+.list a{
+   text-decoration: none;
+   color: white;
+}
+
+.deconnexion{
+   margin: 0;
+   margin-left: 20px;
+   margin-top: 15px;
+   height: 40%;
+   width: 15%;
+   border: #AE25DE;
+   font-size: 24px;
+}
+
+.main{
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-evenly;
+  
+   height: 80%;
+}
+
+.block{
+   background-color: #F5D7FF;
+   height: 45%;
+   width: 40%;
+   margin: 20px;
+   position: relative;
+}
+/* ###################Fin de style concernant la page user Post###################### */
+
+/* ##############Debut de Style concernant la page user Album############# */
+.titre{
+   background-color: white
+}
+.more{
+   background-color: #AE25DE;
+   color: white;
+   font-size: medium;
+   border-radius: 1em;
+   border: #AE25DE;
+   width: 10%;
+   height: 10%;
+   position: absolute;
+   bottom: 0;
+   margin-left: 50%;
+}
+
+
+/* ###################Fin de style concernant la page user Post###################### */
+
+
+
+/* ###################Debut de style concernant la page user Todo###################### */
+
+
+
+.tblock{
+   font-size: 40px;
+   text-align: center;
+}
+
+/* ###################Fin de style concernant la page user Todo###################### */
+
+/* ###################Fin de style concernant la page user Info###################### */
+.block1{
+   height: 100%;
+   width: 45%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+   align-items: center;
+}
+.champ{
+   display: flex;
+   width: 90%;
+}
+
+.champ label,.block2 h3{
+   color: white;
+   background-color: #532CA6;
+   padding: 20px;
+   font-size: 30px;
+   align-items: flex-end;
+   width: 20%;
+   margin-left: 15px;
+  
+}
+.champ input{
+   background-color: #F5D7FF;
+   width: 60%;
+   border: #F5D7FF;
+   align-items: flex-end;
+   margin-left: 30px;
+}
+
+.block2{
+
+   width: 45%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+  
+}
+
+.sblock{
+   height: 50%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   background-color:#F5D7FF;
+}
+
+.block2 h3{
+   margin: 15px;
+   margin-left: 40%;
+}
+
+
+
+/* ###################Fin de style concernant la page user Info###################### */
