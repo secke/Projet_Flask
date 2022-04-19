@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block head %}
+{% block title %} Page de Connexion {% endblock %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/style_connexion.css') }}">
+{% endblock %}
+{% block content %}
+<form method="post">
+    <div>
+        <label for="log">login</label>
+        <input type="email" name="connect" id="log" required>
+    </div>
+    <div>
+        <label for="mp">Password</label>
+        <input type="password" name="secur" id="mp" value="">
+    </div>
+    <div>
+        <button type="submit" class="boutValid">Sign Up</button>
+    </div>
+</form>
+<script src="{{ url_for('static', filename='JS/js_connexion.js') }}"></script>
+{% endblock %}
