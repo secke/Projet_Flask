@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% block head %}
 {% block title %} Page de Connexion {% endblock %}
-<link rel="stylesheet" href="{{ url_for('static',filename='css/style_connexion.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
 {% endblock %}
 {% block content %}
 <form method="post">
     <div>
         <label for="log">login</label>
-        <input type="email" name="connect" id="log" required>
+        <input type="email" name="connect" id="log" class="champ" required>
     </div>
-    <div>
+    <div> 
         <label for="mp">Password</label>
-        <input type="password" name="secur" id="mp" value="">
+        <input type="password" name="secur" id="mp" class="champ" value="">
     </div>
     <div>
         <button type="submit" class="boutValid">Sign Up</button>

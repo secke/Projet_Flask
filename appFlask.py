@@ -1,6 +1,6 @@
 # ############### IMPORTATION DES MODULES ET FONCTIONS ######################
 from flask import Flask, redirect, url_for,render_template,request,flash
-import requests, base
+import requests
 
 #############################################################################
 
@@ -9,9 +9,9 @@ import requests, base
 app=Flask(__name__)
 
 ############# fermeture de session #####################################
-@app.teardown_appcontext
-def stopSession():
-    base.session.remove()
+# @app.teardown_appcontext
+# def stopSession():
+#     base.session.remove()
 
 ##########################Page Principale ##################################
 

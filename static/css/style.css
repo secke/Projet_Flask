@@ -349,3 +349,51 @@ span{
 
 
 /* ###################Fin de style concernant la page user Info###################### */
+
+
+/* ################## STYLE PAGE DE CONNEXION ############################################ */
+
+.formConnex {display: flex;
+   /* width: max-content; */
+   height: 350%;
+   flex-direction: column;
+   /* margin: 10%; */
+   align-items:center;
+   justify-content:space-evenly;
+   }
+   .tete{
+      border: solid 2px;
+      width: 90%;
+      border-radius: 0px 0px 40px 40px ;
+      background-color: #863eeb;
+      color: white;
+      text-align: center;
+      font-size: 80px;
+   }
+   .elemForm {
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+      height: 100px;
+      font-size:xx-large;
+      font-weight: bold;
+   }
+   .boutValid {
+      width: 70%;
+      height: 80px;
+      background: #AE25DE;
+      border-radius: 30px;
+      color: white;
+      font-size: 60px;
+      
+   }
+   .champ {
+      /* border: solid 3px; */
+      height: 100px;
+      width: 70%;
+      background: #F1F1F1;
+      border-radius: 10px;
+      margin: 5px;
+   }
+
+   /* ####################### FIN STYLE PAGE DE CONNEXION ########################## */

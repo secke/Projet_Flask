@@ -8,7 +8,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 
 
-engine=create_engine('postgresql://secke:motdepasse@localhost:5432/database')
+engine=create_engine('postgresql://secke:keita2022@localhost:5432/baseflask')
 base_session=sessionmaker(bind=engine,autocommit=False,autoflush=False)
 session=base_session()
 base=declarative_base()
