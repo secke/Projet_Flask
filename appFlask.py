@@ -1,27 +1,46 @@
-# ############### IMPORTATION DES MODULES ET FONCTIONS #####################
+# ############### IMPORTATION DES MODULES ET FONCTIONS ######################
 from flask import Flask, redirect, url_for,render_template,request,flash
-
+import requests
 
 #############################################################################
 
-############## APPLICATION FLASK ET SES FONCTIONS DE NAVIGATION ###################
-
-# from flask_sqlalchemy import SQLAlchemy
+############## APPLICATION FLASK ET SES FONCTIONS DE NAVIGATION #############
 
 app=Flask(__name__)
 
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test_123@localhost/flask_project'
+##########################Page Principale ##################################
 
 @app.route('/')
 def principal():
     return render_template('principal.html')
 
-@app.route('/adduser')
+                ########AFFICHAGE DES USER######## 
+
+@app.route('/affiche')
+def affiche():
+    n = 5
+    try:
+        lien = requests.get('https://jsonplaceholder.typicode.com/users')
+            
+        fiche = lien.json()
+        
+    except ConnectionError:
+        fiche = "Vous n'etes pas connecter à internet."
+            
+    return render_template('afiche.html', fiche=fiche, n=n)
+
+                ########AJOUT DES USERS########
+
+@app.route('/adduser', methods = ('GET', 'POST'))
 def adduser():
+    if request.method == 'POST':
+        name = request.form['name']
+        username = request.form['username']
+        phone = request.form['phone']
+        website = request.form['website']
     return render_template('adduser.html')
 
-############ PAGE DE CONNEXION ###################################################
+############ PAGE DE CONNEXION ###########################################
 @app.route('/login', methods=('GET','POST'))
 def connexion():
     if request.method=='POST':
@@ -33,28 +52,28 @@ def connexion():
             redirect(url_for('user'))
     return render_template('connexion.html')
 
-##############Page user Post###############################
+########################Page user Post####################################
 
 @app.route('/userpost')
 def userpost():
     return render_template('userpost.html')
 
 
-##############Page user Album###############################
+########################Page user Album##################################
 
 @app.route('/useralbum')
 def useralbum():
     return render_template('useralbum.html')
 
 
-##############Page user Todo###############################
+##########################Page user Todo#################################
 
 @app.route('/usertodo')
 def usertodo():
     return render_template('usertodo.html')
 
 
-##############Page user Info###############################
+#############################Page user Info##############################
 
 @app.route('/userinfo')
 def userinfo():
@@ -63,7 +82,7 @@ def userinfo():
 
 
 
-############## DEBOGUER #############################################################
+############## DEBOGUER ################################################
 if __name__=='__main__':
     app.run(debug=True) 
 

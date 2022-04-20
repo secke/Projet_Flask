@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <nav class="principal">
+        <div class="div_logo_user">
+            <div class="div_image_user">
+                <div class="logo_user"></div>
+            </div>
+            <span >User</span>
+        </div>
+        <div class="div_bouton_page_principal">
+            <a href="{{ url_for('adduser') }}"  class=" bouton_principal"><button class="btn_ajout">+Ajouter un user</button></a>
+            <a href="{{ url_for('affiche') }}" class="bouton_principal"><button class="btn_ajout">Afficher des users</button></a>
+        </div>
+    </nav>
+    <div id="body_affichage">
+        <div class="affiche">
+            <div class="div_info_user">
+                <span class="info_user">Name</span>
+                <span class="info_user">Username</span>
+                <span class="info_user">Phone</span>
+                <span class="info_user">Website</span>
+            </div>
+            
+            {% for i in range(n) %}
+                <div class="div_article_user">
+                    <a href="{{ url_for('connexion') }}" class="article_user">
+                        <span class="paragraphe_user">{{ fiche[i]['name'] }}</span>
+                        <span class="paragraphe_user">{{ fiche[i]['username'] }}</span>
+                        <span class="paragraphe_user">{{ fiche[i]['phone'] }}</span>
+                        <span class="paragraphe_user">{{ fiche[i]['website'] }}</span>
+                    </a>
+                </div>
+            {% endfor %}
+            
+        </div>
+    </div>
+{% endblock %}

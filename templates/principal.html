@@ -10,7 +10,7 @@
         </div>
         <div class="div_bouton_page_principal">
             <a href="{{ url_for('adduser') }}"  class=" bouton_principal"><button class="btn_ajout">+Ajouter un user</button></a>
-            <a href="#" class="bouton_principal"><button class="btn_ajout">Afficher des users</button></a>
+            <a href="{{ url_for('affiche') }}" class="bouton_principal"><button class="btn_ajout">Afficher des users</button></a>
         </div>
     </nav>
 {% endblock %}
