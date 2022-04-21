@@ -16,7 +16,7 @@
     <div class="title_adduser">
         <h1>Remplissez les champs ci-dessous et soumettez le formulaire</h1>
     </div>
-    <form action="user" class="form_adduser">
+    <form action="{{ url_for('principal') }}" class="form_adduser" method="post">
         <div class="adduser_champ">
             <label for="" class="label_adduser">Name</label>
             <input type="text" class="input_adduser">

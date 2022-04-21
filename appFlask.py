@@ -1,6 +1,11 @@
 # ############### IMPORTATION DES MODULES ET FONCTIONS ######################
+import sys
+sys.path.append('.')
+sys.path.append('..')
+
 from flask import Flask, redirect, url_for,render_template,request,flash
 import requests
+import base,model
 
 #############################################################################
 
@@ -19,7 +24,7 @@ app=Flask(__name__)
 def principal():
     return render_template('principal.html')
 
-                ########AFFICHAGE DES USER######## 
+################## AFFICHAGE DES USER ######## 
 
 @app.route('/affiche')
 def affiche():
@@ -43,6 +48,12 @@ def adduser():
         username = request.form['username']
         phone = request.form['phone']
         website = request.form['website']
+        address = request.form['address']
+        ajout=model.User(name,username,phone,website,address)
+        base.session.add(ajout)
+        base.session.commit()
+        redirect(url_for('principal'))
+
     return render_template('adduser.html')
 
 ############ PAGE DE CONNEXION ###########################################
