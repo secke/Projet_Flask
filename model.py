@@ -12,26 +12,18 @@ class User(base.base):
     id=Column(Integer, primary_key=True)
     name=Column(String(50))
     username=Column(String(50))
+    phone=Column(String(50))
     email=Column(String(100))
-    address=Column(String(100))
-    street=Column(String(100))
-    suite=Column(String(100))
-    city=Column(String(100))
-    zipcode=Column(String(50))
-    lat=Column(String(50))
-    lng=Column(String(50))
-    def __init__(self,id,name,username,email,address,street,suite,city,zipcode,lat,lng):
+    address=Column(String(300))
+    
+    def __init__(self,id,name,username,phone,email,address):
         self.id=id
         self.name=name
         self.username=username
+        self.phone=phone
         self.email=email
         self.address=address
-        self.street=street
-        self.suite=suite
-        self.city=city
-        self.zipcode=zipcode
-        self.lat=lat
-        self.lng=lng
+        
 
 
 ################## ALBUM #################################
@@ -112,4 +104,4 @@ class Comment(base.base):
 
 
 
-# base.init_base()
+base.init_base()
