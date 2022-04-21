@@ -1,5 +1,7 @@
 # ############### IMPORTATION DES MODULES ET FONCTIONS ######################
 import sys
+
+from vue import utilisateur
 sys.path.append('.')
 sys.path.append('..')
 
@@ -30,19 +32,25 @@ def principal():
 def affiche():
     donnee = request.form
     n = int(donnee.get('choice_user'))
-    # print(n)
-    print(request.args)
-    print('hell')
-    # n = 5
-    try:
-        lien = requests.get('https://jsonplaceholder.typicode.com/users')
-            
-        fiche = lien.json()
-        
-    except ConnectionError:
-        fiche = "Vous n'etes pas connecter à internet."
-            
-    return render_template('afiche.html', fiche=fiche, n=n)
+
+    fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email)
+    k=0
+    for el in fiche:
+        k+=1
+    
+    if k>=5:
+        return render_template('afiche.html', fiche=fiche, n=n)
+
+    else:
+        try:
+            utilisateur()
+            fiche = base.import_api('users')
+            return render_template('afiche.html', fiche=fiche, n=n)
+
+        except ConnectionError:
+            fiche = "Vous n'etes pas connecter à internet."
+                
+            return fiche
 
                 ########AJOUT DES USERS########
 
