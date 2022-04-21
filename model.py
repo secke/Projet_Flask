@@ -1,6 +1,4 @@
 
-from sqlalchemy import Boolean, Column,String,Integer,TEXT
-import base
 import sys
 sys.path.append('.')
 sys.path.append('..')
@@ -13,6 +11,7 @@ class User(base.base):
     id=Column(Integer, primary_key=True)
     name=Column(String(50))
     username=Column(String(50))
+    phone=Column(String(50))
     email=Column(String(100))
     address=Column(String(100))
     street=Column(String(100))
@@ -26,6 +25,7 @@ class User(base.base):
         self.id=id
         self.name=name
         self.username=username
+        self.phone=phone
         self.email=email
         self.address=address
         self.street=street
@@ -115,4 +115,4 @@ class Comment(base.base):
 
 
 
-# base.init_base()
+base.init_base()

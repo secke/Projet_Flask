@@ -1,14 +1,10 @@
 {% extends 'base.html' %}
-
 {% block content %}
 
-<nav class="principal">
-    <p class="connexion">Connexion</p>
-</nav>
-<form method="post" class="formulaire">
-    <div  class="login">
-        <label for="log">Login</label>
-        <input type="text" name="connect" id="log" class="champ" required >
+<form method="post">
+    <div>
+        <label for="log">login</label>
+        <input type="email" name="connect" id="log" class="champ" required>
     </div>
     <div class="password"> 
         <label for="mp">Password</label>

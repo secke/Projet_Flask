@@ -1,6 +1,4 @@
 import sys
-import model,base
-
 sys.path.append('.')
 sys.path.append('..')
 import model,base

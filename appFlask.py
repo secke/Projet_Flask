@@ -1,4 +1,11 @@
 # ############### IMPORTATION DES MODULES ET FONCTIONS ######################
+import sys
+
+from vue import utilisateur
+sys.path.append('.')
+sys.path.append('..')
+
+
 from flask import Flask, redirect, url_for,render_template,request,flash
 import requests
 import model,base
@@ -21,16 +28,15 @@ app=Flask(__name__)
 def principal():
     return render_template('principal.html')
 
-                ########AFFICHAGE DES USER######## 
+################## AFFICHAGE DES USER ######## 
 
-@app.route('/affiche')
+@app.route('/affiche', methods=["POST"])
 def affiche():
 
     fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email)
     k=0
     for el in fiche:
         k+=1
-
     if k>=5:
         return render_template('afiche.html', fiche=fiche, n=n)
 
@@ -56,6 +62,12 @@ def adduser():
         username = request.form['username']
         phone = request.form['phone']
         website = request.form['website']
+        address = request.form['address']
+        ajout=model.User(name,username,phone,website,address)
+        base.session.add(ajout)
+        base.session.commit()
+        redirect(url_for('principal'))
+
     return render_template('adduser.html')
 
 ############ PAGE DE CONNEXION ###########################################
