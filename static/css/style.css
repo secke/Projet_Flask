@@ -134,6 +134,37 @@ span{
    border-radius: 15px;
 }
 
+.choice_user{
+   width: 20%;
+   height: 12%;
+   border: 2px solid black;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   flex-direction: column;
+   margin-top: 15%;
+   margin-left: 35%;
+   font-size: 25px;
+   background-color: #532CA6;
+   color: white;
+   /* visibility: hidden; */
+   /* display: none;    */
+}
+
+#choice_user{
+   width: 20%;
+   height: 35%;
+}
+
+.btn_choice_user{
+   display: flex;
+   justify-content: flex-end;
+   width: 15%;
+   height: 25%;
+   margin-left: 80%;
+   background-color: #AE25DE;
+   color: white;
+}
 
 /* ######################Affichage de un à cinq user ########################### */
 

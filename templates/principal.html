@@ -10,7 +10,14 @@
         </div>
         <div class="div_bouton_page_principal">
             <a href="{{ url_for('adduser') }}"  class=" bouton_principal"><button class="btn_ajout">+Ajouter un user</button></a>
-            <a href="{{ url_for('affiche') }}" class="bouton_principal"><button class="btn_ajout">Afficher des users</button></a>
+            <a href="" class="bouton_principal"><button class="btn_ajout btn_affiche">Afficher des users</button></a>
         </div>
     </nav>
+    <div>
+        <form class="choice_user" method="post" action="{{ url_for('affiche') }}">
+            <label for="choice_user">Nombre de user entre 1 et 5</label>
+            <input type="text" id="choice_user" name="choice_user">
+            <button class="btn_choice_user">OK</button>
+        </form>
+    </div>
 {% endblock %}

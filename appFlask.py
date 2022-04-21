@@ -21,9 +21,14 @@ def principal():
 
                 ########AFFICHAGE DES USER######## 
 
-@app.route('/affiche')
+@app.route('/affiche', methods=["POST"])
 def affiche():
-    n = 5
+    donnee = request.form
+    n = int(donnee.get('choice_user'))
+    # print(n)
+    print(request.args)
+    print('hell')
+    # n = 5
     try:
         lien = requests.get('https://jsonplaceholder.typicode.com/users')
             

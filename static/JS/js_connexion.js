@@ -28,18 +28,40 @@ letMaj:function(){
 
 
 
-bouttonValid.addEventListener('click',()=>{
-    var rt='';
-    var r01='',r02='',r03='',r04='';
-    for(let i=0;i<15;i++){
-        r01+=mesFonctions.letMaj()
-        r02+=mesFonctions.letMinus()
-        r03+=mesFonctions.nombre()
-        r04+=mesFonctions.special()}
-    rt=r01+r02+r03+r04;
-    var rfinal='';
-    for(let i=0;i<15;i++){
-        rfinal+=rt[Math.floor(Math.random()*rt.length)]
-                }
-        motPass.value=rfinal;
-});
+// bouttonValid.addEventListener('click',()=>{
+//     var rt='';
+//     var r01='',r02='',r03='',r04='';
+//     for(let i=0;i<15;i++){
+//         r01+=mesFonctions.letMaj()
+//         r02+=mesFonctions.letMinus()
+//         r03+=mesFonctions.nombre()
+//         r04+=mesFonctions.special()}
+//     rt=r01+r02+r03+r04;
+//     var rfinal='';
+//     for(let i=0;i<15;i++){
+//         rfinal+=rt[Math.floor(Math.random()*rt.length)]
+//                 }
+//         motPass.value=rfinal;
+// });
+
+var choice_nbr_user = document.querySelector('.choice_user')
+
+var btn_affiche = document.querySelector('.btn_affiche')
+console.log(btn_affiche)
+
+// btn_affiche.addEventListener('click', ()=>{
+//     // choice_nbr_user.style.display ='flex'
+//     document.body.appendChild(choice_nbr_user)
+//     // alert('ça marche')
+// })
+
+
+var choice_user = document.querySelector('.btn_choice_user')
+
+console.log(choice_user)
+
+choice_user.addEventListener('click', ()=>{
+    choice_nbr_user.style.display = 'none'
+    // alert("choix  effectue")
+})
+
