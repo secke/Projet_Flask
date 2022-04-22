@@ -2,19 +2,18 @@
 # from asyncio import run_coroutine_threadsafe
 # from crypt import methods
 import sys
-
-import werkzeug
-from vue import utilisateur
 sys.path.append('.')
 sys.path.append('..')
 
+from vue import utilisateur
+import model,base
+
 
 from flask import Flask, redirect, url_for,render_template,request,flash
+import requests
+import werkzeug
 from werkzeug.exceptions import abort
 
-import requests
-import model,base
-from vue import utilisateur
 
 ########################################################################
 
@@ -111,6 +110,13 @@ def editer(id):
 ###################### SUPPRIMER DES POSTS #########################
 
 @app.route('/<int:id>/supprimer', methods=['GET','POST'])
+def suppression(id):
+    post=recupPost(id)
+    supp=base.session.query(model.Post).filter(model.Post.id==id)
+    base.session.delete(supp)
+    base.commit()
+    flash('"{}" a été supprimé avec succès!'.format(post.get('title')))
+    return redirect(url_for('principal'))
 
 
 
