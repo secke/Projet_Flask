@@ -28,12 +28,17 @@ def principal():
 
 ################## AFFICHAGE DES USER ######## 
 
+ligne_par_page = 5
+
 @app.route('/affiche', methods=["POST"])
 def affiche():
     donnee = request.form
     n = int(donnee.get('choice_user'))
 
     fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email)
+    request.args.get('page', 1, type = int)
+    # fiche.paginate(page, u)
+
     k=0
     for el in fiche:
         k+=1
