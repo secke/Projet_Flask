@@ -40,6 +40,7 @@ def affiche():
     n=int(request.form.get('choice_user'))
     fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email)
     k=0
+    val_login=request
     for el in fiche:
         k+=1
     if k>=5:
@@ -90,13 +91,13 @@ def editer(id):
         if titre is None:
             flash('le titre est requis!')
         else:
-            ed0=base.session.query(model.Post.title).first()
+            ed0=base.session.query(model.Post.title).filter(model.Post.id==id).first()
             ed0=titre
-            ed1=base.session.query(model.Post.body).first()
+            ed1=base.session.query(model.Post.body).filter(model.Post.id==id).first()
             ed1=contenu
-            ed2=base.session.query(model.Post.userId).first()
+            ed2=base.session.query(model.Post.userId).filter(model.Post.id==id).first()
             ed2=Id_util
-            ed3=base.session.query(model.Post.id).first()
+            ed3=base.session.query(model.Post.id).filter(model.Post.id==id).first()
             ed3=id
             base.session.add_all([ed2,ed3,ed0,ed1])
             base.session.commit()
@@ -107,9 +108,9 @@ def editer(id):
             return redirect(url_for('principal'))
     return render_template('editer.html', post=post)
 
-###################### SUPPRIMER DES POSTS #########################
+##################### SUPPRIMER DES POSTS #########################
 
-@app.route('/<int:id>/supprimer', methods=['GET','POST'])
+@app.route('/<int:id>/supprimer', methods=('POST',))
 def suppression(id):
     post=recupPost(id)
     supp=base.session.query(model.Post).filter(model.Post.id==id)
@@ -131,7 +132,7 @@ def connexion():
         if not mail:
             flash('Ce champ est requis!')
         else:
-            redirect(url_for('user'))
+            redirect(url_for('usertodo'))
     return render_template('connexion.html')
 
 ########################Page user Post####################################

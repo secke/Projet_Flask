@@ -9,12 +9,14 @@ function repererlogin(){
 
 mylog=repererlogin()
 
-function recupusername(event){
-    parent=event.target.parentNode.querySelector("#username");
-    console.log( parent.innerText);
+function recupusername(){
+   us=document.getElementById("username");
+   return us.innerText;
 
    
 }
+valeur_log=recupusername()
+console.log(valeur_log);
 
 
 

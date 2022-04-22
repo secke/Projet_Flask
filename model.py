@@ -14,14 +14,8 @@ class User(base.base):
     phone=Column(String(50))
     email=Column(String(100))
     address=Column(String(300))
-    street=Column(String(100))
-    suite=Column(String(100))
-    city=Column(String(100))
-    zipcode=Column(String(50))
-    lat=Column(String(50))
-    lng=Column(String(50))
-    phone=Column(String(500))
-    def __init__(self,id,name,username,email,address,street,suite,city,zipcode,lat,lng,phone):
+    
+    def __init__(self,id,name,username,phone,email,address):
         self.id=id
         self.name=name
         self.username=username
@@ -31,13 +25,9 @@ class User(base.base):
         
         self.email=email
         self.address=address
-        self.street=street
-        self.suite=suite
-        self.city=city
-        self.zipcode=zipcode
-        self.lat=lat
-        self.lng=lng
-        self.phone=phone
+        
+      
+        
 
 
 ################## ALBUM #################################
