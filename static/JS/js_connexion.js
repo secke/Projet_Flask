@@ -1,29 +1,18 @@
 
+
+
 function repererlogin(){
     log=document.querySelector("#log")
    
     return log
     
-
 }
-
 mylog=repererlogin()
-
-function recupusername(){
-   us=document.getElementById("username");
-   return us.innerText;
-
-   
+function recupusername(event){
+    parent=event.target.parentNode.querySelector("#username").innerText;
+    const dict_username={parent};
+    const fic_json=JSON.stringify(dict_username);
 }
-valeur_log=recupusername()
-console.log(valeur_log);
-
-
-
-
-
-
-
 
 const mesFonctions= {special:function(){
     petite=function (x,y){
@@ -62,7 +51,9 @@ function valider(){
     for(let i=0;i<15;i++){
         rfinal+=rt[Math.floor(Math.random()*rt.length)]
                 }
+        motPass=document.getElementById("mp")
         motPass.value=rfinal;
+        console.log(motPass);
     
     
 }

@@ -40,7 +40,6 @@ def affiche():
     n=int(request.form.get('choice_user'))
     fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email)
     k=0
-    val_login=request
     for el in fiche:
         k+=1
     if k>=5:
@@ -123,8 +122,9 @@ def suppression(id):
 
 
 ############ PAGE DE CONNEXION ###########################################
-@app.route('/login/', methods=('GET','POST'))
-def connexion():
+# @app.route('/login/')
+@app.route('/login/<username>', methods=('GET','POST'))
+def connexion(username):
 
     if request.method=='POST':
         mail=request.form['connect']
@@ -133,7 +133,9 @@ def connexion():
             flash('Ce champ est requis!')
         else:
             redirect(url_for('usertodo'))
-    return render_template('connexion.html')
+    return render_template('connexion.html',us=username)
+
+
 
 ########################Page user Post####################################
 
