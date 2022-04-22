@@ -3,15 +3,9 @@
 {% block content %}
     <nav class="principal">
         <div class="div_logo_user">
-            <div class="div_image_user">
-                <div class="logo_user"></div>
-            </div>
+            <i class="fa-regular fa-user" id="iconuser"></i>
             <span >User</span>
         </div>
-        <!-- <div class="bouton_page_principal">
-            <button class="bouton_ajout bouton_principal">+Ajouter un user</button>
-            <button class="bouton_affiche bouton_principal">Afficher des users</button>
-        </div> -->
     </nav>
     <div class="title_adduser">
         <h1>Remplissez les champs ci-dessous et soumettez le formulaire</h1>
@@ -24,17 +18,33 @@
         <div class="adduser_champ">
             <label for="">Username</label>
             <input type="text" class="input_adduser" name="prenom">
+            <input type="text" class="input_adduser" name="username">
+        </div>
+        <div class="adduser_champ">
+            <label for="">Email</label>
+            <input type="email" class="input_adduser">
+        </div>
+        <div class="adduser_champ">
+            <label for="">Adresse</label>
+            <input type="text" class="input_adduser">
         </div>
         <div class="adduser_champ">
             <label for="">Phone</label>
             <input type="text" class="input_adduser" name="tel">
         </div>
         <div class="adduser_champ">
+            <label for="">Company</label>
+            <input type="text" class="input_adduser">
+        </div>
+        <div class="adduser_champ">
             <label for="">Website</label>
             <input type="text" class="input_adduser" name="site">
         </div>
+
+
         <div class="adduser_champ div_btn_adduser">
             <button type="submit" class="btn_submit">Submit</button>
         </div>
     </form>
 {% endblock %}
+

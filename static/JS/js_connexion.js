@@ -1,5 +1,26 @@
-const bouttonValid=document.querySelector('.boutValid')
-const motPass=document.querySelector('#mp')
+
+function repererlogin(){
+    log=document.querySelector("#log")
+   
+    return log
+    
+
+}
+
+mylog=repererlogin()
+
+function recupusername(event){
+    parent=event.target.parentNode.querySelector("#username");
+    console.log( parent.innerText);
+
+   
+}
+
+
+
+
+
+
 
 
 const mesFonctions= {special:function(){
@@ -26,9 +47,7 @@ letMaj:function(){
 }};
 
 
-
-
-bouttonValid.addEventListener('click',()=>{
+function valider(){
     var rt='';
     var r01='',r02='',r03='',r04='';
     for(let i=0;i<15;i++){
@@ -42,4 +61,11 @@ bouttonValid.addEventListener('click',()=>{
         rfinal+=rt[Math.floor(Math.random()*rt.length)]
                 }
         motPass.value=rfinal;
-});
+    
+    
+}
+
+
+// bouttonValid.addEventListener('click',()=>{
+    
+// });

@@ -1,17 +1,20 @@
 # ############### IMPORTATION DES MODULES ET FONCTIONS ######################
-from asyncio import run_coroutine_threadsafe
-from crypt import methods
+# from asyncio import run_coroutine_threadsafe
+# from crypt import methods
 import sys
 
 import werkzeug
+from vue import utilisateur
 sys.path.append('.')
 sys.path.append('..')
+
 
 from flask import Flask, redirect, url_for,render_template,request,flash
 from werkzeug.exceptions import abort
 
 import requests
-import base,model
+import model,base
+from vue import utilisateur
 
 ########################################################################
 
@@ -33,20 +36,29 @@ def principal():
 
 ################## AFFICHAGE DES USER ######## 
 
-@app.route('/affiche')
+@app.route('/affiche', methods=["POST"])
 def affiche():
-    n = 5
-    try:
-        lien = requests.get('https://jsonplaceholder.typicode.com/users')
-            
-        fiche = lien.json()
-        
-    except ConnectionError:
-        fiche = "Vous n'etes pas connecter à internet."
-            
-    return render_template('afiche.html', fiche=fiche, n=n)
+    n=int(request.form.get('choice_user'))
+    fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email)
+    k=0
+    for el in fiche:
+        k+=1
+    if k>=5:
+        return render_template('afiche.html', fiche=fiche, n=n)
 
-                ########AJOUT DES USERS########
+    else:
+        try:
+            utilisateur()
+            fiche = base.import_api('users')
+            return render_template('afiche.html', fiche=fiche, n=n)
+
+        except ConnectionError:
+            fiche = "Vous n'etes pas connecter à internet."
+
+            return fiche
+
+
+######## AJOUT DES USERS########
 
 @app.route('/adduser', methods = ('GET', 'POST'))
 def adduser():
@@ -104,8 +116,9 @@ def editer(id):
 
 
 ############ PAGE DE CONNEXION ###########################################
-@app.route('/login', methods=('GET','POST'))
+@app.route('/login/', methods=('GET','POST'))
 def connexion():
+
     if request.method=='POST':
         mail=request.form['connect']
         motPass=request.form['secur']

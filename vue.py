@@ -54,4 +54,4 @@ def donnees_comment():
 
 # val=base.session.query(model.User)
 # for i in val:
-#     print(i)
+

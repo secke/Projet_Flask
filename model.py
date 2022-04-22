@@ -1,10 +1,9 @@
 
-from sqlalchemy import Boolean, Column,String,Integer,TEXT
-import base
 import sys
 sys.path.append('.')
 sys.path.append('..')
-
+from sqlalchemy import Boolean, Column,String,Integer,TEXT
+import base
 
 
 class User(base.base):
@@ -15,15 +14,30 @@ class User(base.base):
     phone=Column(String(50))
     email=Column(String(100))
     address=Column(String(300))
-    
-    def __init__(self,id,name,username,phone):
+    street=Column(String(100))
+    suite=Column(String(100))
+    city=Column(String(100))
+    zipcode=Column(String(50))
+    lat=Column(String(50))
+    lng=Column(String(50))
+    phone=Column(String(500))
+    def __init__(self,id,name,username,email,address,street,suite,city,zipcode,lat,lng,phone):
         self.id=id
         self.name=name
         self.username=username
         self.phone=phone
-        # self.email=email
-        # self.address=address
+        self.email=email
+        self.address=address
         
+        self.email=email
+        self.address=address
+        self.street=street
+        self.suite=suite
+        self.city=city
+        self.zipcode=zipcode
+        self.lat=lat
+        self.lng=lng
+        self.phone=phone
 
 
 ################## ALBUM #################################
