@@ -1,18 +1,25 @@
 # ############### IMPORTATION DES MODULES ET FONCTIONS ######################
+from asyncio import run_coroutine_threadsafe
+from crypt import methods
 import sys
+
+import werkzeug
 sys.path.append('.')
 sys.path.append('..')
 
 from flask import Flask, redirect, url_for,render_template,request,flash
+from werkzeug.exceptions import abort
+
 import requests
 import base,model
 
-#############################################################################
+########################################################################
 
 ############## APPLICATION FLASK ET SES FONCTIONS DE NAVIGATION #############
 
 app=Flask(__name__)
 
+app.config['SECRET_KEY']='Groupe_7_2022'
 ############# fermeture de session #####################################
 # @app.teardown_appcontext
 # def stopSession():
@@ -44,17 +51,57 @@ def affiche():
 @app.route('/adduser', methods = ('GET', 'POST'))
 def adduser():
     if request.method == 'POST':
-        name = request.form['name']
-        username = request.form['username']
-        phone = request.form['phone']
-        website = request.form['website']
-        address = request.form['address']
-        ajout=model.User(name,username,phone,website,address)
+        # name = 
+        # username = 
+        # phone = 
+        # website = 
+        # address = request.form['address']
+        ajout=model.User(request.form['nom'],request.form['prenom'],request.form['tel'],request.form['site'])
         base.session.add(ajout)
         base.session.commit()
         redirect(url_for('principal'))
 
     return render_template('adduser.html')
+
+##################### EDITER DES POSTS ##############################
+def recupPost(id):
+    val=base.session.query(model.Post.id).first()
+    if val is None:
+        abort(404)
+    return val
+@app.route('/<int:id>/editer', methods=['GET','POST'])
+def editer(id):
+    post=recupPost(id)
+    if request.method=='POST':
+        titre=request.form.get('title')
+        contenu=request.form.get('body')
+        Id_util=request.form.get('userId')
+        if titre is None:
+            flash('le titre est requis!')
+        else:
+            ed0=base.session.query(model.Post.title).first()
+            ed0=titre
+            ed1=base.session.query(model.Post.body).first()
+            ed1=contenu
+            ed2=base.session.query(model.Post.userId).first()
+            ed2=Id_util
+            ed3=base.session.query(model.Post.id).first()
+            ed3=id
+            base.session.add_all([ed2,ed3,ed0,ed1])
+            base.session.commit()
+            # model.Post.title=title
+            # model.Post.body=body
+            # model.Post.userId=userId
+            # model.Post.id=id
+            return redirect(url_for('principal'))
+    return render_template('editer.html', post=post)
+
+###################### SUPPRIMER DES POSTS #########################
+
+@app.route('/<int:id>/supprimer', methods=['GET','POST'])
+
+
+
 
 ############ PAGE DE CONNEXION ###########################################
 @app.route('/login', methods=('GET','POST'))

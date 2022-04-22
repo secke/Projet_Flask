@@ -16,13 +16,13 @@ class User(base.base):
     email=Column(String(100))
     address=Column(String(300))
     
-    def __init__(self,id,name,username,phone,email,address):
+    def __init__(self,id,name,username,phone):
         self.id=id
         self.name=name
         self.username=username
         self.phone=phone
-        self.email=email
-        self.address=address
+        # self.email=email
+        # self.address=address
         
 
 

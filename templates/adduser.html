@@ -16,22 +16,22 @@
     <div class="title_adduser">
         <h1>Remplissez les champs ci-dessous et soumettez le formulaire</h1>
     </div>
-    <form action="{{ url_for('principal') }}" class="form_adduser" method="post">
+    <form action="{{ request.path }}" class="form_adduser" method="post">
         <div class="adduser_champ">
             <label for="" class="label_adduser">Name</label>
-            <input type="text" class="input_adduser">
+            <input type="text" class="input_adduser" name="nom">
         </div>
         <div class="adduser_champ">
             <label for="">Username</label>
-            <input type="text" class="input_adduser">
+            <input type="text" class="input_adduser" name="prenom">
         </div>
         <div class="adduser_champ">
             <label for="">Phone</label>
-            <input type="text" class="input_adduser">
+            <input type="text" class="input_adduser" name="tel">
         </div>
         <div class="adduser_champ">
             <label for="">Website</label>
-            <input type="text" class="input_adduser">
+            <input type="text" class="input_adduser" name="site">
         </div>
         <div class="adduser_champ div_btn_adduser">
             <button type="submit" class="btn_submit">Submit</button>
