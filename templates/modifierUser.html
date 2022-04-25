@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-<h1>{% block title %} Editer "{{ post.title }}" {% endblock %}</h1>
+<h1>{% block title %} Editer "{{ user.title }}" {% endblock %}</h1>
 
 {% block content %}
     <!-- <nav class="principal">
@@ -12,7 +12,7 @@
     <div class="title_adduser">
         <h1>Remplissez les champs ci-dessous et soumettez le formulaire</h1>
     </div> -->
-    <form action="{{ url_for('modifierUser', id=user.id) }}" class="form_edituser" method="post">
+    <form action="{{ url_for('modifierUser', id=user.id) }}" class="form_edituser" method="post" id="modification_user">
         <div class="edituser_champ">
             <label for="" class="label_adduser">Name</label>
             <input type="text" class="input_edituser" name="nom" value="{{ request.form.get('nom') or user.name }}">
@@ -48,7 +48,7 @@
         </div>
     </form>
     <hr>
-    <form action="{{ url_for('supprimerUser', id=user.id) }}" method="POST">
+    <form action="{{ url_for('supprimerUser', id=user.id) }}" method="post">
         <input type="submit" value="Supprimer User" class="">
     </form>
 {% endblock %}

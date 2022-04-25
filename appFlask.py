@@ -97,16 +97,16 @@ def adduser():
     return render_template('adduser.html')
 
 ############ MODIFIER USERS ################################
-@app.route('/<int:id>/modifierUser', methods=('POST','GET'))
-def recupUser(id):
-    valByIdUser=base.session.query(model.User).filter(model.User.id==id).first()
-    if valByIdUser is None:
-        abort(404)
-    return valByIdUser
+@app.route('/modifierUser/<int:id>', methods=('POST','GET'))
+# def recupUser(id):
+#     valByIdUser=base.session.query(model.User).filter(model.User.id==id).first()
+#     if valByIdUser is None:
+#         abort(404)
+#     return valByIdUser
 # x=recupUser(2)
 # print(x.name)
 def modifierUser(id):
-    user=recupUser(id)
+    user=base.session.query(model.User).filter(model.User.id==id).first()
     if request.method=='POST':
         name = request.form.get('nom')
         username =request.form.get('prenom')
@@ -120,17 +120,17 @@ def modifierUser(id):
             flash("le nom de l'utilisateur est requis !")
         else:
             # ed0=base.session.query(model.User.name).filter(model.User.id==id).first()
-            model.User.name=name
+            user.name=name
             # ed1=base.session.query(model.User.username).filter(model.User.id==id).first()
-            model.User.username=username
-            model.User.email=email
-            # ed4=base.session.query(model.User.address).filter(model.User.id==id).first()
-            model.User.address=address
-            # ed2=base.session.query(model.User.phone).filter(model.User.id==id).first()
-            model.User.phone=phone
-            model.User.company=company
-            # ed3=base.session.query(model.User.email).filter(model.User.id==id).first()
-            model.User.website=website
+            user.username=username
+            user.email=email
+            # ed4=base.session.query(user.address).filter(user.id==id).first()
+            user.address=address
+            # ed2=base.session.query(user.phone).filter(user.id==id).first()
+            user.phone=phone
+            user.company=company
+            # ed3=base.session.query(user.email).filter(user.id==id).first()
+            user.website=website
            
             # base.session.add_all([ed0,ed1,ed2,ed3,ed4])
             base.session.commit()
@@ -138,14 +138,16 @@ def modifierUser(id):
     return render_template('modifierUser.html', user=user)
 
 #################### SUPPRIMER USERS ################################
-@app.route('/supprimerUser/<int:id>', methods=('POST',))
+@app.route('/supprimerUser/<int:id>', methods=('POST','GET'))
 def supprimerUser(id):
-    supUser=base.session.query(model.User.id).filter(model.User.id==id).first()
-    base.session.delete(supUser)
+    supuser=base.session.query(model.User).filter(model.User.id==id).first()
+
+    # supUser=base.session.query(model.User.id).filter(model.User.id==id).first()
+    base.session.delete(supuser)
     base.session.commit()
     base.session.close()
-    for i in supUser:
-        flash('"{}" a été supprimé avec succès'.format(i['name']))
+    # for i in supUser:
+    #     flash('"{}" a été supprimé avec succès'.format(i['name']))
     return redirect(url_for('principal'))
 
 
@@ -538,15 +540,13 @@ def affiche_infos_user():
     return render_template('affiche_infos_user.html', fiche=fiche, phone=phone, i=1, company=company, lat=lat)
 
 
-############## DEBOGUER ################################################
-if __name__=='__main__':
-    app.run(debug=True) 
+
 
 # **********************************************************************************
 
 # app.template_folder = 'templates'
 # users = list(range(200))
-users = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email).all()
+users = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.id).all()
 
 
 def get_users(offset=0, per_page=5):
@@ -569,3 +569,7 @@ def paginate():
     return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, n=n)
 
 # *********************************************************************************
+
+############## DEBOGUER ################################################
+if __name__=='__main__':
+    app.run(debug=True) 
