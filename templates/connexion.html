@@ -1,21 +1,25 @@
 {% extends 'base.html' %}
-{% block head %}
-{% block title %} Page de Connexion {% endblock %}
-{% endblock %}
 {% block content %}
 
-<form method="post">
-    <div>
-        <label for="log">login</label>
-        <input type="email" name="connect" id="log" class="champ" required>
+<nav class="principal">
+    <p class="connexion">Connexion</p>
+</nav>
+<form method="post" class="formulaire">
+    <div  class="login">
+        <label for="log">Login</label>
+        <input type="text" name="connect" id="log" class="champ" required value="">
     </div>
-    <div> 
+    <div class="password"> 
         <label for="mp">Password</label>
         <input type="password" name="secur" id="mp" class="champ" value="">
     </div>
-    <div>
-        <button type="submit" class="boutValid">Sign Up</button>
+    <div class="submit">
+       
+            <button type="submit" class="boutValid" onclick="valider()">
+                 <a href="{{ url_for('usertodo') }}">
+                     Sign In 
+                 </a>
+            </button>
     </div>
 </form>
-
 {% endblock %}

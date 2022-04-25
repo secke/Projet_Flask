@@ -1,13 +1,16 @@
 ################# BASE DE DONNÉES #################################################
-# import sys
-# sys.path.append('.')
-# sys.path.append('..')
+import sys
+sys.path.append('.')
+sys.path.append('..')
 from sqlalchemy import create_engine,Column,String,Integer
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-import requests
+from flask_paginate import Pagination, get_page_parameter
+import requests 
 
 
+
+# engine=create_engine('postgresql://secke:keita2022@localhost:5432/baseflask')
 engine=create_engine('postgresql://groupe7:test_123@localhost:5432/flask_db')
 base_session=sessionmaker(bind=engine,autocommit=False,autoflush=False)
 session=base_session()
@@ -35,6 +38,9 @@ f3=import_api('todos')
 f4=import_api('posts')
 
 f5=import_api('comments')
+
+
+
 
 
 

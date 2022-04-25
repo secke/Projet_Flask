@@ -5,7 +5,7 @@ import model,base
 
 def utilisateur():
     for u in range(len(base.f0)):
-        el=model.User(base.f0[u]['id'],base.f0[u]['name'],base.f0[u]['username'],base.f0[u]['phone'],base.f0[u]['email'],str(base.f0[u]['address']))
+        el=model.User(base.f0[u]['id'],base.f0[u]['name'],base.f0[u]['username'],base.f0[u]['phone'],base.f0[u]['email'],str(base.f0[u]['address']),base.f0[u]['company'])
         base.session.add(el)
     base.session.commit()
 
@@ -54,4 +54,4 @@ def donnees_comment():
 
 # val=base.session.query(model.User)
 # for i in val:
-#     print(i)
+

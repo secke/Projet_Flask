@@ -2,9 +2,9 @@
 import sys
 sys.path.append('.')
 sys.path.append('..')
-from sqlalchemy import Boolean, Column,String,Integer,TEXT
+from sqlalchemy import Boolean, Column,String,Integer,TEXT, column
+from flask_paginate import Pagination, get_page_parameter
 import base
-
 
 
 class User(base.base):
@@ -15,14 +15,20 @@ class User(base.base):
     phone=Column(String(50))
     email=Column(String(100))
     address=Column(String(300))
+    company=Column(String(100))
     
-    def __init__(self,id,name,username,phone,email,address):
+    def __init__(self,id,name,username,phone,email,address,company):
         self.id=id
         self.name=name
         self.username=username
         self.phone=phone
         self.email=email
         self.address=address
+        self.email=email
+        self.address=address
+        self.company=company
+        
+      
         
 
 
@@ -101,7 +107,7 @@ class Comment(base.base):
         self.body=body
 
 
-
+# print(model.User.query.all())
 
 
 base.init_base()
