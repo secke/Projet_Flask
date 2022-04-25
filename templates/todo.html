@@ -1,0 +1,19 @@
+{% extends 'userpost.html' %}
+
+
+{% block main %}
+{% for todo in todos %}
+    <div class="block">
+        <h2 class="titre">{{ todo.title }}</h2>
+    </div>
+    <div class="block">
+       <textarea >{{ todo.a_faire }}</textarea>
+    </div>
+    <div class="block">
+        <textarea >{{ todo.en_cours }}</textarea>
+     </div>
+     <div class="block">
+        <input type="text" value="{{ todo.fini }}">
+     </div>
+{% endfor %}
+{% endblock main %}

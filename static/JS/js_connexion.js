@@ -9,14 +9,21 @@ function repererlogin(){
 
 mylog=repererlogin()
 
+var evLien=document.querySelector('#lien_connex')
+
+// evLien.addEventListener('click',()=>{
+//     var us=document.querySelector('#username')
+//     var log=document.querySelector('#log')
+//     log.value=us.innerText
+// })
 function recupusername(){
    us=document.getElementById("username");
    return us.innerText;
 
    
 }
-valeur_log=recupusername()
-console.log(valeur_log);
+// valeur_log=recupusername()
+// console.log(valeur_log);
 
 
 

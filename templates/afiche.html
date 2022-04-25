@@ -22,11 +22,11 @@
             
             {% for i in range(n) %}
                 <div class="div_article_user">
-                    <a href="{{ url_for('connexion') }}" class="article_user" >
+                    <a href="{{ url_for('connexion') }}" class="article_user" id="lien_connex">
                         <span class="paragraphe_user">{{ fiche[i]['name'] }}</span>
                         <span class="paragraphe_user" name="username" id="username">{{ fiche[i]['username'] }}</span>
                         <span class="paragraphe_user">{{ fiche[i]['phone'] }}</span>
-                        <span class="paragraphe_user">{{ fiche[i]['website'] }}</span>
+                        <span class="paragraphe_user">{{ fiche[i]['email'] }}</span>
                     </a>
                 </div>
             {% endfor %}

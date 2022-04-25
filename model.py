@@ -2,7 +2,8 @@
 import sys
 sys.path.append('.')
 sys.path.append('..')
-from sqlalchemy import Boolean, Column,String,Integer,TEXT
+from sqlalchemy import Boolean, Column, ForeignKey,String,Integer,TEXT,ForeignKey
+from sqlalchemy.orm import relationship
 import base
 
 
@@ -11,10 +12,14 @@ class User(base.base):
     id=Column(Integer, primary_key=True)
     name=Column(String(50))
     username=Column(String(50))
-    phone=Column(String(50))
     email=Column(String(100))
     address=Column(String(300))
-    
+    phone=Column(String(50))
+    company=Column(String(300))
+    website=Column(String(100))
+    albums=relationship('Album')
+    todos=relationship('Todo')
+    posts=relationship('Post')
     def __init__(self,id,name,username,phone,email,address):
         self.id=id
         self.name=name
@@ -23,20 +28,16 @@ class User(base.base):
         self.email=email
         self.address=address
         
-        self.email=email
-        self.address=address
         
-      
         
-
-
 ################## ALBUM #################################
 
 class Album(base.base):
     __tablename__='album'
-    userId=Column(Integer)
+    userId=Column(Integer, ForeignKey('users.id'))
     id=Column(Integer, primary_key=True)
     title=Column(String(100))
+    photos=relationship("Photo")
     def __init__(self, userId, id, title):
         self.userId=userId
         self.id=id
@@ -46,7 +47,7 @@ class Album(base.base):
 
 class Photo(base.base):
     __tablename__='photos'
-    albumId=Column(Integer)
+    albumId=Column(Integer, ForeignKey('album.id'))
     id=Column(Integer, primary_key=True)
     title=Column(String(100))
     url=Column(String(200))
@@ -62,10 +63,13 @@ class Photo(base.base):
 
 class Todo(base.base):
     __tablename__='todo'
-    userId=Column(Integer)
+    userId=Column(Integer, ForeignKey('users.id'))
     id=Column(Integer, primary_key=True)
     title=Column(String(200))
-    completed=Column(Boolean)
+    a_faire=Column(TEXT)
+    en_cours=Column(TEXT)
+    fini=Column(Boolean)
+    # completed=Column(Boolean)
     def __init__(self,userId, id, title, completed):
         self.userId=userId
         self.id=id
@@ -76,10 +80,11 @@ class Todo(base.base):
 
 class Post(base.base):
     __tablename__='post'
-    userId=Column(Integer)
+    userId=Column(Integer, ForeignKey('users.id'))
     id=Column(Integer, primary_key=True)
     title=Column(String(200))
     body=Column(TEXT)
+    comments=relationship("Comment")
     def __init__(self, userId, id, title, body):
         self.userId=userId
         self.id=id
@@ -92,7 +97,7 @@ class Post(base.base):
 
 class Comment(base.base):
     __tablename__='comments'
-    postId=Column(Integer)
+    postId=Column(Integer, ForeignKey('post.id'))
     id=Column(Integer, primary_key=True)
     name=Column(String(100))
     email=Column(String(100))

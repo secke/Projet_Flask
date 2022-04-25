@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="title_comment">
+        <h1>Remplissez les champs ci-dessous et soumettez le formulaire</h1>
+    </div>
+    <form action="{{ request.path }}" class="form_addComment" method="post">
+        
+        <div class="addpost_champ">
+            <label for="" class="label_addcomment">Nom</label>
+            <input type="text" class="input_addcomment" name="name">
+        </div>
+        <div class="addpost_champ">
+            <label for="" class="label_addcomment">Email</label>
+            <input type="text" class="input_addcomment" name="email">
+        </div>
+        <div class="adduser_champ">
+            <label for="">Contenu</label>
+           <textarea name="body" ></textarea>
+        </div>
+        <div class="addpost_champ div_btn_addcomment">
+            <button type="submit" class="btn_submit">Valider</button>
+        </div>
+    </form>
+{% endblock %}
+

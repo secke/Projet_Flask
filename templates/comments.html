@@ -1,0 +1,16 @@
+{% extends 'userpost.html' %}
+
+
+{% block main %}
+{% for comment in comments %}
+    <div class="block">
+        <h2 class="titre">{{ comment.name }}</h2>
+    </div>
+    <div class="block">
+        <input type="text" value="{{ comment.email }}">
+     </div>
+    <div class="block">
+       <textarea >{{ comment.body }}</textarea>
+    </div>
+{% endfor %}
+{% endblock main %}
