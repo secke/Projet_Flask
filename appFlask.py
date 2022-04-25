@@ -1,12 +1,15 @@
 # ############### IMPORTATION DES MODULES ET FONCTIONS ######################
 # from asyncio import run_coroutine_threadsafe
 # from crypt import methods
+from cmath import log
 import sys
+from tabnanny import check
 sys.path.append('.')
 sys.path.append('..')
 
 from vue import utilisateur
 import model,base
+from model import *
 
 
 from flask import Flask, redirect, url_for,render_template,request,flash
@@ -38,7 +41,7 @@ def principal():
 @app.route('/affiche', methods=["POST"])
 def affiche():
     n=int(request.form.get('choice_user'))
-    fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email)
+    fiche = base.session.query(model.User.id,model.User.name, model.User.username, model.User.phone, model.User.email)
     k=0
     for el in fiche:
         k+=1
@@ -122,18 +125,24 @@ def suppression(id):
 
 
 ############ PAGE DE CONNEXION ###########################################
-# @app.route('/login/')
-@app.route('/login/<username>', methods=('GET','POST'))
-def connexion(username):
-
+@app.route('/login/', defaults={'email': ""})
+@app.route('/login/<email>/<id>', methods=('GET','POST'))
+def connexion(email,id):
     if request.method=='POST':
-        mail=request.form['connect']
+        login=request.form['connect']
         motPass=request.form['secur']
-        if not mail:
-            flash('Ce champ est requis!')
+        notfistuser=base.session.query(Connexion.login).filter(Connexion.login==login).first()
+        if notfistuser:
+            password=base.session.query(Connexion.password).filter(Connexion.login==login).first()
+            motPass=password
+            return redirect(url_for('userpost'))
+            
         else:
-            redirect(url_for('usertodo'))
-    return render_template('connexion.html',us=username)
+            ajoutConnexion=Connexion(login=login, password=motPass,id_user=id)
+            base.session.add(ajoutConnexion)
+            base.session.commit()
+            return redirect(url_for('userpost'))
+    return render_template('connexion.html',mail=email,id=id)
 
 
 

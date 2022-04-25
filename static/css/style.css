@@ -419,6 +419,7 @@ span{
    font-size: 40px;
 }
 .boutValid{
+   cursor: pointer;
    color: white;
    background-color: #AE25DE;
    width: 45%;

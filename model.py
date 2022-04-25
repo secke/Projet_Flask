@@ -2,8 +2,9 @@
 import sys
 sys.path.append('.')
 sys.path.append('..')
-from sqlalchemy import Boolean, Column,String,Integer,TEXT
+from sqlalchemy import Boolean, Column, ForeignKey,String,Integer,TEXT
 import base
+from sqlalchemy.orm import *
 
 
 class User(base.base):
@@ -14,6 +15,7 @@ class User(base.base):
     phone=Column(String(50))
     email=Column(String(100))
     address=Column(String(300))
+    connexions=relationship("Connexion",back_populates="users")
     
     def __init__(self,id,name,username,phone,email,address):
         self.id=id
@@ -22,11 +24,6 @@ class User(base.base):
         self.phone=phone
         self.email=email
         self.address=address
-        
-        self.email=email
-        self.address=address
-        
-      
         
 
 
@@ -97,12 +94,32 @@ class Comment(base.base):
     name=Column(String(100))
     email=Column(String(100))
     body=Column(TEXT)
-    def __init__(self, postId, id, name, email, body):
+    def __init__(self, postId, id, name, email, body,password):
         self.postId=postId
         self.id=id
         self.name=name
         self.email=email
         self.body=body
+        self.password=password
+
+
+############Connexion############################
+
+class Connexion(base.base):
+    __tablename__='connexions'
+    id=Column(Integer, primary_key=True,autoincrement=True)
+    login=Column(String(50))
+    password=Column(String(50))
+    id_user=Column(Integer,ForeignKey('users.id')) 
+    users=relationship("User",back_populates="connexions")
+
+    def __init__(self ,login,password,id_user):
+        self.login=login
+        self.password=password
+        self.id_user=id_user
+
+
+    
 
 
 
