@@ -454,8 +454,9 @@ def supprimerComments(id):
     return redirect(url_for('comments'))
 
 ############ PAGE DE CONNEXION ###########################################
-@app.route('/login/', methods=('GET','POST'))
-def connexion():
+# @app.route('/login/')
+@app.route('/login/<username>', methods=('GET','POST'))
+def connexion(username):
 
     if request.method=='POST':
         mail=request.form['connect']
@@ -464,7 +465,9 @@ def connexion():
             flash('Ce champ est requis!')
         else:
             redirect(url_for('usertodo'))
-    return render_template('connexion.html')
+    return render_template('connexion.html',us=username)
+
+
 
 ########################Page user Post####################################
 
