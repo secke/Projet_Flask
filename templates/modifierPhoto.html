@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+<h1>{% block title %} Editer "{{ photo.title }}" {% endblock %}</h1>
+
+{% block content %}
+<form action="{{ url_for('modifierPhoto', id=photo.id) }}" method="post">
+    <div class="element_edit">
+        <label for="albumId">Identifiant Album</label>
+        <input type="text" name="albumId" class="champ_edit" value="{{ request.form.get('albumId') or photo.albumId }}">
+    </div>
+    <div class="element_edit">
+        <label for="id">Identifiant de la photo</label>
+        <input type="text" name="id" class="champ_edit" value="{{ photo.id }}">
+    </div>
+    <div class="element_edit">
+        <label for="title">Titre de la photo</label>
+        <input type="text" name="title" class="champ_edit" value="{{ request.form.get('title') or photo.title }}">
+    </div>
+    <div class="element_edit">
+        <label for="url">Le lien de la Photo</label>
+        <input type="text" name="url" class="champ_edit" value="{{ request.form.get('url') or photo.url }}">
+    </div>
+    <div class="element_edit">
+        <label for="thumbnailUrl">Le thumbnailUrl</label>
+        <input type="text" name="thumbnailUrl" class="champ_edit" value="{{ request.form.get('thumbnailUrl') or photo.thumbnailUrl }}">
+    </div>
+    <div class="element_edit">
+        <button type="submit" class="but_validation_photo">Valider</button>
+    </div>
+</form>
+
+<hr>
+<form action="{{ url_for('supprimerPhoto', id=photo.id) }}" method="POST">
+    <input type="submit" value="Supprimer Photo" class="">
+</form>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'userpost.html' %}
+
+
+{% block main %}
+{% for album in albums %}
+    <div class="block">
+        <h2 class="titre">{{ album.title }}</h2>
+    </div>
+    <!-- <div class="block">
+       <textarea name="body" >{{ post.body }}</textarea>
+    </div> -->
+{% endfor %}
+{% endblock main %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+<h1>{% block title %} Editer "{{ comment.name }}" {% endblock %}</h1>
+
+{% block content %}
+<form action="{{ url_for('modifierComments', id=comment.id) }}" method="post">
+    <div class="element_edit">
+        <label for="postId">Identifiant Post</label>
+        <input type="text" name="postId" class="champ_edit" value="{{ request.form.get('postId') or comment.postId }}">
+    </div>
+    <div class="element_edit">
+        <label for="id">Identifiant du Comment</label>
+        <input type="text" name="id" class="champ_edit" value="{{ comment.id }}">
+    </div>
+    <div class="element_edit">
+        <label for="name">Le Nom du Comment</label>
+        <input type="text" name="name" class="champ_edit" value="{{ request.form.get('name') or comment.name }}">
+    </div>
+    <div class="element_edit">
+        <label for="email">L'Email du Comment</label>
+        <input type="text" name="email" class="champ_edit" value="{{ request.form.get('email') or comment.email }}">
+    </div>
+    <div class="element_edit">
+        <label for="body">Contenu du Comment</label>
+        <textarea name="body" class="champ_edit">{{ request.form.get('body') or comment.body }}</textarea>
+    </div>
+    <div class="element_edit">
+        <button type="submit" class="but_validation_comment">Valider</button>
+    </div>
+</form>
+
+<hr>
+<form action="{{ url_for('supprimerComments', id=comment.id) }}" method="POST">
+    <input type="submit" value="Supprimer Comment" class="">
+</form>
+
+{% endblock %}

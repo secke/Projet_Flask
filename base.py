@@ -11,6 +11,7 @@ import requests
 
 
 # engine=create_engine('postgresql://secke:keita2022@localhost:5432/baseflask')
+#engine=create_engine('postgresql://secke:keita2022@localhost:5432/baseflask')
 engine=create_engine('postgresql://groupe7:test_123@localhost:5432/flask_db')
 base_session=sessionmaker(bind=engine,autocommit=False,autoflush=False)
 session=base_session()

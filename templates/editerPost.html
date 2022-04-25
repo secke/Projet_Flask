@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+<h1>{% block title %} Editer "{{ post.title }}" {% endblock %}</h1>
+
+{% block content %}
+<form action="{{ url_for('modifierPost', id=post.id) }}" method="post">
+    <div class="element_edit">
+        <label for="userId">Identifiant utilisateur</label>
+        <input type="text" name="userId" class="champ_edit" value="{{ request.form.get('userId') or post.userId }}">
+    </div>
+    <div class="element_edit">
+        <label for="id">Identifiant du Post</label>
+        <input type="text" name="id" class="champ_edit" value="{{ post.id }}">
+    </div>
+    <div class="element_edit">
+        <label for="title">Titre du post</label>
+        <input type="text" name="title" class="champ_edit" value="{{ request.form.get('title') or post.title }}">
+    </div>
+    <div class="element_edit">
+        <label for="body">Contenu du Post</label>
+        <textarea name="body" class="champ_edit">{{ request.form.get('body') or post.body }}</textarea>
+    </div>
+    <div class="element_edit">
+        <button type="submit" class="but_validation_post">Valider</button>
+    </div>
+</form>
+
+<hr>
+<form action="{{ url_for('supprimerPost', id=post.id) }}" method="POST">
+    <input type="submit" value="Supprimer Post" class="">
+</form>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+<h1>{% block title %} Editer "{{ post.title }}" {% endblock %}</h1>
+
+{% block content %}
+    <!-- <nav class="principal">
+        <div class="div_logo_user">
+            <i class="fa-regular fa-user" id="iconuser"></i>
+            <span >User</span>
+        </div>
+    </nav>
+    <div class="title_adduser">
+        <h1>Remplissez les champs ci-dessous et soumettez le formulaire</h1>
+    </div> -->
+    <form action="{{ url_for('modifierUser', id=user.id) }}" class="form_edituser" method="post">
+        <div class="edituser_champ">
+            <label for="" class="label_adduser">Name</label>
+            <input type="text" class="input_edituser" name="nom" value="{{ request.form.get('nom') or user.name }}">
+        </div>
+        <div class="edituser_champ">
+            <label for="">Username</label>
+            <input type="text" class="input_edituser" name="prenom" value="{{ request.form.get('prenom') or user.username }}">
+        </div>
+        <div class="edituser_champ">
+            <label for="">Email</label>
+            <input type="email" class="input_edituser" name="mail" value="{{ request.form.get('mail') or user.email }}">
+        </div>
+        <div class="edituser_champ">
+            <label for="">Adresse</label>
+            <input type="text" class="input_edituser" name="address" value="{{ request.form.get('address') or user.address }}">
+        </div>
+        <div class="edituser_champ">
+            <label for="">Phone</label>
+            <input type="text" class="input_edituser" name="tel" value="{{ request.form.get('tel') or user.phone }}">
+        </div>
+        <div class="edituser_champ">
+            <label for="">Company</label>
+            <input type="text" class="input_edituser" name="company" value="{{ request.form.get('company') or user.email }}">
+        </div>
+        <div class="edituser_champ">
+            <label for="">Website</label>
+            <input type="text" class="input_edituser" name="site" value="{{ request.form.get('site') or user.website }}">
+        </div>
+
+
+        <div class="adduser_champ div_btn_edituser">
+            <button type="submit" class="btn_submit">Valider</button>
+        </div>
+    </form>
+    <hr>
+    <form action="{{ url_for('supprimerUser', id=user.id) }}" method="POST">
+        <input type="submit" value="Supprimer User" class="">
+    </form>
+{% endblock %}
+
