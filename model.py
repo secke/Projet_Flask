@@ -76,13 +76,15 @@ class Todo(base.base):
     title=Column(String(200))
     a_faire=Column(TEXT)
     en_cours=Column(TEXT)
-    fini=Column(Boolean)
+    fini=Column(TEXT)
     # completed=Column(Boolean)
-    def __init__(self,userId, id, title, completed):
+    def __init__(self,userId, id, title, a_faire,en_cours,fini):
         self.userId=userId
         self.id=id
         self.title=title
-        self.completed=completed
+        self.a_faire=a_faire
+        self.en_cours=en_cours
+        self.fini=fini
 
 ############## POST ########################
 

@@ -1,13 +1,19 @@
-{% extends 'userpost.html' %}
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="principal">
+    <button class="deconnexion">Déconnexion</button>
+    <ul class="menu">
+        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addAlbum') }}">Ajouter Album</a></li>
+{% endblock %}
 
 
-{% block main %}
+{% block footer%}
 {% for album in albums %}
     <div class="block">
-        <h2 class="titre">{{ album.title }}</h2>
+       <a href="{{ url_for('photo') }}"> <button style="color:green;font-weight:bold;" >{{ album.title }}
+            <a href="{{ url_for('modifierAlbum',id=album.id) }}"><button class="bouton_edit_supp">Editer</button></a>
+            <a href="{{ url_for('supprimerAlbum',id=album.id) }}"><button class="bouton_edit_supp">Supprimer</button></a></button></a>
     </div>
-    <!-- <div class="block">
-       <textarea name="body" >{{ post.body }}</textarea>
-    </div> -->
 {% endfor %}
-{% endblock main %}
+{% endblock footer%}

@@ -1,13 +1,20 @@
-{% extends 'userpost.html' %}
+{% extends 'base.html' %}
 
-
-{% block main %}
+{% block content %}
+<nav class="principal">
+    <button class="deconnexion">Déconnexion</button>
+    <ul class="menu">
+        <li class="list" style="font-size: 35px;"><a href="{{ url_for('createPost') }}">Ajouter Post</a></li>
+{% endblock %}
+{% block footer%}
 {% for post in posts %}
     <div class="block">
-        <h2 class="titre">{{ post.title }}</h2>
+        <h2 class="titre">{{ post.title }} <a href="{{ url_for('editerPost',id=post.id) }}"><button class="boutton_formulaire_post">Editer</button></a><a href="{{ url_for('supprimerPost',id=post.id) }}"><button class="boutton_formulaire_post">supprimer</button></a></h2>
     </div>
     <div class="block">
        <textarea >{{ post.body }}</textarea>
+       <a href="{{ url_for('comments') }}"><button  class="boutton_comment">comment</button></a>
     </div>
 {% endfor %}
-{% endblock main %}
+{% endblock footer %}
+

@@ -1,16 +1,22 @@
-{% extends 'userpost.html' %}
+{% extends 'base.html' %}
 
-
-{% block main %}
+{% block content %}
+<nav class="principal">
+    <button class="deconnexion">Déconnexion</button>
+    <ul class="menu">
+        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addPhoto') }}">Ajouter Photo</a></li>
+{% endblock %}
+{% block footer%}
 {% for photo in photos %}
-    <div class="block">
-        <h2 class="titre">{{ photo.title }}</h2>
+    <div class="block_formulaire_addphoto">
+        <h2 class="titre"><a href="{{ url_for('modifierPhoto',id=photo.id) }}"><button class="boutton_formulaire">Editer</button></a><a href="{{ url_for('supprimerPhoto',id=photo.id) }}"><button class="boutton_formulaire">Supprimer</button></a>
+            {{ photo.title }}</h2>
     </div>
-    <div class="block">
+    <div class="">
       <img src="{{ photo.url }}" alt="">
     </div>
-    <div class="block">
+    <div class="block_formulaire_addphoto">
         <h2 class="titre">{{ photo.thumbnailUrl }}</h2>
     </div>
 {% endfor %}
-{% endblock main %}
+{% endblock footer%}

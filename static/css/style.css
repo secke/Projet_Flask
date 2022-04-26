@@ -313,7 +313,7 @@ span{
 .block{
    background-color: #F5D7FF;
    height: 45%;
-   width: 40%;
+   width: 60%;
    margin: 20px;
    position: relative;
 }
@@ -536,4 +536,90 @@ span{
    align-items: center;
    justify-content: space-between;
 }
+
+/* *****************        block footer           *********** */
+
+footer {
+   width: 100%;
+   height: 350px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-between;
+   margin-top: 130px;
+   
+}
+
+
+/* ************************ Boutton Editer et Supprimer************** */
+ 
+.bouton_edit_supp {
+   margin-left: 15%;
+   border-radius: 10px;
+   color: red;
+   font-weight: bold;
+   background-color:khaki;
+}
+
+/* ***************            FORMULAIRE ADDPHOTO       ******************     */
+.block_formulaire_addphoto {
+   position: relative;
+   left: 100px;
+}
+/* ***************            FORMULAIRE ADDPost      ******************     */
+
+.boutton_formulaire_post {
+   border-radius: 10px;
+   background-color: brown;
+   margin: 10px;
+   position: relative;
+   left: 200px;
+}
+
+.boutton_formulaire {
+   border-radius: 10px;
+   background-color: brown;
+   margin: 10px;
+   position: relative;
+   right: 200px;
+}
+
+.boutton_comment {
+   position: relative;
+   top: 20px;
+   background-color: greenyellow;
+   right: 150px;
+   border-radius: 10px;
+}
+
+/* ***************            FORMULAIRE ADDCOMMENTS      ******************     */
+.form_addComment {
+   display: flex;
+   height: 500px;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-around;
+
+
+}
+
+.boutton_valider_addcomment {
+   width: fit-content;
+   height: fit-content;
+   border-radius: 5px;
+   background-color: #a0095c;
+   color:white;
+}
+
+
+/* ********************** formulaire addcomment ********************* */
+.boutton_formulaire_comment {
+   border-radius: 10px;
+   background-color: brown;
+   margin: 10px;
+   position: relative;
+   /* left: 200px; */
+}
+
+
 
