@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="title_post">
+        <h1>Remplissez les champs ci-dessous et soumettez le formulaire</h1>
+    </div>
+    <form action="{{ url_for('createPost') }}" class="form_addPost" method="post" style="display: flex;flex-direction: column;align-items: center;height: 100%;">
+        
+        <div class="addpost_champ">
+            <label for="" class="label_addpost">Titre</label>
+            <input type="text" class="input_addpost" name="title">
+        </div>
+        <div class="adduser_champ">
+            <label for="" style="background-color: white; color: black;">Contenu</label>
+           <textarea name="body" ></textarea>
+        </div>
+        <div class="addpost_champ div_btn_addpost">
+            <button type="submit" class="btn_submit" style="width:max-content;height: fit-content;">Valider</button>
+        </div>
+    </form>
+{% endblock %}
+

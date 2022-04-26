@@ -8,7 +8,7 @@
         </div>
         <div class="div_bouton_page_principal">
             <a href="{{ url_for('adduser') }}"  class=" bouton_principal"><button class="btn_ajout">+Ajouter un user</button></a>
-            <a href="{{ url_for('affiche') }}" class="bouton_principal"><button class="btn_ajout">Afficher des users</button></a>
+            <a href="" class="bouton_principal"><button class="btn_ajout">Afficher des users</button></a>
         </div>
     </nav>
     <div id="body_affichage">
@@ -17,7 +17,7 @@
                 <span class="info_user">Name</span>
                 <span class="info_user">Username</span>
                 <span class="info_user">Phone</span>
-                <span class="info_user">email</span>
+                <span class="info_user">Email</span>
             </div>
             
             {% for i in range(n) %}
@@ -29,10 +29,14 @@
                         <span class="paragraphe_user">{{ fiche[i]['website'] }}</span>
                         <span class="paragraphe_user">{{ fiche[i]['email'] }}</span>
                     </a>
+                    <button class="edit_btn ">Edit</button>
+                    <button class="delete_btn">Delete</button>
+                  </div>
                 </div>
             {% endfor %}
-            
+           
+
         </div>
     </div>
-    
+
 {% endblock %}

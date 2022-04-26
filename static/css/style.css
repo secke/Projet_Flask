@@ -39,7 +39,12 @@ body{
    font-size: 80px;
    margin-right: 2%;
 }
-
+#iconhome{
+   color: white;
+   align-self: center;
+   margin-left: 10%;
+   margin-right: 2%;
+}
 span{
    width: 50%;
    height: 100%;
@@ -85,7 +90,7 @@ span{
 }
 
 .form_adduser{
-   width: 100%;
+   width: 80%;
    height: 60%;
    display: flex;
    flex-direction: column;
@@ -94,7 +99,7 @@ span{
 }
 
 .adduser_champ{
-   width: 40%;
+   width: 70%;
    height: 20%;
    display: flex;
    flex-direction: row;
@@ -107,14 +112,12 @@ span{
    color: white;
    font-size: 30px;
    padding: 10px;
-   width: 15%;
+   width: 20%;
    text-align: center;
 }
-
 .input_adduser{
-   width: 75%;
+   width: 70%;
    height: 80%;
-   margin-left: 20px;
    background-color: #F1F1F1;
    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
    border: #F1F1F1;
@@ -137,9 +140,9 @@ span{
 }
 
 .choice_user{
-   width: 20%;
-   height: 12%;
-   border: 2px solid black;
+   width: 30%;
+   height: 15%;
+   border: 2px solid #532CA6;
    display: flex;
    align-items: center;
    justify-content: space-between;
@@ -149,6 +152,7 @@ span{
    font-size: 25px;
    background-color: #532CA6;
    color: white;
+   border-radius: 1em;
    /* visibility: hidden; */
    /* display: none;    */
 }
@@ -160,12 +164,16 @@ span{
 
 .btn_choice_user{
    display: flex;
-   justify-content: flex-end;
+   justify-content:center;
    width: 15%;
    height: 25%;
    margin-left: 80%;
    background-color: #AE25DE;
+   border: #AE25DE;
    color: white;
+   margin-bottom: 3px;
+   border-radius: 0.2em;
+
 }
 
 /* ######################Affichage de un à cinq user ########################### */
@@ -181,15 +189,17 @@ span{
 }
 
 .affiche{
-   width: 80%;
+   width: 90%;
    height: 100%;
    display: flex;
+   
    flex-direction: column;
 }
 
 .div_info_user{
-   width: 100%;
+   width: 90%;
    height: 10%;
+   margin-right: 20%;
    display: flex;
    flex-direction: row;
    justify-content: space-around;
@@ -199,7 +209,6 @@ span{
    width: 15%;
    height: 100%;
    display: flex;
-   
    justify-content: center;
    font-size: 30px;
    background-color: #532CA6;
@@ -221,16 +230,47 @@ span{
    align-items: center;
    text-decoration: none;
    justify-content: space-around;
+   color: #532CA6;
 }
 
 .paragraphe_user{
-   width: 23%;
+   width: 25%;
    height: 100%;
    display: flex;
    justify-content: center;
-   font-size: 30px;
+   font-size: 180%;
    background-color: #F5D7FF;
 }
+
+.champ_user {
+   width: 100%;
+   height: 90%;
+   display: flex;
+   flex-direction: row;
+}
+
+.edit_btn,.delete_btn{
+   width: 5%;
+   height: 70%;
+   background-color: #F5D7FF;
+   color: white;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+a{
+   text-decoration: none;
+}
+
+
+.delete_btn{
+   width: 7%;
+}
+#modif,#sup{
+   font-size: 25px;
+   color: #AE25DE;
+}
+
 
 /* ###################Fin de style concernant la page principale###################### */
 
@@ -286,7 +326,7 @@ span{
 .block{
    background-color: #F5D7FF;
    height: 45%;
-   width: 40%;
+   width: 60%;
    margin: 20px;
    position: relative;
 }
@@ -309,6 +349,27 @@ span{
    margin-left: 50%;
 }
 
+.sr-only-focusable:not(:focus) {
+   position: absolute;
+   width: 1px;
+   height: 1px;
+   padding: 0;
+   margin: -1px;
+   overflow: hidden;
+   clip: rect(0,0,0,0);
+   white-space: nowrap;
+   border-width: 0;
+ }
+
+ .page-link {
+   position: relative;
+   display: block;
+   color: #0d6efd;
+   text-decoration: none;
+   background-color: #fff;
+   border: 1px solid #dee2e6;
+   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+ }
 
 /* ###################Fin de style concernant la page user Post###################### */
 
@@ -355,6 +416,16 @@ span{
    border: #F5D7FF;
    align-items: flex-end;
    margin-left: 30px;
+}
+
+.champ .infouser{
+   background-color: #F5D7FF;
+   width: 60%;
+   border: #F5D7FF;
+   align-items: flex-end;
+   margin-left: 30px;
+   color: blue;
+   font-size: 200%;
 }
 
 .block2{
@@ -432,3 +503,175 @@ span{
    text-decoration:none;
 } 
    /* ####################### FIN STYLE PAGE DE CONNEXION ########################## */
+
+
+   /* *************************************MAP******************************************/
+
+   /* 
+ * Always set the map height explicitly to define the size of the div element
+ * that contains the map. 
+ */
+#map {
+   height: 35%;
+ }
+ 
+ /* 
+  * Optional: Makes the sample page fill the window. 
+  */
+ 
+ 
+ .custom-map-control-button {
+   background-color: #fff;
+   border: 0;
+   border-radius: 2px;
+   box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+   margin: 10px;
+   padding: 0 0.5em;
+   font: 400 18px Roboto, Arial, sans-serif;
+   overflow: hidden;
+   height: 40px;
+   cursor: pointer;
+ }
+ .custom-map-control-button:hover {
+   background: rgb(235, 235, 235);
+ }
+
+ /* ********************************************************************************* */
+
+
+
+ /* ***************       page modification USERS           ******************** */
+ .mainmodifuser{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+ }
+#modification_user {
+   display: flex;
+   height: 80%;
+   width: 100%;
+   font-size: large;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-between;
+}
+.edituser_champ{
+   display: flex;
+   align-items: center;
+   width: 100%;
+   justify-content: center;
+   height: 15%;
+}
+.label_adduser{
+   background-color: #532CA6;
+   color: white;
+   width: 10%;
+   margin-right: 2%;
+   text-align: center;
+   font-size: 35px;
+}
+.input_edituser{
+   width: 30%;
+   background-color: #F1F1F1;
+   border: #F1F1F1;;
+   box-shadow:  inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+   font-size: 25px;
+}
+.btn_edituser{
+   display: flex;
+   justify-content: center;
+   width: 70%;
+   height: 15%;
+   margin-left: 10%;
+}
+/* *****************        block footer           *********** */
+
+/* footer {
+   width: 100%;
+   height: 350px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-between;
+   margin-top: 130px;
+   
+} */
+
+
+/* ************************ Boutton Editer et Supprimer************** */
+ 
+.bouton_edit_supp {
+   margin-left: 15%;
+   border-radius: 10px;
+   color: red;
+   font-weight: bold;
+   background-color:khaki;
+}
+
+/* ***************            FORMULAIRE ADDPHOTO       ******************     */
+.block_formulaire_addphoto {
+   position: relative;
+   left: 100px;
+}
+/* ***************            FORMULAIRE ADDPost      ******************     */
+
+.boutton_formulaire_post {
+   border-radius: 10px;
+   background-color: brown;
+   margin: 10px;
+   position: relative;
+   left: 200px;
+}
+
+.boutton_formulaire {
+   border-radius: 10px;
+   background-color: brown;
+   margin: 10px;
+   position: relative;
+   right: 200px;
+}
+
+.boutton_comment {
+   position: relative;
+   top: 20px;
+   background-color: greenyellow;
+   right: 150px;
+   border-radius: 10px;
+}
+
+/* ***************            FORMULAIRE ADDCOMMENTS      ******************     */
+.form_addComment {
+   display: flex;
+   height: 500px;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-around;
+
+
+}
+
+.boutton_valider_addcomment {
+   width: fit-content;
+   height: fit-content;
+   border-radius: 5px;
+   background-color: #a0095c;
+   color:white;
+}
+
+
+/* ********************** formulaire addcomment ********************* */
+.boutton_formulaire_comment {
+   border-radius: 10px;
+   background-color: brown;
+   margin: 10px;
+   position: relative;
+   /* left: 200px; */
+}
+/****************************Formulaire mofifier user**************/
+
+
+
+

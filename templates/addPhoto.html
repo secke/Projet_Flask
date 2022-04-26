@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="title_post">
+        <h1>Remplissez les champs ci-dessous et soumettez le formulaire</h1>
+    </div>
+    <form action="{{ request.path }}" class="form_addPhoto" method="post">
+        
+        <div class="block_formulaire_addphoto">
+            <h3>Titre</h3>
+            <input type="text" class="input_addphoto" name="title">
+        </div>
+        <div class="block_formulaire_addphoto">
+            <h3>Le lien de la Photo</h3>
+            <input type="text" id="lienImg" name="url">
+        </div>
+        <div class="block_formulaire_addphoto">
+            <h3>Le thumbnailUrl de la Photo</h3>
+            <input type="text" name="thumbnailUrl">
+        </div>
+        <div class="addphoto_champ div_btn_addphoto">
+            <button type="submit" class="btn_submit">Valider</button>
+        </div>
+    </form>
+{% endblock %}
+

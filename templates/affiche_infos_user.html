@@ -1,0 +1,52 @@
+{% extends 'userpost.html' %}
+
+
+
+
+{% block main%}
+<div class="block1">
+    <div class="champ">
+        <label for="name">Name</label>
+        <span type="text" name="name" id="name" class="infouser">{{ fiche[i]['name'] }}</span>
+    </div>
+    <div class="champ">
+        <label for="username">UserName</label>
+        <span type="text" name="username" id="username" class="infouser">{{ fiche[i]['username'] }}</span>
+    </div>
+    <div class="champ">
+        <label for="phone">Phone</label>
+        <span type="text" name="phone" id="phone" class="infouser">{{ phone }}</span>
+    </div>
+    <div class="champ">
+        <label for="website">address</label>
+        <span type="text" name="website" id="website" class="infouser">{{ lat }}</span>
+    </div>
+</div>
+<div class="block2">
+    <h3>Company</h3>
+    <div class="sblock">
+        <div class="champ">
+            <label for="namec">Name</label>
+            <span type="text" name="name" id="namec" class="infouser">{{ company[0] }}</span>
+        </div>
+        <div class="champ">
+            <label for="Cphase">Catch Phase</label>
+            <span type="text" name="Cphase" id="Cphase" class="infouser">{{ company[1] }}</span>
+        </div>
+        <div class="champ">
+            <label for="Bs">Bs</label>
+            <span type="text" name="Bs" id="Bs" class="infouser">{{ company[2] }}</span>
+        </div>
+    </div>
+
+
+    <div id="map"></div>
+
+    <!-- 
+     The `defer` attribute causes the callback to execute after the full HTML
+     document has been parsed. For non-blocking uses, avoiding race conditions,
+     and consistent behavior across browsers, consider loading using Promises
+     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
+    -->
+</div>
+{% endblock main %}

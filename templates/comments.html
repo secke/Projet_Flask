@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="principal">
+    <button class="deconnexion">Déconnexion</button>
+    <ul class="menu">
+        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addComments') }}">Ajouter Un Comment</a></li>
+{% endblock %}
+{% block footer%}
+{% for comment in comments %}
+    <div class="block">
+        <h2 class="titre"><a href="{{ url_for('modifierComments',id=comment.id) }}"><button class="boutton_formulaire_comment">Editer</button></a><a href="{{ url_for('supprimerComments',id=comment.id) }}"><button class="boutton_formulaire_comment">supprimer</button></a>
+            {{ comment.name }}</h2>
+    </div>
+    <div class="block">
+        <input type="text" value="{{ comment.email }}">
+     </div>
+    <div class="block">
+       <textarea >{{ comment.body }}</textarea>
+    </div>
+{% endfor %}
+{% endblock footer%}
