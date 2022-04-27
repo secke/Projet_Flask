@@ -2,11 +2,9 @@
 import sys
 sys.path.append('.')
 sys.path.append('..')
-from sqlalchemy import Boolean, Column,String,Integer,TEXT, column
-from flask_paginate import Pagination, get_page_parameter
-from sqlalchemy import Boolean, Column, ForeignKey,String,Integer,TEXT,ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Boolean, Column, ForeignKey,String,Integer,TEXT
 import base
+from sqlalchemy.orm import *
 
 
 class User(base.base):
@@ -19,6 +17,14 @@ class User(base.base):
     address=Column(String(400))
     company=Column(String(400))
     website=Column(String(300))
+    email=Column(String(100))
+    address=Column(String(300))
+    connexions=relationship("Connexion",back_populates="users")
+    
+    # def __init__(self,id,name,username,phone,email,address,company):
+    # phone=Column(String(50))
+    # company=Column(String(300))
+    website=Column(String(100))
     albums=relationship('Album')
     todos=relationship('Todo')
     posts=relationship('Post')
@@ -32,8 +38,8 @@ class User(base.base):
         self.company=company
         self.website=website
         
-        
-        
+
+
 ################## ALBUM #################################
 
 class Album(base.base):
@@ -72,13 +78,15 @@ class Todo(base.base):
     title=Column(String(200))
     a_faire=Column(TEXT)
     en_cours=Column(TEXT)
-    fini=Column(Boolean)
+    fini=Column(TEXT)
     # completed=Column(Boolean)
-    def __init__(self,userId, id, title, completed):
+    def __init__(self,userId, id, title, a_faire,en_cours,fini):
         self.userId=userId
         self.id=id
         self.title=title
-        self.completed=completed
+        self.a_faire=a_faire
+        self.en_cours=en_cours
+        self.fini=fini
 
 ############## POST ########################
 
@@ -106,12 +114,32 @@ class Comment(base.base):
     name=Column(String(100))
     email=Column(String(100))
     body=Column(TEXT)
-    def __init__(self, postId, id, name, email, body):
+    def __init__(self, postId, id, name, email, body,password):
         self.postId=postId
         self.id=id
         self.name=name
         self.email=email
         self.body=body
+        self.password=password
+
+
+############Connexion############################
+
+class Connexion(base.base):
+    __tablename__='connexions'
+    id=Column(Integer, primary_key=True,autoincrement=True)
+    login=Column(String(50))
+    password=Column(String(50))
+    id_user=Column(Integer,ForeignKey('users.id')) 
+    users=relationship("User",back_populates="connexions")
+
+    def __init__(self ,login,password,id_user):
+        self.login=login
+        self.password=password
+        self.id_user=id_user
+
+
+    
 
 
 # print(model.User.query.all())

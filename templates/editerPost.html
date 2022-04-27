@@ -3,7 +3,7 @@
 <h1>{% block title %} Editer "{{ post.title }}" {% endblock %}</h1>
 
 {% block content %}
-<form action="{{ url_for('modifierPost', id=post.id) }}" method="post">
+<form action="{{ url_for('editerPost', id=post.id) }}" method="post">
     <div class="element_edit">
         <label for="userId">Identifiant utilisateur</label>
         <input type="text" name="userId" class="champ_edit" value="{{ request.form.get('userId') or post.userId }}">

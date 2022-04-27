@@ -23,15 +23,15 @@
             {% for i in range(5) %}
               <div class="div_article_user">
                 <div class="champ_user">
-                  <a href="{{ url_for('connexion', username=users[i]['username']) }}" class="article_user" >
+                  <a href="{{ url_for('connexion', email=  users[i]['email'],id= users[i]['id']) }}" class="article_user" >
                       <span class="paragraphe_user">{{ users[i]['name'] }}</span>
                       <span class="paragraphe_user" name="username" id="username">{{ users[i]['username'] }}</span>
                       <span class="paragraphe_user">{{ users[i]['phone'].split('x')[0] }}</span>
                       <span class="paragraphe_user">{{ users[i]['email'] }}</span>
                   </a>
 
-                  <a href="" class="edit_btn "><button class="edit_btn ">Edit</button></a>
-                  <a href="" class="delete_btn"><button class="delete_btn">Delete</button></a>
+                  <a href="{{ url_for('modifierUser', id=users[i]['id']) }}" class="edit_btn "><i class="fa-solid fa-pen" id="modif"></i></a>
+                  <a href="{{ url_for('supprimerUser', id=users[i]['id']) }}" class="delete_btn"><i class="fa-solid fa-trash-can" id="sup"></i></button></a>
                 </div>
             </div>
             {% endfor %}

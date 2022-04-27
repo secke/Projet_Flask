@@ -53,7 +53,7 @@ function valider(){
                 }
         motPass=document.getElementById("mp")
         motPass.value=rfinal;
-        console.log(motPass);
+        console.log(rfinal);
     
     
 }

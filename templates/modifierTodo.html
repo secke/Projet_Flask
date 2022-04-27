@@ -6,7 +6,7 @@
 <form action="{{ url_for('modifierTodo', id=todo.id) }}" method="post">
     <div class="element_edit">
         <label for="userId">Identifiant Utilisateur</label>
-        <input type="text" name="userId" class="champ_edit" value="{{ request.form.get('userId') or photo.userId }}">
+        <input type="text" name="userId" class="champ_edit" value="{{ request.form.get('userId') or todo.userId }}">
     </div>
     <div class="element_edit">
         <label for="id">Identifiant Todo </label>

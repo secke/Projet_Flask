@@ -1,10 +1,16 @@
-{% extends 'userpost.html' %}
+{% extends 'base.html' %}
 
-
-{% block main %}
+{% block content %}
+<nav class="principal">
+    <button class="deconnexion">Déconnexion</button>
+    <ul class="menu">
+        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addTodo') }}">Ajouter Todo</a></li>
+{% endblock %}
+{% block footer%}
 {% for todo in todos %}
     <div class="block">
-        <h2 class="titre">{{ todo.title }}</h2>
+        <h2 class="titre"><a href="{{ url_for('modifierTodo',id=todo.id) }}"><button class="boutton_formulaire">Editer</button></a><a href="{{ url_for('supprimerTodo',id=todo.id) }}"><button class="boutton_formulaire">Supprimer</button></a>
+           {{ todo.title }}</h2>
     </div>
     <div class="block">
        <textarea >{{ todo.a_faire }}</textarea>
@@ -16,4 +22,4 @@
         <input type="text" value="{{ todo.fini }}">
      </div>
 {% endfor %}
-{% endblock main %}
+{% endblock footer%}
