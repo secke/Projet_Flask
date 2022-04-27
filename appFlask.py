@@ -62,12 +62,12 @@ def affiche():
     # id = base.session.query(model.User.id)
     # id= base.session.query(model.User.username=='Bret').first()
     # id = model.User.query.filter_by(username = 'Bret').all()
-    fiche = base.session.query(model.User.id,model.User.name, model.User.username, model.User.phone, model.User.email)
+    # fiche = base.session.query(model.User.id,model.User.name, model.User.username, model.User.phone, model.User.email)
     k=0
     for el in fiche:
         k+=1
     l = round(k/n)
-    if n<k:
+    if n>k:
         if k>=n:
             return render_template('afiche.html', fiche=fiche, n=n, id=id)
 
@@ -471,12 +471,14 @@ def supprimerComments(id):
 def connexion(email,id):
     if request.method=='POST':
         login=request.form['connect']
+        userId=base.session.query(model.User.id).filter(model.User.email==login).first()[0]
+        print(userId)
         motPass=request.form['secur']
         notfistuser=base.session.query(Connexion.login).filter(Connexion.login==login).first()
         if notfistuser:
             password=base.session.query(Connexion.password).filter(Connexion.login==login).first()
             motPass=password
-            return redirect(url_for('userpost'))
+            return redirect(url_for('userpost',userId=userId))
             
         else:
             ajoutConnexion=Connexion(login=login, password=motPass,id_user=id)
@@ -489,10 +491,11 @@ def connexion(email,id):
 
 ########################Page user Post####################################
 
-@app.route('/userpost')
-def userpost():
+@app.route('/userpost/<int:userId>')
+def userpost(userId):
+    print(userId)
     # post=base.session.query(model.Post).all()
-    return render_template('userpost.html')
+    return render_template('userpost.html',userId=userId)
 
 
 
@@ -520,20 +523,26 @@ def userinfo():
     return render_template('userinfo.html')
 
 
-@app.route('/affiche_infos_user')
-def affiche_infos_user():
-    fiches = base.import_api('users')
+@app.route('/affiche_infos_user/<int:userId>')
+def affiche_infos_user(userId):
+    print(userId)
+    # fiches = base.import_api('users')
     fiche = base.session.query(model.User.name, model.User.username, model.User.phone, 
-    model.User.email, model.User.address).all()
+    model.User.email, model.User.address).filter(model.User.id==userId).first()
     
     # namecompany = fiches[1]['company'].split(',')[0].split(':')[-1]
     # catchphrase = fiches[1]['company'].split(',')[1].split(':')[-1]
     # bs = fiches[1]['company'].split(',')[2].split(':')[-1]
     
-    namecompany = fiches[1]['company']['name']
-    catchphrase = fiches[1]['company']['catchPhrase']
-    bs = fiches[1]['company']['bs']
-    start_coords = (10.9540700, 42.7360300)
+    # namecompany = fiche['company']['name']
+    # catchphrase = fiche['company']['catchPhrase']
+    phone = fiche['phone'].split('x')[0]
+    lat = float(fiche['address'].split(',')[4].split(':')[-1].strip('}').strip(" ").strip("'"))
+    long= float(fiche['address'].split(',')[5].split(':')[-1].strip('}').strip(" ").strip("'"))
+
+
+    # bs = fiche['company']['bs']
+    start_coords = (lat, long)
     map = folium.Map(
         location=start_coords, 
         zoom_start=2,
@@ -543,13 +552,10 @@ def affiche_infos_user():
             tooltip="Click Here").add_to(map)
 
 
-    company=[namecompany,catchphrase,bs]
-    phone = fiche[1]['phone'].split('x')[0]
-    lat = float(fiche[1]['address'].split(',')[4].split(':')[-1].strip('}').strip(" ").strip("'"))
-    long= float(fiche[1]['address'].split(',')[5].split(':')[-1].strip('}').strip(" ").strip("'"))
-
+    # company=[namecompany,catchphrase,bs]
+    
     map.save('templates/map.html')
-    return render_template('affiche_infos_user.html', fiche=fiche, phone=phone, i=1, company=company, map=map)
+    return render_template('affiche_infos_user.html', fiche=fiche, phone=phone, i=1, map=map,userId=userId,lat=lat,long=long)
 
 
 
@@ -565,7 +571,7 @@ def get_users(offset=0, per_page=5):
     return users[offset: offset + per_page]
 
 
-@app.route('/paginate', methods=["POST"])
+@app.route('/paginate', methods=["POST","GET"])
 @app.route('/paginate')
 def paginate():
     n=(request.form.get('choice_user'))
@@ -573,12 +579,13 @@ def paginate():
     page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter= 'per_page')
 
     total = len(users)
-    
+    l=round(total/a)
+    userId=base.session.query(model.User.id).filter(model.User.username=='Bret').first()
     pagination_users = get_users(offset=offset, per_page=per_page)
 
     pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
 
-    return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, n=n)
+    return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
 
 # *********************************************************************************
 
