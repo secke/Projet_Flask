@@ -58,20 +58,23 @@ def affiche():
 
     fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
 
+    # id = base.session.query(model.User.id)
+    # id= base.session.query(model.User.username=='Bret').first()
+    id = model.User.query.filter_by(username = 'Tokyo').all()
     k=0
     for el in fiche:
         k+=1
     l = round(k/n)
     if n<k:
         if k>=n:
-            return render_template('afiche.html', fiche=fiche, n=n)
+            return render_template('afiche.html', fiche=fiche, n=n, id=id)
 
         else:
             try:
                 for i in range(k, n):
                     utilisateur(base.f0,i)
                 fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
-                return render_template('afiche.html', fiche=fiche, n=n, l=l)
+                return render_template('afiche.html', fiche=fiche, n=n, l=l,id=id)
                 
             except ConnectionError:
                 abort(404)

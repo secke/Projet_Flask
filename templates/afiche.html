@@ -29,7 +29,7 @@
                         <span class="paragraphe_user">{{ fiche[i]['phone'].split('x')[0] }}</span>
                     <a  href="{{ url_for('connexion',username=  fiche[i]['username']) }}" class="article_user" >
                         <span class="paragraphe_user">{{ fiche[i]['name'] }}</span>
-                        <span class="paragraphe_user" name="username" id="username">{{ fiche[i]['username'] }}</span>
+                        <span class="paragraphe_user" name="username" id="username">{{ id }}</span>
                         <span class="paragraphe_user">{{ fiche[i]['phone'] }}</span>
                         <span class="paragraphe_user">{{ fiche[i]['email'] }}</span>
                     </a>
