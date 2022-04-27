@@ -6,6 +6,7 @@ from crypt import methods
 import sys
 # from turtle import pos
 from unicodedata import name
+import folium
 
 from sqlalchemy import create_engine
 sys.path.append('.')
@@ -52,28 +53,32 @@ def principal():
 
 @app.route('/affiche', methods=['POST'])
 def affiche():
+
     n=int(request.form.get('choice_user'))
+
     fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
+
     k=0
     for el in fiche:
         k+=1
     l = round(k/n)
+    if n<k:
+        if k>=n:
+            return render_template('afiche.html', fiche=fiche, n=n)
 
-    if k>=5:
-        return render_template('afiche.html', fiche=fiche, n=n)
-
+        else:
+            try:
+                for i in range(k, n):
+                    utilisateur(base.f0,i)
+                fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
+                return render_template('afiche.html', fiche=fiche, n=n, l=l)
+                
+            except ConnectionError:
+                abort(404)
     else:
-        try:
-            # utilisateur()
-            fiche = base.import_api('users')
-            return render_template('afiche.html', fiche=fiche, n=n, l=l)
-            fiche = base.import_api('users')
-            # return render_template('afiche.html', fiche=fiche, n=n)
-
-        except ConnectionError:
-            fiche = "Vous n'etes pas connecter à internet."
-
-            return fiche
+        n=5
+        fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
+        return render_template('afiche.html', fiche=fiche, n=n, l=l)
 
 
 ######## AJOUT DES USERS########
@@ -473,10 +478,12 @@ def connexion(username):
     if request.method=='POST':
         mail=request.form['connect']
         motPass=request.form['secur']
+        
         if not mail:
             flash('Ce champ est requis!')
         else:
             redirect(url_for('usertodo'))
+       
     return render_template('connexion.html',us=username)
 
 
@@ -511,7 +518,7 @@ def userinfo():
     fiche = base.session.query(model.User.name, model.User.username, model.User.phone, 
     model.User.email, model.User.address).all()
    
-    return render_template('userinfo.html'                                                                                                                               )
+    return render_template('userinfo.html')
 
 
 @app.route('/affiche_infos_user')
@@ -527,15 +534,23 @@ def affiche_infos_user():
     namecompany = fiches[1]['company']['name']
     catchphrase = fiches[1]['company']['catchPhrase']
     bs = fiches[1]['company']['bs']
-    
+    start_coords = (10.9540700, 42.7360300)
+    map = folium.Map(
+        location=start_coords, 
+        zoom_start=2,
+        )
+    folium.Marker(location=start_coords,
+            popup="<i>Marker here</i>",
+            tooltip="Click Here").add_to(map)
+
 
     company=[namecompany,catchphrase,bs]
     phone = fiche[1]['phone'].split('x')[0]
     lat = float(fiche[1]['address'].split(',')[4].split(':')[-1].strip('}').strip(" ").strip("'"))
-    long = float(fiche[1]['address'].split(',')[5].split(':')[-1].strip('}').strip(" ").strip("'"))
+    long= float(fiche[1]['address'].split(',')[5].split(':')[-1].strip('}').strip(" ").strip("'"))
 
-
-    return render_template('affiche_infos_user.html', fiche=fiche, phone=phone, i=1, company=company, lat=lat)
+    map.save('templates/map.html')
+    return render_template('affiche_infos_user.html', fiche=fiche, phone=phone, i=1, company=company, map=map)
 
 
 ############## DEBOGUER ################################################
@@ -554,10 +569,10 @@ def get_users(offset=0, per_page=5):
 
 
 @app.route('/paginate', methods=["POST"])
-@app.route('/paginate',)
+@app.route('/paginate')
 def paginate():
     n=(request.form.get('choice_user'))
-    
+    a = int(n)
     page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter= 'per_page')
 
     total = len(users)

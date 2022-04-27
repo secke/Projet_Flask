@@ -3,13 +3,13 @@ sys.path.append('.')
 sys.path.append('..')
 import model,base
 
-def utilisateur():
-    for u in range(len(base.f0)):
-        el=model.User(base.f0[u]['id'],base.f0[u]['name'],base.f0[u]['username'],base.f0[u]['phone'],base.f0[u]['email'],str(base.f0[u]['address']),base.f0[u]['company'])
-        base.session.add(el)
+def utilisateur(liste,u):
+    el=model.User(liste[u]['id'],liste[u]['name'],liste[u]['username'],liste[u]['phone'],liste[u]['email'],str(liste[u]['address']),str(liste[u]['company']), liste[u]['website'])
+    base.session.add(el)
     base.session.commit()
 
-# utilisateur()
+# for i in range(5):
+#     utilisateur(base.f0,i)
 
 def album():
     for u in range(len(base.f1)):
@@ -46,6 +46,12 @@ def donnees_comment():
         base.session.add(el)
     base.session.commit()
 # donnees_comment()
+
+
+# Récupération du mot de pass correspondant à un username ou email bien definit
+
+def recup_mot_de_pass(email):
+    mdp=base.session.query(model.User.mot_de_pass )
 
 
 

@@ -11,7 +11,7 @@
             <a href="" class="bouton_principal"><button class="btn_ajout btn_affiche">Afficher des users</button></a>
         </div>
     </nav>
-    <form class="choice_user" method="post" action="{{ url_for('paginate') }}">
+    <form class="choice_user" method="post" action="{{ url_for('affiche') }}">
         <label for="choice_user">Nombre de user entre 1 et 5</label>
         <input type="text" id="choice_user" name="choice_user" max="5" min="1">
         <button class="btn_choice_user">OK</button>

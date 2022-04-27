@@ -15,14 +15,10 @@ class User(base.base):
     name=Column(String(50))
     phone=Column(String(50))
     username=Column(String(50))
-    email=Column(String(100))
-    address=Column(String(300))
-    company=Column(String(100))
-    
-    # def __init__(self,id,name,username,phone,email,address,company):
-    # phone=Column(String(50))
-    # company=Column(String(300))
-    website=Column(String(100))
+    email=Column(String(50))
+    address=Column(String(400))
+    company=Column(String(400))
+    website=Column(String(300))
     albums=relationship('Album')
     todos=relationship('Todo')
     posts=relationship('Post')

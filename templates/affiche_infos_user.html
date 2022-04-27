@@ -19,7 +19,7 @@
     </div>
     <div class="champ">
         <label for="website">address</label>
-        <span type="text" name="website" id="website" class="infouser">{{ lat }}</span>
+        <span type="text" name="website" id="website" class="infouser">{{ address }}</span>
     </div>
 </div>
 <div class="block2">
@@ -40,7 +40,9 @@
     </div>
 
 
-    <div id="map"></div>
+    <div class="map">
+        {% include "map.html" %}
+    </div>
 
     <!-- 
      The `defer` attribute causes the callback to execute after the full HTML
