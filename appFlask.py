@@ -38,10 +38,6 @@ from flask_paginate import Pagination, get_page_args
 app=Flask(__name__)
 
 app.config['SECRET_KEY']='Groupe_7_2022'
-############# fermeture de session #####################################
-# @app.teardown_appcontext
-# def stopSession():
-#     base.session.remove()
 
 
 ##########################Page Principale ##################################
@@ -59,10 +55,6 @@ def affiche():
 
     fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
 
-    # id = base.session.query(model.User.id)
-    # id= base.session.query(model.User.username=='Bret').first()
-    # id = model.User.query.filter_by(username = 'Bret').all()
-    # fiche = base.session.query(model.User.id,model.User.name, model.User.username, model.User.phone, model.User.email)
     k=0
     for el in fiche:
         k+=1
@@ -221,11 +213,39 @@ def supprimerPost(id):
 
 ######################## Page Album ####################################
 
-@app.route('/album')
-def album():
-    albums=base.session.query(model.Album).all()
-    return render_template('album.html', albums=albums)
+@app.route('/album/<int:userId>')
+def album(userId):
+    print(userId)
+    albums=base.session.query(model.Album.title, model.Album.id).filter(model.Album.userId==userId).all()
+    print(albums)
+    n=len(albums)
+    print(n)
+    if not albums:
+        album()
+        albums=base.session.query(model.Album.title, model.Album.id).filter(model.Album.userId==userId).all()
+        n=len(albums)
+        for elem in albums:
+            photos = base.session.query(model.Photo.url).filter(model.Photo.albumId==elem.id).all()
+            if not photos:
+                photo()
+                photos = base.session.query(model.Photo.url).filter(model.Photo.albumId==elem.id).all()
+            else:
+                return render_template('album.html', albums=albums, n=n, userId=userId, photo=photo)
+    else:
+        for elem in albums:
+            photo = base.session.query(model.Photo.url).filter(model.Photo.albumId==elem.id).all()
+            return render_template('album.html', albums=albums, n=n, userId=userId, photo=photo)
+    
 
+
+@app.route('/affiche_photo/<int:userId>')
+def affiche_photo(userId):
+    print(userId)
+    photos = base.session.query(model.Photo.url).filter(model.Photo.albumId==userId).all()
+    if not photo:
+        photo()
+    print(photo)
+    return render_template('afiche_photo.html', photos=photos, albumId=userId)
 
 #################### AJOUTER ALBUM #############################
 @app.route('/addAlbum', methods=('POST','GET'))
@@ -324,6 +344,7 @@ def modifierPhoto(id):
         if titre is None:
             flash('le titre est requis!')
         else:
+            photo.id = id
             photo.title=titre
             photo.url=url
             photo.thumbnailUrl=thum
@@ -469,16 +490,21 @@ def supprimerComments(id):
 @app.route('/login/', defaults={'email': ""})
 @app.route('/login/<email>/<id>', methods=('GET','POST'))
 def connexion(email,id):
+
     if request.method=='POST':
         login=request.form['connect']
         userId=base.session.query(model.User.id).filter(model.User.email==login).first()[0]
         print(userId)
         motPass=request.form['secur']
-        notfistuser=base.session.query(Connexion.login).filter(Connexion.login==login).first()
+        print("motPass:",motPass)
+        notfistuser=base.session.query(Connexion.login).filter(Connexion.login==login).first()[0]
+        print("username:",notfistuser)
         if notfistuser:
-            password=base.session.query(Connexion.password).filter(Connexion.login==login).first()
-            motPass=password
-            return redirect(url_for('userpost',userId=userId))
+            password=base.session.query(Connexion.password).filter(Connexion.login==login).first()[0]
+            print("password:",password)
+            if motPass==password:
+                print("OOOOKKKK")
+                return redirect(url_for('userpost',userId=userId))
             
         else:
             ajoutConnexion=Connexion(login=login, password=motPass,id_user=id)
@@ -528,17 +554,19 @@ def affiche_infos_user(userId):
     print(userId)
     # fiches = base.import_api('users')
     fiche = base.session.query(model.User.name, model.User.username, model.User.phone, 
-    model.User.email, model.User.address).filter(model.User.id==userId).first()
+    model.User.email, model.User.address, model.User.company).filter(model.User.id==userId).first()
     
-    # namecompany = fiches[1]['company'].split(',')[0].split(':')[-1]
-    # catchphrase = fiches[1]['company'].split(',')[1].split(':')[-1]
-    # bs = fiches[1]['company'].split(',')[2].split(':')[-1]
+    namecompany = fiche['company'].split(',')[0].split(':')[-1].strip(' ').strip("'")
+    catchphrase = fiche['company'].split(',')[1].split(':')[-1].strip(' ').strip("'")
+    bs = fiche['company'].split(',')[2].split(':')[-1].split('}')[0].strip(' ').strip("'")
     
     # namecompany = fiche['company']['name']
     # catchphrase = fiche['company']['catchPhrase']
     phone = fiche['phone'].split('x')[0]
     lat = float(fiche['address'].split(',')[4].split(':')[-1].strip('}').strip(" ").strip("'"))
     long= float(fiche['address'].split(',')[5].split(':')[-1].strip('}').strip(" ").strip("'"))
+    rue= fiche['address'].split(',')[1].split(':')[1].strip('"')
+    ville= fiche['address'].split(',')[2].split(':')[1].strip('"').strip(' ').strip("'")
 
 
     # bs = fiche['company']['bs']
@@ -555,7 +583,7 @@ def affiche_infos_user(userId):
     # company=[namecompany,catchphrase,bs]
     
     map.save('templates/map.html')
-    return render_template('affiche_infos_user.html', fiche=fiche, phone=phone, i=1, map=map,userId=userId,lat=lat,long=long)
+    return render_template('affiche_infos_user.html', fiche=fiche, phone=phone, i=1, map=map,userId=userId,lat=lat,long=long,namecompany=namecompany,catchphrase=catchphrase, bs=bs, ville=ville)
 
 
 
@@ -580,7 +608,7 @@ def paginate():
 
     total = len(users)
     l=round(total/a)
-    userId=base.session.query(model.User.id).filter(model.User.username=='Bret').first()
+    userId=base.session.query(model.User.id).filter(model.User.email=='Bret').first()
     pagination_users = get_users(offset=offset, per_page=per_page)
 
     pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')

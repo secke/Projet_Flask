@@ -64,25 +64,25 @@ var btn_affiche = document.querySelector('.btn_affiche')
 
 var choice_user = document.querySelector('.btn_choice_user')
 
-console.log(choice_user)
+// console.log(choice_user)
 
-choice_user.addEventListener('click', ()=>{
-    choice_nbr_user.style.display = 'none'
-    // alert("choix  effectue")
-})
+// choice_user.addEventListener('click', ()=>{
+//     choice_nbr_user.style.display = 'none'
+//     // alert("choix  effectue")
+// })
 
-btn_affiche.addEventListener('click', ()=>{
-    // choice_nbr_user.style.display ='flex'
-    document.body.appendChild(choice_nbr_user)
-    choice_user.classList.toggle('btn_affiche_visible')
-    // alert('ça marche')
-})
+// btn_affiche.addEventListener('click', ()=>{
+//     // choice_nbr_user.style.display ='flex'
+//     document.body.appendChild(choice_nbr_user)
+//     choice_user.classList.toggle('btn_affiche_visible')
+//     // alert('ça marche')
+// })
 
 // ################|||| Récupération des information du user après click ||||################
 
 var article_user = document.querySelector('.div_article_user')
 
-console.log(article_user)
+// console.log(article_user)
 
 
 // bouttonValid.addEventListener('click',()=>{
@@ -91,65 +91,20 @@ console.log(article_user)
 
 
 
-// ****************************************JS MAP******************************************* //
+const eye = document.querySelector(".beut_ler");
+const eyeoff = document.querySelector(".beut_lendem");
+const passwordField=document.querySelector("input[type=password]");
+console.log(eye)
+eye.addEventListener("click", () => {
+  eye.style.display = "none";
+  eyeoff.style.display = "block";
 
-// Note: This example requires that you consent to location sharing when
-// prompted by your browser. If you see the error "The Geolocation service
-// failed.", it means you probably did not give permission for the browser to
-// locate you.
-var map, infoWindow;
+  passwordField.type = "text";
+});
 
-function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 6,
-  });
-  infoWindow = new google.maps.InfoWindow();
+eyeoff.addEventListener("click", () => {
+  eyeoff.style.display = "none";
+  eye.style.display = "block";
 
-  const locationButton = document.createElement("button");
-
-  locationButton.textContent = "Pan to Current Location";
-  locationButton.classList.add("custom-map-control-button");
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-  locationButton.addEventListener("click", () => {
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-
-          infoWindow.setPosition(pos);
-          infoWindow.setContent("Location found.");
-          infoWindow.open(map);
-          map.setCenter(pos);
-        },
-        () => {
-          handleLocationError(true, infoWindow, map.getCenter());
-        }
-      );
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-  });
-}
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(
-    browserHasGeolocation
-      ? "Error: The Geolocation service failed."
-      : "Error: Your browser doesn't support geolocation."
-  );
-  infoWindow.open(map);
-}
-
-var oldZoom = null;
-var oldCenter = null;
-google.maps.event.addListenerOnce(map, "zoom_changed", function() { oldZoom = map.getZoom(); });
-google.maps.event.addListenerOnce(map, "center_changed", function() { oldCenter = map.getCenter(); });
-
-window.initMap = initMap;
+  passwordField.type = "password";
+});

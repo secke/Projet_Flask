@@ -371,6 +371,196 @@ a{
    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
  }
 
+ .body_album{
+    overflow: scroll;
+    width: 100%;
+    height: 88%;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* border: 2px solid black; */
+    flex-direction: row-reverse;
+   flex-wrap: wrap-reverse;
+ }
+
+ 
+
+.div_img_album{
+   width: 48%;
+   height: 45%;
+   /* border: 2px solid #F5D7FF; */
+   margin: 1%;
+   /* margin-left: 1%; */
+   display: flex;
+  
+}
+
+.div_album{
+   
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   /* border: 2px solid #F5D7FF; */
+   justify-content: center;
+   align-items: center;
+ }
+
+ .album_photo{
+   width: 100%;
+   height: 83%;
+   display: flex;
+   flex-direction: row;
+ }
+
+ .album_bouton {
+    width: 8%;
+    height: 5%;
+    background-color: #532CA6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;
+
+ }
+
+ .button_album{
+    background-color: #532CA6;
+    color: white;
+    border-radius: 10%;
+    width: 100%;
+ }
+
+.album_right{
+   width: 50%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   border: 2px solid #F5D7FF;
+}
+
+.album_left{
+   width: 50%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   border: 2px solid #F5D7FF;
+}
+
+.sous_div_img_album_top{
+   width: 100%;
+   height: 50%;
+   display: flex;
+   flex-direction: column;
+   border: 2px solid #F5D7FF;
+}
+
+.album_photo_top{
+   display: flex;
+   flex-direction: row;
+   width: 100%;
+   height: 100%;
+   border: 2px solid #F5D7FF;
+   
+}
+
+.album_photo_botum{
+   display: flex;
+   flex-direction: row;
+   width: 100%;
+   height: 100%;
+   border: 2px solid #F5D7FF;
+}
+
+.album_title{
+   /* border: 2px solid #F5D7FF; */
+   height: 12%;
+   font-size: 100%;
+   width: 100%;
+   font-size: 200%;
+}
+
+.sous_div_img_album_botum{
+   width: 100%;
+   height: 50%;
+   display: flex;
+   flex-direction: column;
+   border: 2px solid #F5D7FF;
+}
+
+.img_album{
+   border: 2px solid #F5D7FF;
+   width: 50%;
+   height: 100%;
+
+}
+
+.body_photo{
+   /* border: 2px solid black; */
+   width: 100%;
+   height: 88%;
+   overflow: scroll;
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+}
+
+.affiche_photo{
+   width: 46%;
+   height: 48%;
+   border: 2px solid black;
+   margin-top: 2%;
+   margin-left: 3%;
+}
+
+.modif_album{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   flex-wrap: nowrap;
+   width: 22%;
+   height: 10%;
+   position: relative;
+   float: right;
+   top: -100%;
+   z-index: 4;
+}
+
+.edit_album{
+   width: 40%;
+   height: 100%;
+   /* background-color: green; */
+}
+
+.btn_edit_album{
+   width: 100%;
+   height: 100%;
+   color: white;
+   border-radius: 25%;
+   background-color: green;
+}
+
+.supprime_album{
+   width: 45%;
+   height: 100%;
+   /* background-color: red; */
+}
+
+.btn_suppress_album{
+   width: 100%;
+   height: 100%;
+   border-radius: 25%;
+   background-color: red;
+   color: white;
+}
+
+
+
+
+
+ /* ##############Fin de Style concernant la page user Album############# */
+
 /* ###################Fin de style concernant la page user Post###################### */
 
 
@@ -411,12 +601,50 @@ a{
   
 }
 .champ input{
-   background-color: #F5D7FF;
-   width: 60%;
-   border: #F5D7FF;
+   width: 40%;
    align-items: flex-end;
    margin-left: 30px;
+   
 }
+
+.input_password{
+   font-size: 1em;
+  
+   width: 100%;
+   height: 60%;
+  /* transition: all 0.2s; */
+}
+
+.champ_password{
+   
+   position: relative;
+   height: 80%;
+}
+
+/* 
+label .input_password:focus {
+   border-color: #ff4754;
+ } */
+
+ 
+
+label .password-icon {
+   display: flex;
+   align-items: center;
+   position: absolute;
+   top: 35%;
+   left: 38%;
+   width: 20px;
+   color: black;
+ }
+
+ label .password-icon:hover {
+   cursor: pointer;
+ }
+
+ label .password-icon .feather-eye-off {
+   display: none;
+ }
 
 .champ .infouser{
    background-color: #F5D7FF;
@@ -475,7 +703,7 @@ a{
    display: flex;
    flex-direction: column;
    justify-content: space-evenly;
-   height: 30%;
+   height: 40%;
 }
 .login label,.password label{
    font-size: 46px;
@@ -483,7 +711,7 @@ a{
 }
 .login input ,.password input{
    width: 40%;
-   height: 30%;
+   /* height: 80%; */
    background-color: #F1F1F1;
    border: #F1F1F1;;
    box-shadow:  inset 0px 4px 4px rgba(0, 0, 0, 0.25);

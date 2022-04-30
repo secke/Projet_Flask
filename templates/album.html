@@ -5,15 +5,50 @@
     <button class="deconnexion">Déconnexion</button>
     <ul class="menu">
         <li class="list" style="font-size: 35px;"><a href="{{ url_for('addAlbum') }}">Ajouter Album</a></li>
-{% endblock %}
+    </ul>
+</nav>
+<div class="body_album">
+    {% for i in range(n) %}
+    <div class="div_img_album">
+        <div class="div_album">
+            <span class="album_title">{{ albums[i]['title'] }}</span>
+            <div class="album_photo">
+                <div class="album_right">
 
+                    <div class="sous_div_img_album_top">
+                        <div class="album_photo_top">
+                            <img src="{{ photo[i][0] }}" alt="image" width="100%" height="100%">
+                            <!-- <p>{{ photo }}</p> -->
+                        </div>
+                    </div>
 
-{% block footer%}
-{% for album in albums %}
-    <div class="block">
-       <a href="{{ url_for('photo') }}"> <button style="color:green;font-weight:bold;" >{{ album.title }}
-            <a href="{{ url_for('modifierAlbum',id=album.id) }}"><button class="bouton_edit_supp">Editer</button></a>
-            <a href="{{ url_for('supprimerAlbum',id=album.id) }}"><button class="bouton_edit_supp">Supprimer</button></a></button></a>
+                    <div class="sous_div_img_album_botum">
+                        <div class="album_photo_botum">
+                            <img src="{{ photo[i+1][0] }}" alt="image" width="100%" height="100%">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="album_left">
+                    
+                    <div class="sous_div_img_album_top">
+                        <div class="album_photo_top" >
+                            <img src="{{ photo[i+2][0] }}" alt="image" width="100%" height="100%">
+                        </div>
+                    </div>
+
+                    <div class="sous_div_img_album_botum">
+                        <div class="album_photo_botum" >
+                            <img src="{{ photo[i+3][0] }}" alt="image" width="100%" height="100%">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <a href="/affiche_photo/{{ i+1 }}" class="album_bouton"><button class="button_album">More...</button></a>
+        </div>W2<\cd41M;WNk1|
     </div>
-{% endfor %}
-{% endblock footer%}
+    {% endfor %}
+</div>
+
+{% endblock %}

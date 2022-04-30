@@ -3,7 +3,7 @@
 
 
 
-{% block main%}
+{% block main %}
 <div class="block1">
     <div class="champ">
         <label for="name">Name</label>
@@ -19,7 +19,8 @@
     </div>
     <div class="champ">
         <label for="website">address</label>
-        <span type="text" name="website" id="website" class="infouser">{{ fiche['address'] }}</span>
+        <span type="text" name="website" id="website" class="infouser">{{ ville }}</span>
+        <!-- <span type="text" name="website" id="website" class="infouser">{{ rue }}</span> -->
     </div>
 </div>
 <div class="block2">
@@ -27,15 +28,15 @@
     <div class="sblock">
         <div class="champ">
             <label for="namec">Name</label>
-            <span type="text" name="name" id="namec" class="infouser"></span>
+            <span type="text" name="name" id="namec" class="infouser">{{ namecompany }}</span>
         </div>
         <div class="champ">
             <label for="Cphase">Catch Phase</label>
-            <span type="text" name="Cphase" id="Cphase" class="infouser"></span>
+            <span type="text" name="Cphase" id="Cphase" class="infouser">{{ catchphrase }}</span>
         </div>
         <div class="champ">
             <label for="Bs">Bs</label>
-            <span type="text" name="Bs" id="Bs" class="infouser"></span>
+            <span type="text" name="Bs" id="Bs" class="infouser">{{ bs }}</span>
         </div>
     </div>
 
