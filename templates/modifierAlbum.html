@@ -3,17 +3,17 @@
 <h1>{% block title %} Editer "{{ album.title }}" {% endblock %}</h1>
 
 {% block content %}
-<form action="{{ url_for('modifierAlbum', id=album.id) }}" method="post">
+<form action="{{ url_for('modifierAlbum', id=album.id,userId=userId) }}" method="post">
     <div class="element_edit">
-        <label for="userId">Identifiant utilisateur</label>
+        <label for="userId"> Identifiant utilisateur </label>
         <input type="text" name="userId" class="champ_edit" value="{{ request.form.get('userId') or album.userId }}">
     </div>
     <div class="element_edit">
         <label for="id">Identifiant de l'Album</label>
-        <input type="text" name="id" class="champ_edit" value="{{ album.id }}">
+        <input type="text" name="id" class = "champ_edit" value= "{{ album.id }}">
     </div>
     <div class="element_edit">
-        <label for="title">Titre de l'Album</label>
+        <label for="title"> Titre de l'Album </label>
         <input type="text" name="title" class="champ_edit" value="{{ request.form.get('title') or album.title }}">
     </div>
     <div class="element_edit">
@@ -22,7 +22,7 @@
 </form>
 
 <hr>
-<form action="{{ url_for('supprimerAlbum', id=album.id) }}" method="POST">
+<form action="{{ url_for('supprimerAlbum', id=album.id,userId=userId) }}" method="POST">
     <input type="submit" value="Supprimer Album" class="">
 </form>
 

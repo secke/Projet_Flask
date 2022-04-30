@@ -1,28 +1,28 @@
 {% extends 'base.html' %}
 
-<h1>{% block title %} Editer "{{ photo.title }}" {% endblock %}</h1>
+<h1>{% block title %} Editer "{{ photos.title }}" {% endblock %}</h1>
 
 {% block content %}
-<form action="{{ url_for('modifierPhoto', id=photo.id) }}" method="post">
+<form action="{{ url_for('modifierPhoto', id=photos.id) }}" method="post">
     <div class="element_edit">
         <label for="albumId">Identifiant Album</label>
-        <input type="text" name="albumId" class="champ_edit" value="{{ request.form.get('albumId') or photo.albumId }}">
+        <input type="text" name="albumId" class="champ_edit" value="{{ request.form.get('albumId') or photos.albumId }}">
     </div>
     <div class="element_edit">
         <label for="id">Identifiant de la photo</label>
-        <input type="text" name="id" class="champ_edit" value="{{ photo.id }}">
+        <input type="text" name="id" class="champ_edit" value="{{ photos.id }}">
     </div>
     <div class="element_edit">
         <label for="title">Titre de la photo</label>
-        <input type="text" name="title" class="champ_edit" value="{{ request.form.get('title') or photo.title }}">
+        <input type="text" name="title" class="champ_edit" value="{{ request.form.get('title') or photos.title }}">
     </div>
     <div class="element_edit">
         <label for="url">Le lien de la Photo</label>
-        <input type="text" name="url" class="champ_edit" value="{{ request.form.get('url') or photo.url }}">
+        <input type="text" name="url" class="champ_edit" value="{{ request.form.get('url') or photos.url }}">
     </div>
     <div class="element_edit">
         <label for="thumbnailUrl">Le thumbnailUrl</label>
-        <input type="text" name="thumbnailUrl" class="champ_edit" value="{{ request.form.get('thumbnailUrl') or photo.thumbnailUrl }}">
+        <input type="text" name="thumbnailUrl" class="champ_edit" value="{{ request.form.get('thumbnailUrl') or photos.thumbnailUrl }}">
     </div>
     <div class="element_edit">
         <button type="submit" class="but_validation_photo">Valider</button>
@@ -30,7 +30,7 @@
 </form>
 
 <hr>
-<form action="{{ url_for('supprimerPhoto', id=photo.id) }}" method="POST">
+<form action="{{ url_for('supprimerPhoto', id=photos.id) }}" method="POST">
     <input type="submit" value="Supprimer Photo" class="">
 </form>
 

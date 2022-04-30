@@ -12,6 +12,7 @@ import requests
 
 
 engine=create_engine('postgresql://groupe7:test_123@localhost:5432/flask_db')
+# engine=create_engine('postgresql://votre_nom_utilisateur_postgres:votre_mot_de_passe@localhost:5432/le_nom_votre_Base_de_données')
 base_session=sessionmaker(bind=engine,autocommit=False,autoflush=False)
 session=base_session()
 base=declarative_base()
@@ -35,9 +36,9 @@ f2=import_api('photos')
 
 f3=import_api('todos')
 
-f4=import_api('posts')
+# f4=import_api('posts')
 
-f5=import_api('comments')
+# f5=import_api('comments')
 
 
 

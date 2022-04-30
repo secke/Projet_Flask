@@ -5,7 +5,7 @@
 <nav class="principal">
     <p class="connexion">Connexion</p>
 </nav>
-<form method="post" class="formulaire" action="{{ url_for('connexion',email = mail,id=id) }}">
+<form method="post" class="formulaire" action="{{ url_for('connexion',email = mail,id=id,name=name) }}">
     <div  class="login">
         <label for="log">Login</label>
         <input type="text" name="connect" id="log" class="champ" required value="{{ mail }}">

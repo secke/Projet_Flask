@@ -3,30 +3,22 @@
 <h1>{% block title %} Editer "{{ todo.title }}" {% endblock %}</h1>
 
 {% block content %}
-<form action="{{ url_for('modifierTodo', id=todo.id) }}" method="post">
+<form action="{{ url_for('modifierTodo', id=todo.id,userId=userId) }}" method="post">
     <div class="element_edit">
-        <label for="userId">Identifiant Utilisateur</label>
+        <h3>Identifiant Utilisateur</h3>
         <input type="text" name="userId" class="champ_edit" value="{{ request.form.get('userId') or todo.userId }}">
     </div>
     <div class="element_edit">
-        <label for="id">Identifiant Todo </label>
+        <h3>Identifiant Todo </h3>
         <input type="text" name="id" class="champ_edit" value="{{ todo.id }}">
     </div>
     <div class="element_edit">
-        <label for="title">Titre Todo </label>
+        <h3>Titre Todo</h3>
         <input type="text" name="title" class="champ_edit" value="{{ request.form.get('title') or todo.title }}">
     </div>
     <div class="element_edit">
-        <label for="a_faire">A Faire</label>
-        <textarea name="a_faire" > {{ request.form.get('a_faire') or todo.a_faire }}</textarea>
-    </div>
-    <div class="element_edit">
-        <label for="a_faire">En Cours</label>
-        <textarea name="en_cours" > {{ request.form.get('en_cours') or todo.en_cours }}</textarea>
-    </div>
-    <div class="element_edit">
-        <label for="fini"> Terminer </label>
-        <input type="text" name="fini" class="champ_edit" value="{{ request.form.get('fini') or todo.fini }}">
+        <h3>ÉTAT</h3>
+        <textarea name="ETAT" > {{ request.form.get('ETAT') or todo.ETAT }}</textarea>
     </div>
     <div class="element_edit">
         <button type="submit" class="but_validation_todo">Valider</button>
@@ -34,7 +26,7 @@
 </form>
 
 <hr>
-<form action="{{ url_for('supprimerTodo', id=todo.id) }}" method="POST">
+<form action="{{ url_for('supprimerTodo', id=todo.id,userId=userId) }}" method="POST">
     <input type="submit" value="Supprimer Todo" class="">
 </form>
 

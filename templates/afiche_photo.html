@@ -8,14 +8,14 @@
         </ul>
     </nav>
     <div class="body_photo">
-        {% for i in range(10) %}
+        {% for i in range(n) %}
             <div class="affiche_photo">
                 <img src="{{ photos[i]['url'] }}" alt="" width="100%" height="100%">
                 <div class="modif_album">
-                    <a href="" class="edit_album">
+                    <a href="{{ url_for('modifierPhoto',id=photos[i]['id']) }}" class="edit_album">
                         <button class="btn_edit_album">edit</button>
                     </a>
-                    <a href="" class="supprime_album">
+                    <a href="{{ url_for('supprimerPhoto',id=photos[i]['id'], userId=userId) }}" class="supprime_album">
                         <button class="btn_suppress_album">Supprimer</button>
                     </a>
                 </div>
