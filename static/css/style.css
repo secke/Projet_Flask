@@ -223,7 +223,7 @@ span{
 }
 
 .article_user{
-   width: 100%;
+   width: 92%;
    height: 70%;
    display: flex;
    flex-direction: row;
@@ -249,14 +249,24 @@ span{
    flex-direction: row;
 }
 
-.edit_btn,.delete_btn{
-   width: 5%;
-   height: 70%;
-   background-color: #F5D7FF;
+.edit_btn{
+   width: max-content;
+   height: max-content;
+   background-color: #08b811;
    color: white;
-   display: flex;
+   font-size: 15px;
+   border-radius: 10px;
+   /* display: flex;
    justify-content: center;
-   align-items: center;
+   align-items: center; */
+}
+.delete_btn{
+   width: max-content;
+   height: max-content;
+   background-color: #b80866;
+   color: white;
+   font-size: 15px;
+   border-radius: 10px;
 }
 a{
    text-decoration: none;
@@ -309,8 +319,8 @@ a{
    margin: 0;
    margin-left: 20px;
    margin-top: 15px;
-   height: 40%;
-   width: 15%;
+   height: max-content;
+   width: max-content;
    border: #AE25DE;
    font-size: 24px;
 }
@@ -329,12 +339,88 @@ a{
    width: 60%;
    margin: 20px;
    position: relative;
+} 
+
+.icone_accueille_user{
+   margin: 2%;
+   padding: 2%;
+   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   background-color:rgb(231, 231, 125);
+   color: rgb(73, 62, 1);
 }
+
 /* ###################Fin de style concernant la page user Post###################### */
 
+/* #################Style concernant la page post #######################################*/
+
+.contenu_post{
+   width: 70%;
+   height: max-content;
+   margin-left: 2%;
+   /* border: 2px solid black; */
+   font-size: 150%;
+}
+
+.boutton_comment{
+   width: 10%;
+   height: 5%;
+   margin-left: 2%;
+   background-color: #AE25DE;
+   border-radius: 10px;
+   color: white;
+}
+
+/* #################Fin de style concernant la page post ################################### */
+
+
+/* ################## STYLE PAGE DES COMMENTS ##################################### */
+
+.block_comment{
+   width: 70%;
+   height: 10%;
+   margin-left: 2%;
+}
+.titre_champ_comment{
+   font-size: 20px;
+   text-decoration-line:underline;
+}
+
+/* ################## STYLE PAGE DES COMMENTS ##################################### */
+
+.formulaire_editer_comment{
+   position: relative;
+   left: 45%;
+   width: max-content;
+   background-color: rgb(103, 192, 203);
+   font-weight: bold;
+   border-radius: 10px;
+   text-decoration-line: underline;
+   margin-top: 5%;
+
+}
+
+
+.formulaire_supprimer_comment{
+   position: relative;
+   left: 45%;
+   width: max-content;
+   margin-top: 2%;
+}
+
+.boutton_editer_comment{
+   background-color: rgb(8, 188, 50);
+   font-weight: bold;
+   color: white;
+}
+.boutton_supprimer_comment{
+   background-color: rgb(231, 41, 114);
+   font-weight: bold;
+   color: white;
+}
 /* ##############Debut de Style concernant la page user Album############# */
 .titre{
-   background-color: white
+   background-color: white;
+   margin-top: 4%;
 }
 .more{
    background-color: #AE25DE;
@@ -625,12 +711,26 @@ a{
 }
 /* ***************            FORMULAIRE ADDPost      ******************     */
 
-.boutton_formulaire_post {
+.boutton_formulaire_post_editer {
    border-radius: 10px;
-   background-color: brown;
+   width: max-content;
+   font-size: 15px;
+   color: white;
+   background-color: rgb(73, 157, 5);
    margin: 10px;
-   position: relative;
-   left: 200px;
+   /* position: relative;
+   left: 100px; */
+}
+
+.boutton_formulaire_post_supprimer {
+   border-radius: 10px;
+   width: max-content;
+   font-size: 15px;
+   color: white;
+   background-color: rgb(215, 20, 20);
+   margin: 10px;
+   /* position: relative;
+   left: 100px; */
 }
 
 .boutton_formulaire {
@@ -638,16 +738,37 @@ a{
    background-color: brown;
    margin: 10px;
    position: relative;
-   right: 200px;
+   right: 100px;
+}
+/* ######################### FORMULAIRE EDITER POST ####################### */
+.formulaire_editer_post{
+   position: relative;
+   left: 45%;
+   width: max-content;
+   background-color: rgb(105, 172, 170);
+   font-weight: bold;
+   border-radius: 10px;
+   text-decoration-line: underline;
+   margin-top: 5%;
 }
 
-.boutton_comment {
+.formulaire_supprimer_post{
    position: relative;
-   top: 20px;
-   background-color: greenyellow;
-   right: 150px;
-   border-radius: 10px;
+   left: 45%;
+   width: max-content;
+   margin-top: 2%;
 }
+.boutton_validation_editer_post{
+   background-color: rgb(93, 179, 8);
+   color: white;
+}
+
+.boutton_validation_supprimer_post{
+   background-color: rgb(179, 8, 94);
+   color: white;
+}
+
+
 
 /* ***************            FORMULAIRE ADDCOMMENTS      ******************     */
 .form_addComment {
@@ -670,12 +791,23 @@ a{
 
 
 /* ********************** formulaire addcomment ********************* */
-.boutton_formulaire_comment {
+.boutton_formulaire_comment_editer {
    border-radius: 10px;
-   background-color: brown;
+   width: max-content;
+   font-size: 15px;
+   color: white;
+   background-color: rgb(73, 157, 5);
    margin: 10px;
-   position: relative;
-   /* left: 200px; */
+   
+}
+.boutton_formulaire_comment_supprimer {
+   border-radius: 10px;
+   width: max-content;
+   font-size: 15px;
+   color: white;
+   background-color: rgb(214, 20, 65);
+   margin: 10px;
+   
 }
 /****************************Formulaire mofifier user**************/
 

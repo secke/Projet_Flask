@@ -1,9 +1,11 @@
 # ############### IMPORTATION DES MODULES ET FONCTIONS ######################
 # from asyncio import run_coroutine_threadsafe
 # from crypt import methods
+# from turtle import pos
 from cmath import log
 import sys
-# from turtle import pos
+from turtle import pos
+from flask import session
 from unicodedata import name
 import folium
 
@@ -12,7 +14,7 @@ from tabnanny import check
 sys.path.append('.')
 sys.path.append('..')
 
-from vue import utilisateur
+from vue import *
 import model,base
 from model import *
 
@@ -37,7 +39,7 @@ from flask_paginate import Pagination, get_page_args
 
 app=Flask(__name__)
 
-app.config['SECRET_KEY']='Groupe_7_2022'
+app.secret_key='Groupe_7_2022'
 ############# fermeture de session #####################################
 # @app.teardown_appcontext
 # def stopSession():
@@ -54,36 +56,26 @@ def principal():
 
 @app.route('/affiche', methods=['POST'])
 def affiche():
-
     n=int(request.form.get('choice_user'))
-
-    fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
-
-    # id = base.session.query(model.User.id)
-    # id= base.session.query(model.User.username=='Bret').first()
-    # id = model.User.query.filter_by(username = 'Bret').all()
-    # fiche = base.session.query(model.User.id,model.User.name, model.User.username, model.User.phone, model.User.email)
+    fiche = base.session.query(model.User).all()
     k=0
     for el in fiche:
         k+=1
-    l = round(k/n)
     if n>k:
-        if k>=n:
-            return render_template('afiche.html', fiche=fiche, n=n, id=id)
-
-        else:
-            try:
-                for i in range(k, n):
-                    utilisateur(base.f0,i)
-                fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
-                return render_template('afiche.html', fiche=fiche, n=n, l=l,id=id)
-                
-            except ConnectionError:
-                abort(404)
-    else:
-        n=5
-        fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
-        return render_template('afiche.html', fiche=fiche, n=n, l=l)
+        # if k>=n:
+        #     return render_template('afiche.html', fiche=fiche, n=n, id=id)
+        try:
+            for i in range(k, n):
+                utilisateur(base.f0,i)
+            fiche = base.session.query(model.User).all()
+            return render_template('afiche.html', fiche=fiche, n=n)
+            
+        except ConnectionError:
+            abort(404)
+    #### j'ai modifié ici #####        
+    elif k>=n:
+        fiche = base.session.query(model.User).all()
+        return render_template('afiche.html', fiche=fiche, n=n)
 
 
 ######## AJOUT DES USERS########
@@ -156,16 +148,30 @@ def supprimerUser(id):
 
 ######################## Page Post ####################################
 
-@app.route('/post')
-def post():
-    posts=base.session.query(model.Post).all()
-    return render_template('post.html', posts=posts)
+@app.route('/post/<int:userId>')
+def post(userId):
+    # posts=base.session.query(model.Post).all()
+    postsUser=base.session.query(model.Post).filter(model.Post.userId==userId).all()
+    
+    if postsUser:
+        postUserId=base.session.query(model.Post.id).filter(model.Post.userId==userId).first()
+        postId=postUserId['id']
+        return render_template('post.html',userId=userId,postsUser=postsUser,postId=postId)
+    else:
+        donnees_post(userId)
+        # postId=donnees_post(userId)
+        postsUser=base.session.query(model.Post).filter(model.Post.userId==userId).all()
+        postUserId=base.session.query(model.Post.id).filter(model.Post.userId==userId).first()
+        postId=postUserId['id']
+        # postsUserApi=base.session.query(model.Post).filter(model.Post.userId==userId).all()
+        return render_template('post.html',userId=userId,postsUser=postsUser,postId=postId)
+    # return render_template('post.html', posts=posts,userId=userId)
 
 ################### CRÉATION DE POSTS ##############################
-@app.route('/createPost', methods=('POST','GET'))
-def createPost():
+@app.route('/createPost/<int:userId>', methods=('POST','GET'))
+def createPost(userId):
     if request.method == 'POST':
-        userId=''
+        
         cle=base.session.query(model.Post.id)
         id=0
         for i in cle:
@@ -177,17 +183,17 @@ def createPost():
             base.session.commit()
         finally:
             base.session.close()
-            return redirect(url_for('post'))
+            return redirect(url_for('post',userId=userId))
 
-    return render_template('addPost.html')
+    return render_template('addPost.html',userId=userId)
 ##################### EDITER DES POSTS ##############################
 # def recupPost(id):
 #     val=base.session.query(model.Post).filter(model.Post.id==id).first()
 #     if val is None:
 #         abort(404)
 #     return val
-@app.route('/editerPost/<int:id>', methods=['GET','POST'])
-def editerPost(id):
+@app.route('/editerPost/<int:id>/<int:userId>', methods=['GET','POST'])
+def editerPost(id,userId):
     post=base.session.query(model.Post).filter(model.Post.id==id).first()
     if request.method=='POST':
         titre=request.form.get('title')
@@ -201,14 +207,14 @@ def editerPost(id):
             post.userId=Id_util
             post.id=id
             base.session.commit()
-
-            return redirect(url_for('post'))
-    return render_template('editerPost.html', post=post)
+            # , post=post,userId=userId
+            return redirect(url_for('post',post=post,userId=userId))
+    return render_template('editerPost.html',post=post,userId=userId)
 
 ##################### SUPPRIMER DES POSTS #########################
 
-@app.route('/supprimerPost/<int:id>', methods=('POST','GET'))
-def supprimerPost(id):
+@app.route('/supprimerPost/<int:id>/<int:userId>', methods=('POST','GET'))
+def supprimerPost(id,userId):
     suppost=base.session.query(model.Post).filter(model.Post.id==id).first()
 
     # supp=base.session.query(model.Post.id).filter(model.Post.id==id).first()
@@ -216,41 +222,41 @@ def supprimerPost(id):
     base.session.commit()
     base.session.close()
     flash("ce post a été supprimé avec succès!")
-    return redirect(url_for('post'))
+    return redirect(url_for('post',userId=userId))
 
 
 ######################## Page Album ####################################
 
-@app.route('/album')
-def album():
+@app.route('/album/<int:userId>')
+def album(userId):
     albums=base.session.query(model.Album).all()
-    return render_template('album.html', albums=albums)
+    return render_template('album.html', albums=albums,userId=userId)
 
 
 #################### AJOUTER ALBUM #############################
-@app.route('/addAlbum', methods=('POST','GET'))
-def addAlbum():
+@app.route('/addAlbum/<int:userId>', methods=('POST','GET'))
+def addAlbum(userId):
     if request.method == 'POST':
-        userId=''
+        
         cle=base.session.query(model.Album.id)
         id=0
         for i in cle:
             id=i['id']
         id+=1
-        ajout=model.Album(2,id,request.form.get('title'))
+        ajout=model.Album(userId,id,request.form.get('title'))
         try:
             base.session.add(ajout)
             base.session.commit()
         finally:
             base.session.close()
-            return redirect(url_for('album'))
+            return redirect(url_for('album',userId=userId))
 
-    return render_template('addAlbum.html')
+    return render_template('addAlbum.html',userId=userId)
 
 ############### MODIFIER ALBUM #########################
 
-@app.route('/modifierAlbum/<int:id>', methods=('GET','POST'))
-def modifierAlbum(id):
+@app.route('/modifierAlbum/<int:id>/<int:userId>', methods=('GET','POST'))
+def modifierAlbum(id,userId):
     album=base.session.query(model.Album).filter(model.Album.id==id).first()
     if request.method=='POST':
         titre=request.form.get('title')
@@ -262,22 +268,22 @@ def modifierAlbum(id):
             # base.session.add(ed0)
             base.session.commit()
             base.session.close()
-            return redirect(url_for('album'))
-    return render_template('modifierAlbum.html', album=album)
+            return redirect(url_for('album',userId=userId))
+    return render_template('modifierAlbum.html', album=album,userId=userId)
 
 
 
 ####################### SUPPRIMER ALBUM #############################
 
-@app.route('/supprimerAlbum/<int:id>', methods=('POST','GET'))
-def supprimerAlbum(id):
+@app.route('/supprimerAlbum/<int:id>/<int:userId>', methods=('POST','GET'))
+def supprimerAlbum(id,userId):
     suppalbum=base.session.query(model.Album).filter(model.Album.id==id).first()
     
     base.session.delete(suppalbum)
     base.session.commit()
     base.session.close()
     # flash('"{}" a été supprimé avec succès!'.format(album.get('title')))
-    return redirect(url_for('album'))
+    return redirect(url_for('album',userId=userId))
 
 
 ######################## Page Photo ####################################
@@ -346,58 +352,54 @@ def supprimerPhoto(id):
     return redirect(url_for('photo'))
 
 ############### PAGE TODOS ##########################
-@app.route('/todo')
-def todo():
+@app.route('/todo/<int:userId>')
+def todo(userId):
     todos=base.session.query(model.Todo).all()
-    return render_template('todo.html', todos=todos)
+    return render_template('todo.html', todos=todos,userId=userId)
 
 ################## AJOUTER TODOS ########################
 
-@app.route('/addTodo', methods=('POST','GET'))
-def addTodo():
+@app.route('/addTodo/<int:userId>', methods=('POST','GET'))
+def addTodo(userId):
     if request.method == 'POST':
-        userId=''
+        
         cle=base.session.query(model.Todo.id)
         id=0
         for i in cle:
             id=i['id']
         id+=1
-        ajout=model.Todo(1,id,request.form.get('title'),request.form.get('a_faire'),request.form.get('en_cours'),request.form.get('fini'))
+        ajout=model.Todo(userId,id,request.form.get('title'),request.form.get('ETAT'))
         try:
             base.session.add(ajout)
             base.session.commit()
         finally:
             base.session.close()
-            return redirect(url_for('todo'))
+            return redirect(url_for('todo',userId=userId))
 
-    return render_template('addTodo.html')
+    return render_template('addTodo.html',userId=userId)
 
 ################## MODIFIER TODOS ##########################
 
-@app.route('/modifierTodo/<int:id>', methods=('GET','POST'))
-def modifierTodo(id):
+@app.route('/modifierTodo/<int:id>/<int:userId>', methods=('GET','POST'))
+def modifierTodo(id,userId):
     todo=base.session.query(model.Todo).filter(model.Todo.id==id).first()
     if request.method=='POST':
         titre=request.form.get('title')
-        faire=request.form.get('a_faire')
-        encours=request.form.get('en_cours')
-        fini=request.form.get('fini')
+        ETAT=request.form.get('ETAT')
         if titre is None:
             flash('le titre est requis!')
         else:
             todo.title=titre
-            todo.a_faire=faire
-            todo.en_cours=encours
-            todo.fini=fini
+            todo.ETAT=ETAT
             base.session.commit()
             base.session.close()
-            return redirect(url_for('todo'))
-    return render_template('modifierTodo.html', todo=todo)
+            return redirect(url_for('todo',userId=userId))
+    return render_template('modifierTodo.html', todo=todo,userId=userId)
 
 ################ SUPPRIMER TODOS ##################
 
-@app.route('/supprimerTodo/<int:id>', methods=('POST','GET'))
-def supprimerTodo(id):
+@app.route('/supprimerTodo/<int:id>/<int:userId>', methods=('POST','GET'))
+def supprimerTodo(id,userId):
     suptodo=base.session.query(model.Todo).filter(model.Todo.id==id).first()
     
     # suppTodo=base.session.query(model.Todo.id).filter(model.Todo.id==id).first()
@@ -405,37 +407,45 @@ def supprimerTodo(id):
     base.session.commit()
     base.session.close()
     # flash('"{}" a été supprimé avec succès!'.format(todo.get('title')))
-    return redirect(url_for('todo'))
+    return redirect(url_for('todo',userId=userId))
 
 ############### PAGE COMMENTS ##########################
-@app.route('/comments')
-def comments():
-    comments=base.session.query(model.Comment).all()
-    return render_template('comments.html', comments=comments)
+@app.route('/comments/<int:postId>')
+def comments(postId):
+    commentsPost=base.session.query(model.Comment).filter(model.Comment.postId==postId).all()
+    # commentPostId=base.session.query(model.Comment.id).filter(model.Comment.postId==postId).first()
+    if commentsPost:
+        return render_template('comments.html',commentsPost=commentsPost,postId=postId)
+    else:
+        donnees_comment(postId)
+        commentsPost=base.session.query(model.Comment).filter(model.Comment.postId==postId).all()
+        return render_template('comments.html',commentsPost=commentsPost,postId=postId)
+
+    # return render_template('comments.html', comments=comments,postId=postId)
 
 ################ AJOUTER COMMENTS ############################
-@app.route('/addComments', methods=('POST','GET'))
-def addComments():
+@app.route('/addComments/<int:postId>', methods=('POST','GET'))
+def addComments(postId):
     if request.method == 'POST':
-        postId=''
+        # postId=''
         cle=base.session.query(model.Comment.id)
         id=0
         for i in cle:
             id=i['id']
         id+=1
-        ajout=model.Comment(1,id,request.form.get('name'),request.form.get('email'),request.form.get('body'))
+        ajout=model.Comment(postId,id,request.form.get('name'),request.form.get('email'),request.form.get('body'))
         try:
             base.session.add(ajout)
             base.session.commit()
         finally:
             base.session.close()
-            return redirect(url_for('comments'))
+            return redirect(url_for('comments',postId=postId))
 
-    return render_template('addComments.html')
+    return render_template('addComments.html',postId=postId)
 
 ################## MODOFIER COMMENTS ############################
-@app.route('/modifierComments/<int:id>', methods=('GET','POST'))
-def modifierComments(id):
+@app.route('/modifierComments/<int:id>/<int:postId>', methods=('GET','POST'))
+def modifierComments(id,postId):
     comment=base.session.query(model.Comment).filter(model.Comment.id==id).first()
     if request.method=='POST':
         nom=request.form.get('name')
@@ -449,13 +459,13 @@ def modifierComments(id):
             comment.body=corps
             base.session.commit()
             base.session.close()
-            return redirect(url_for('comments'))
-    return render_template('modifierComments.html', comment=comment)
+            return redirect(url_for('comments',postId=postId))
+    return render_template('modifierComments.html', comment=comment,postId=postId)
 
 ################## SUPPRIMER COMMENTS #######################
 
-@app.route('/supprimerComments/<int:id>', methods=('POST','GET'))
-def supprimerComments(id):
+@app.route('/supprimerComments/<int:id>/<int:postId>', methods=('POST','GET'))
+def supprimerComments(id,postId):
     supcomment=base.session.query(model.Comment).filter(model.Comment.id==id).first()
     
     # suppComment=base.session.query(model.Comment.id).filter(model.Comment.id==id).first()
@@ -463,39 +473,52 @@ def supprimerComments(id):
     base.session.commit()
     base.session.close()
     # flash('"{}" a été supprimé avec succès!'.format(comment.get('title')))
-    return redirect(url_for('comments'))
+    return redirect(url_for('comments',postId=postId))
 
 ############ PAGE DE CONNEXION ###########################################
 @app.route('/login/', defaults={'email': ""})
-@app.route('/login/<email>/<id>', methods=('GET','POST'))
-def connexion(email,id):
+@app.route('/login/<email>/<id>/<name>', methods=('GET','POST'))
+def connexion(email,id,name):
     if request.method=='POST':
         login=request.form['connect']
+        userConnect=request.form['connect']
+        session['email']=userConnect
         userId=base.session.query(model.User.id).filter(model.User.email==login).first()[0]
-        print(userId)
+        # print(userId)
         motPass=request.form['secur']
         notfistuser=base.session.query(Connexion.login).filter(Connexion.login==login).first()
         if notfistuser:
             password=base.session.query(Connexion.password).filter(Connexion.login==login).first()
             motPass=password
-            return redirect(url_for('userpost',userId=userId))
+            return redirect(url_for('userpost',userId=userId,name=name))
             
         else:
             ajoutConnexion=Connexion(login=login, password=motPass,id_user=id)
             base.session.add(ajoutConnexion)
             base.session.commit()
-            return redirect(url_for('userpost'))
-    return render_template('connexion.html',mail=email,id=id)
+            return redirect(url_for('userpost',userId=userId,name=name))
+    return render_template('connexion.html',mail=email,id=id,name=name)
+
+######################### PAGE DE DÉCONNEXION ################################
+
+@app.route('/deconnexion')
+def deconnexion():
+    session.pop('email',None)
+    # if 'email' in session:
+    #     print('OK')
+    # else:
+    #     print('OOPS')
+    return redirect(url_for('principal'))
 
 
 
 ########################Page user Post####################################
 
-@app.route('/userpost/<int:userId>')
-def userpost(userId):
-    print(userId)
+@app.route('/userpost/<int:userId>/<name>')
+def userpost(userId,name):
+    #   
     # post=base.session.query(model.Post).all()
-    return render_template('userpost.html',userId=userId)
+    return render_template('userpost.html',userId=userId,name=name)
 
 
 
@@ -525,17 +548,16 @@ def userinfo():
 
 @app.route('/affiche_infos_user/<int:userId>')
 def affiche_infos_user(userId):
-    print(userId)
+    # print(userId)
     # fiches = base.import_api('users')
     fiche = base.session.query(model.User.name, model.User.username, model.User.phone, 
-    model.User.email, model.User.address).filter(model.User.id==userId).first()
+    model.User.email, model.User.address,model.User.companyName,model.User.catchPhrase,
+    model.User.companyBs).filter(model.User.id==userId).first()
     
-    # namecompany = fiches[1]['company'].split(',')[0].split(':')[-1]
-    # catchphrase = fiches[1]['company'].split(',')[1].split(':')[-1]
-    # bs = fiches[1]['company'].split(',')[2].split(':')[-1]
+    # namecompany = fiche['company'].split(',')[0].split(':')[-1]
+    # catchphrase = fiche['company'].split(',')[1].split(':')[-1]
+    # bs = fiche['company'].split(',')[2].split(':')[-1]
     
-    # namecompany = fiche['company']['name']
-    # catchphrase = fiche['company']['catchPhrase']
     phone = fiche['phone'].split('x')[0]
     lat = float(fiche['address'].split(',')[4].split(':')[-1].strip('}').strip(" ").strip("'"))
     long= float(fiche['address'].split(',')[5].split(':')[-1].strip('}').strip(" ").strip("'"))
@@ -555,12 +577,12 @@ def affiche_infos_user(userId):
     # company=[namecompany,catchphrase,bs]
     
     map.save('templates/map.html')
-    return render_template('affiche_infos_user.html', fiche=fiche, phone=phone, i=1, map=map,userId=userId,lat=lat,long=long)
+    return render_template('affiche_infos_user.html', fiche=fiche, phone=phone, map=map,userId=userId,lat=lat,long=long)
 
 
 
 
-# **********************************************************************************
+##########################" PAGE DE PAGINATION ##################################"
 
 # app.template_folder = 'templates'
 # users = list(range(200))
@@ -574,8 +596,11 @@ def get_users(offset=0, per_page=5):
 @app.route('/paginate', methods=["POST","GET"])
 @app.route('/paginate')
 def paginate():
-    n=(request.form.get('choice_user'))
+    n=request.form.get('choice_user')
     a = int(n)
+#### J'ai modifié beaucoup de choses ici (importation d'éléments depuis la fonction "affiche")###
+
+    fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
     page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter= 'per_page')
 
     total = len(users)
@@ -584,8 +609,30 @@ def paginate():
     pagination_users = get_users(offset=offset, per_page=per_page)
 
     pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
+    k=0
+    for el in fiche:
+        k+=1
+    # l = round(k/n)
+    if a>k:
+        if k>=a:
+            return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
 
-    return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
+        else:
+            try:
+                for i in range(k, a):
+                    utilisateur(base.f0,i)
+                fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
+                return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
+                
+            except ConnectionError:
+                abort(404)
+    else:
+        a=5
+        fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
+        return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
+
+
+    # return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
 
 # *********************************************************************************
 

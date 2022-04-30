@@ -2,18 +2,19 @@
 
 {% block content %}
 <nav class="principal">
-    <button class="deconnexion">Déconnexion</button>
+    <a href="{{ url_for('deconnexion') }}"><button class="deconnexion">Déconnexion</button></a>
+
     <ul class="menu">
-        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addAlbum') }}">Ajouter Album</a></li>
-{% endblock %}
-
-
-{% block footer%}
+        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addAlbum',userId=userId) }}">Ajouter Album</a></li>
+    </ul>
+</nav>
 {% for album in albums %}
     <div class="block">
        <a href="{{ url_for('photo') }}"> <button style="color:green;font-weight:bold;" >{{ album.title }}
-            <a href="{{ url_for('modifierAlbum',id=album.id) }}"><button class="bouton_edit_supp">Editer</button></a>
-            <a href="{{ url_for('supprimerAlbum',id=album.id) }}"><button class="bouton_edit_supp">Supprimer</button></a></button></a>
+            <a href="{{ url_for('modifierAlbum',id=album.id,userId=userId) }}"><button class="bouton_edit_supp">Editer</button></a>
+            <a href="{{ url_for('supprimerAlbum',id=album.id,userId=userId) }}"><button class="bouton_edit_supp">Supprimer</button></a></button></a>
     </div>
 {% endfor %}
-{% endblock footer%}
+{% endblock %}
+
+

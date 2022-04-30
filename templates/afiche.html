@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <nav class="principal">
+    <!-- <nav class="principal">
         <div class="div_logo_user">
             <i class="fa-regular fa-user" id="iconuser"></i>
             <span >User</span>
@@ -10,33 +10,31 @@
             <a href="{{ url_for('adduser') }}"  class=" bouton_principal"><button class="btn_ajout">+Ajouter un user</button></a>
             <a href="" class="bouton_principal"><button class="btn_ajout">Afficher des users</button></a>
         </div>
-    </nav>
+    </nav> -->
     <div id="body_affichage">
         <div class="affiche">
             <div class="div_info_user">
                 <span class="info_user">Name</span>
                 <span class="info_user">Username</span>
                 <span class="info_user">Phone</span>
+                <span class="info_user">Website</span>
                 <span class="info_user">Email</span>
             </div>
             
             {% for i in range(n) %}
                 <div class="div_article_user">
-                    <a  href="{{ url_for('connexion',email=  fiche[i]['email'],id= fiche[i]['id']) }}" class="article_user" >
+                    <a  href="{{ url_for('connexion',email=fiche[i]['email'],id= fiche[i].id,name= fiche[i].name) }}" class="article_user" >
                         <span class="paragraphe_user">{{ fiche[i]['name'] }}</span>
-                        <span class="paragraphe_user" name="username" id="username">{{ id }}</span>
+                        <span class="paragraphe_user" name="username" id="username">{{ fiche[i].username }}</span>
                         <span class="paragraphe_user">{{ fiche[i]['phone'] }}</span>
                         <span class="paragraphe_user">{{ fiche[i]['website'] }}</span>
                         <span class="paragraphe_user">{{ fiche[i]['email'] }}</span>
                     </a>
-                    <button class="edit_btn ">Edit</button>
-                    <button class="delete_btn">Delete</button>
+                    <a href="{{ url_for('modifierUser',id= fiche[i].id) }}"><button class="edit_btn ">Edit</button></a>
+                    <a href="{{ url_for('supprimerUser',id= fiche[i].id) }}"><button class="delete_btn">Delete</button></a>
                   </div>
-                </div>
             {% endfor %}
-           
-
-        </div>
+        </div> 
     </div>
 
 {% endblock %}

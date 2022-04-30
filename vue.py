@@ -2,9 +2,10 @@ import sys
 sys.path.append('.')
 sys.path.append('..')
 import model,base
+import requests
 
 def utilisateur(liste,u):
-    el=model.User(liste[u]['id'],liste[u]['name'],liste[u]['username'],liste[u]['phone'],liste[u]['email'],str(liste[u]['address']),str(liste[u]['company']), liste[u]['website'])
+    el=model.User(liste[u]['id'],liste[u]['name'],liste[u]['username'],liste[u]['phone'],liste[u]['email'],str(liste[u]['address']),str(liste[u]['company']['name']),liste[u]['company']['catchPhrase'],liste[u]['company']['bs'], liste[u]['website'])
     base.session.add(el)
     base.session.commit()
 
@@ -33,18 +34,39 @@ def donnees_todo():
     base.session.commit()
 # donnees_todo()
 
-def donnees_post():
-    for u in range(len(base.f4)):
-        el=model.Post(base.f4[u]['userId'],base.f4[u]['id'],base.f4[u]['title'],base.f4[u]['body'])
-        base.session.add(el)
-    base.session.commit()
+def donnees_post(userId):
+    f4=requests.get(f"https://jsonplaceholder.typicode.com/posts/?userId={userId}")
+    f4=f4.json()
+    for u in range(len(f4)):
+        idPostLocal=base.session.query(model.Post.id).filter(model.Post.id==f4[u]['id']).first()
+        if idPostLocal:
+            pass
+        else:
+            el=model.Post(f4[u]['userId'],f4[u]['id'],f4[u]['title'],f4[u]['body'])
+            base.session.add(el)
+            base.session.commit()
+            base.session.close()
+    # idPost=base.session.query(model.Post.id).filter(model.Post.id==f4[u]['id']).first()
+    # postId=idPost['id']
+    # return postId
 # donnees_post()
 
-def donnees_comment():
-    for u in range(len(base.f5)):
-        el=model.Comment(base.f5[u]['postId'],base.f5[u]['id'],base.f5[u]['name'],base.f5[u]['email'],base.f5[u]['body'])
-        base.session.add(el)
-    base.session.commit()
+def donnees_comment(postId):
+    f5=requests.get(f"https://jsonplaceholder.typicode.com/comments/?postId={postId}")
+    f5=f5.json()
+    for u in range(len(f5)):
+        idCommentLocal=base.session.query(model.Comment.id).filter(model.Comment.id==f5[u]['id']).first()
+        if idCommentLocal:
+            pass
+        else:
+            el=model.Comment(f5[u]['postId'],f5[u]['id'],f5[u]['name'],f5[u]['email'],f5[u]['body'])
+            base.session.add(el)
+            base.session.commit()
+            base.session.close()
+    # for u in range(len(base.f5)):
+    #     el=model.Comment(base.f5[u]['postId'],base.f5[u]['id'],base.f5[u]['name'],base.f5[u]['email'],base.f5[u]['body'])
+    #     base.session.add(el)
+    # base.session.commit()
 # donnees_comment()
 
 

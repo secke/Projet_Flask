@@ -15,7 +15,9 @@ class User(base.base):
     username=Column(String(50))
     email=Column(String(50))
     address=Column(String(400))
-    company=Column(String(400))
+    companyName=Column(String(400))
+    catchPhrase=Column(String(400))
+    companyBs=Column(String(400))
     website=Column(String(300))
     email=Column(String(100))
     address=Column(String(300))
@@ -28,14 +30,16 @@ class User(base.base):
     albums=relationship('Album')
     todos=relationship('Todo')
     posts=relationship('Post')
-    def __init__(self,id,name,username,phone,email,address, company, website):
+    def __init__(self,id,name,username,phone,email,address, companyName,catchPhrase,companyBs, website):
         self.id=id
         self.name=name
         self.username=username
         self.phone=phone
         self.email=email
         self.address=address
-        self.company=company
+        self.companyName=companyName
+        self.catchPhrase=catchPhrase
+        self.companyBs=companyBs
         self.website=website
         
 
@@ -76,17 +80,14 @@ class Todo(base.base):
     userId=Column(Integer, ForeignKey('users.id'))
     id=Column(Integer, primary_key=True)
     title=Column(String(200))
-    a_faire=Column(TEXT)
-    en_cours=Column(TEXT)
-    fini=Column(TEXT)
+    ETAT=Column(TEXT)
+    
     # completed=Column(Boolean)
-    def __init__(self,userId, id, title, a_faire,en_cours,fini):
+    def __init__(self,userId, id, title, ETAT):
         self.userId=userId
         self.id=id
         self.title=title
-        self.a_faire=a_faire
-        self.en_cours=en_cours
-        self.fini=fini
+        self.ETAT=ETAT
 
 ############## POST ########################
 
@@ -114,13 +115,13 @@ class Comment(base.base):
     name=Column(String(100))
     email=Column(String(100))
     body=Column(TEXT)
-    def __init__(self, postId, id, name, email, body,password):
+    def __init__(self, postId, id, name, email, body):
         self.postId=postId
         self.id=id
         self.name=name
         self.email=email
         self.body=body
-        self.password=password
+        # self.password=password
 
 
 ############Connexion############################
