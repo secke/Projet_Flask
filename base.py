@@ -10,10 +10,6 @@ import requests
 
 
 
-# engine=create_engine('postgresql://secke:keita2022@localhost:5432/baseflask')
-#engine=create_engine('postgresql://secke:keita2022@localhost:5432/baseflask')
-# engine=create_engine('postgresql://secke:keita2022@localhost:5432/baseflask')
-# 'postgresql://votre_nom_utilisateur_postgres:votre_mot_de_passe@localhost:5432/le_nom_votre_Base_de_données'
 engine=create_engine('postgresql://votre_nom_utilisateur_postgres:votre_mot_de_passe@localhost:5432/le_nom_votre_Base_de_données')
 base_session=sessionmaker(bind=engine,autocommit=False,autoflush=False)
 session=base_session()
