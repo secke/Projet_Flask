@@ -44,9 +44,30 @@ app.config['SECRET_KEY']='Groupe_7_2022'
 
 ##########################Page Principale ##################################
 
-@app.route('/')
+@app.route('/',methods=('GET','POST'))
 def principal():
-    return render_template('principal.html')
+    fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
+    if request.method=='POST':
+         n=int(request.form.get('choice_user'))
+         k=0
+         for el in fiche:
+            k+=1
+         if n>k:
+            try:
+                for i in range(k, n):
+                    utilisateur(base.f0,i)
+                fiche = base.session.query(model.User).all()
+                return render_template('principal.html', fiche=fiche, n=n)
+                
+            except ConnectionError:
+                abort(404)
+        #### j'ai modifié ici #####        
+         elif k>=n:
+                fiche = base.session.query(model.User).all()
+                return render_template('principal.html', fiche=fiche, n=n)
+    else:
+        n=0
+    return render_template('principal.html',fiche=fiche,n=n)
 
 ################## AFFICHAGE DES USER ######## 
 

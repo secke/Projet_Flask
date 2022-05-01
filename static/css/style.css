@@ -88,6 +88,13 @@ span{
    margin-top: 14%;
    margin-right: 10%;
 }
+.welcome{
+   height: 80%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+}
 /* ############Tout ce qui concerne l'ajout des users ################ */
 
 .title_adduser{
@@ -266,22 +273,17 @@ span{
 
 .edit_btn{
    width: max-content;
-   height: max-content;
-   background-color: #08b811;
+   height: 70%;
+   background-color: #F5D7FF;
    color: white;
    font-size: 15px;
-   border-radius: 10px;
-   /* display: flex;
-   justify-content: center;
-   align-items: center; */
 }
 .delete_btn{
    width: max-content;
-   height: max-content;
-   background-color: #b80866;
+   height: 70%;
+   background-color: #F5D7FF;
    color: white;
    font-size: 15px;
-   border-radius: 10px;
 }
 a{
    text-decoration: none;
@@ -294,7 +296,16 @@ a{
 #modif,#sup{
    font-size: 25px;
    color: #AE25DE;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding-top: 20%;
 }
+#modif{
+   padding-top: 90%;
+
+}
+
 
 
 /* ###################Fin de style concernant la page principale###################### */

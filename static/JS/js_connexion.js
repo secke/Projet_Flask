@@ -59,8 +59,10 @@ function valider(){
 }
 var form=document.querySelector(".choice_user")
 var affich=document.querySelector("#body_affichage")
+var imag=document.querySelector(".welcome")
 function activeblock() {
   form.style.display="block";
+  imag.style.display="none"
   
 }
 function desactiveblock(){
