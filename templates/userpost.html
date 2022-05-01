@@ -2,20 +2,32 @@
 
 {% block content %}
 <nav class="principal">
-    <button class="deconnexion">Déconnexion</button>
+    <div class="div_logo_user">
+        <i class="fa-solid fa-user" id="iconhome"></i>
+        <span >User</span>
+    </div>
     <ul class="menu">
-        <li class="list"><a href="{{ url_for('post') }}">Post</a></li>
-        <li class="list" ><a href="{{ url_for('album') }}">Album</a></li>
-        <li class="list"><a href="{{ url_for('todo') }}">Todo</a></li>
+        <li class="list"><a href="{{ url_for('post', userId=userId) }}">Post</a></li>
+        <li class="list" ><a href="{{ url_for('album', userId=userId) }}">Album</a></li>
+        <li class="list"><a href="{{ url_for('todo', userId=userId) }}">Todo</a></li>
         <li class="list"><a href="{{ url_for('affiche_infos_user',userId=userId) }}"> Info</a> </li>
     </ul>
+    <a href="{{ url_for('deconnexion') }}"><button class="deconnexion">Déconnexion</button></a>
 </nav>
 <main class="main">
     {% block main %}
+       
+    
+    <div class="icone_accueille_user">
+        <h1 >BIENVENUE {{ name }}</h1>
+        <img src="{{ url_for('static',filename='images/icone_accueille_user.jpg') }}" alt="" >
+    </div>
+    
+   
+    <!-- <div class="block"></div>
     <div class="block"></div>
     <div class="block"></div>
-    <div class="block"></div>
-    <div class="block"></div>
+    <div class="block"></div> -->
     {% endblock main %}
 </main>
 {% endblock %}

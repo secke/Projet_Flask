@@ -4,23 +4,15 @@
     <div class="title_todo">
         <h1>Remplissez les champs ci-dessous et soumettez le formulaire</h1>
     </div>
-    <form action="{{ url_for('addTodo') }}" class="form_addTodo" method="post">
+    <form action="{{ url_for('addTodo',userId=userId) }}" class="form_addTodo" method="post">
         
         <div class="addtodo_champ">
-            <label for="" class="label_addtodo">Titre</label>
+            <h3>Titre</h3>
             <input type="text" class="input_addtodo" name="title">
         </div>
         <div class="addtodo_champ">
-            <label for="">A faire</label>
-           <textarea name="a_faire" ></textarea>
-        </div>
-        <div class="addtodo_champ">
-            <label for="">En Cours</label>
-           <textarea name="en_cours" ></textarea>
-        </div>
-        <div class="addtodo_champ">
-            <label for="" class="label_addtodo">Terminer</label>
-            <input type="text" class="input_addtodo" name="fini">
+            <h3>ÉTAT</h3>
+           <textarea name="ETAT" ></textarea>
         </div>
         <div class="addpost_champ div_btn_addtodo">
             <button type="submit" class="btn_submit">Valider</button>

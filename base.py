@@ -37,9 +37,9 @@ f2=import_api('photos')
 
 f3=import_api('todos')
 
-f4=import_api('posts')
+# f4=import_api('posts')
 
-f5=import_api('comments')
+# f5=import_api('comments')
 
 
 

@@ -2,21 +2,24 @@
 
 {% block content %}
 <nav class="principal">
-    <button class="deconnexion">Déconnexion</button>
+    <a href="{{ url_for('deconnexion') }}"><button class="deconnexion">Déconnexion</button></a>
     <ul class="menu">
-        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addComments') }}">Ajouter Un Comment</a></li>
-{% endblock %}
-{% block footer%}
-{% for comment in comments %}
-    <div class="block">
-        <h2 class="titre"><a href="{{ url_for('modifierComments',id=comment.id) }}"><button class="boutton_formulaire_comment">Editer</button></a><a href="{{ url_for('supprimerComments',id=comment.id) }}"><button class="boutton_formulaire_comment">supprimer</button></a>
-            {{ comment.name }}</h2>
+        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addComments',postId=postId) }}">Ajouter Un Comment</a></li>
+    </ul>
+</nav>
+{% for comment in commentsPost %}
+    <div class="block_comment">
+        <h2 class="titre">
+            {{ comment.name }} <a href="{{ url_for('modifierComments',id=comment.id,postId=postId) }}"><button class="boutton_formulaire_comment_editer">Editer</button></a><a href="{{ url_for('supprimerComments',id=comment.id,postId=postId) }}"><button class="boutton_formulaire_comment_supprimer">supprimer</button></a>
+        </h2>
     </div>
-    <div class="block">
+    <div class="block_comment">
+        <h6 class="titre_champ_comment">Email</h6>
         <input type="text" value="{{ comment.email }}">
      </div>
-    <div class="block">
-       <textarea >{{ comment.body }}</textarea>
+    <div class="block_comment">
+        <h6 class="titre_champ_comment">Contenu</h6>
+      <p>{{ comment.body }}</p>
     </div>
 {% endfor %}
-{% endblock footer%}
+{% endblock %}

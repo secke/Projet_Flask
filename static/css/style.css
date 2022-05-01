@@ -238,7 +238,7 @@ span{
 }
 
 .article_user{
-   width: 100%;
+   width: 92%;
    height: 70%;
    display: flex;
    flex-direction: row;
@@ -264,14 +264,24 @@ span{
    flex-direction: row;
 }
 
-.edit_btn,.delete_btn{
-   width: 5%;
-   height: 70%;
-   background-color: #F5D7FF;
+.edit_btn{
+   width: max-content;
+   height: max-content;
+   background-color: #08b811;
    color: white;
-   display: flex;
+   font-size: 15px;
+   border-radius: 10px;
+   /* display: flex;
    justify-content: center;
-   align-items: center;
+   align-items: center; */
+}
+.delete_btn{
+   width: max-content;
+   height: max-content;
+   background-color: #b80866;
+   color: white;
+   font-size: 15px;
+   border-radius: 10px;
 }
 a{
    text-decoration: none;
@@ -324,8 +334,8 @@ a{
    margin: 0;
    margin-left: 20px;
    margin-top: 15px;
-   height: 40%;
-   width: 15%;
+   height: max-content;
+   width: max-content;
    border: #AE25DE;
    font-size: 24px;
 }
@@ -344,12 +354,88 @@ a{
    width: 60%;
    margin: 20px;
    position: relative;
+} 
+
+.icone_accueille_user{
+   margin: 2%;
+   padding: 2%;
+   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   background-color:rgb(231, 231, 125);
+   color: rgb(73, 62, 1);
 }
+
 /* ###################Fin de style concernant la page user Post###################### */
 
+/* #################Style concernant la page post #######################################*/
+
+.contenu_post{
+   width: 70%;
+   height: max-content;
+   margin-left: 2%;
+   /*  */
+   font-size: 150%;
+}
+
+.boutton_comment{
+   width: 10%;
+   height: 5%;
+   margin-left: 2%;
+   background-color: #AE25DE;
+   border-radius: 10px;
+   color: white;
+}
+
+/* #################Fin de style concernant la page post ################################### */
+
+
+/* ################## STYLE PAGE DES COMMENTS ##################################### */
+
+.block_comment{
+   width: 70%;
+   height: 10%;
+   margin-left: 2%;
+}
+.titre_champ_comment{
+   font-size: 20px;
+   text-decoration-line:underline;
+}
+
+/* ################## STYLE PAGE DES COMMENTS ##################################### */
+
+.formulaire_editer_comment{
+   position: relative;
+   left: 45%;
+   width: max-content;
+   background-color: rgb(103, 192, 203);
+   font-weight: bold;
+   border-radius: 10px;
+   text-decoration-line: underline;
+   margin-top: 5%;
+
+}
+
+
+.formulaire_supprimer_comment{
+   position: relative;
+   left: 45%;
+   width: max-content;
+   margin-top: 2%;
+}
+
+.boutton_editer_comment{
+   background-color: rgb(8, 188, 50);
+   font-weight: bold;
+   color: white;
+}
+.boutton_supprimer_comment{
+   background-color: rgb(231, 41, 114);
+   font-weight: bold;
+   color: white;
+}
 /* ##############Debut de Style concernant la page user Album############# */
 .titre{
-   background-color: white
+   background-color: white;
+   margin-top: 4%;
 }
 .more{
    background-color: #AE25DE;
@@ -386,12 +472,209 @@ a{
    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
  }
 
-/* ###################Fin de style concernant la page user Post###################### */
+ .body_album{
+    overflow: scroll;
+    width: 100%;
+    height: 88%;
+    display: flex;
+    flex-direction: row;
+    justify-content:last baseline;
+    align-items: stretch;
+    /*  */
+    /* flex-direction:unset; */
+   flex-wrap: wrap-reverse;
+ }
+
+ 
+
+.div_img_album{
+   width: 48%;
+   height: 45%;
+   /* border: 2px solid #F5D7FF; */
+   margin: 1%;
+   /* margin-left: 1%; */
+   display: flex;
+  
+}
+
+.div_album{
+   
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   /* border: 2px solid #F5D7FF; */
+   justify-content: center;
+   align-items: center;
+ }
+
+ .album_photo{
+   width: 100%;
+   height: 83%;
+   display: flex;
+   flex-direction: row;
+ }
+
+ .album_bouton {
+    width: 8%;
+    height: 5%;
+    background-color: #532CA6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;
+
+ }
+
+ .button_album{
+    background-color: #532CA6;
+    color: white;
+    border-radius: 10%;
+    width: 100%;
+ }
+
+.album_right{
+   width: 50%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   border: 2px solid #F5D7FF;
+}
+
+.album_left{
+   width: 50%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   border: 2px solid #F5D7FF;
+}
+
+.sous_div_img_album_top{
+   width: 100%;
+   height: 50%;
+   display: flex;
+   flex-direction: column;
+   border: 2px solid #F5D7FF;
+}
+
+.album_photo_top{
+   display: flex;
+   flex-direction: row;
+   width: 100%;
+   height: 100%;
+   border: 2px solid #F5D7FF;
+   
+}
+
+.album_photo_botum{
+   display: flex;
+   flex-direction: row;
+   width: 100%;
+   height: 100%;
+   border: 2px solid #F5D7FF;
+}
+
+.album_title{
+   /* border: 2px solid #F5D7FF; */
+   height: 12%;
+   font-size: 100%;
+   width: 100%;
+   font-size: 200%;
+}
+
+.sous_div_img_album_botum{
+   width: 100%;
+   height: 50%;
+   display: flex;
+   flex-direction: column;
+   border: 2px solid #F5D7FF;
+}
+
+.img_album{
+   border: 2px solid #F5D7FF;
+   width: 50%;
+   height: 100%;
+
+}
+
+.body_photo{
+   /* border: 2px solid black; */
+   width: 100%;
+   height: 88%;
+   overflow: scroll;
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+}
+
+.affiche_photo{
+   width: 46%;
+   height: 48%;
+   border: 2px solid black;
+   margin-top: 2%;
+   margin-left: 3%;
+}
+
+.modif_album{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   flex-wrap: nowrap;
+   width: 22%;
+   height: 10%;
+   position: relative;
+   float: right;
+   top: -100%;
+   z-index: 4;
+}
+
+.modif_albums{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   flex-wrap: nowrap;
+   width: 22%;
+   height: 10%;
+   position: relative;
+   right: -38%;
+   float: right;
+   top: -98%;
+   z-index: 4;
+}
+
+.edit_album{
+   width: 40%;
+   height: 100%;
+   /* background-color: green; */
+}
+
+.btn_edit_album{
+   width: 100%;
+   height: 100%;
+   color: white;
+   border-radius: 25%;
+   background-color: green;
+}
+
+
+.supprime_album{
+   width: 45%;
+   height: 100%;
+   /* background-color: red; */
+}
+
+
+.btn_suppress_album{
+   width: 100%;
+   height: 100%;
+   border-radius: 25%;
+   background-color: red;
+   color: white;
+}
 
 
 
-/* ###################Debut de style concernant la page user Todo###################### */
-
+ /* ##############Fin de Style concernant la page user Album############# */
 
 
 .tblock{
@@ -426,12 +709,44 @@ a{
   
 }
 .champ input{
-   background-color: #F5D7FF;
-   width: 60%;
-   border: #F5D7FF;
+   width: 40%;
    align-items: flex-end;
    margin-left: 30px;
+   
 }
+
+.input_password{
+   font-size: 1em;
+  
+   width: 100%;
+   height: 60%;
+  /* transition: all 0.2s; */
+}
+
+.champ_password{
+   
+   position: relative;
+   height: 80%;
+}
+ 
+
+label .password-icon {
+   display: flex;
+   align-items: center;
+   position: absolute;
+   top: 20%;
+   left: 38%;
+   width: 20px;
+   color: black;
+ }
+
+ label .password-icon:hover {
+   cursor: pointer;
+ }
+
+ label .password-icon .feather-eye-off {
+   display: none;
+ }
 
 .champ .infouser{
    background-color: #F5D7FF;
@@ -490,7 +805,7 @@ a{
    display: flex;
    flex-direction: column;
    justify-content: space-evenly;
-   height: 30%;
+   height: 40%;
 }
 .login label,.password label{
    font-size: 46px;
@@ -498,7 +813,7 @@ a{
 }
 .login input ,.password input{
    width: 40%;
-   height: 30%;
+   /* height: 80%; */
    background-color: #F1F1F1;
    border: #F1F1F1;;
    box-shadow:  inset 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -508,7 +823,7 @@ a{
    cursor: pointer;
    color: white;
    background-color: #AE25DE;
-   width: 45%;
+   width: 30%;
    font-size: 64px;
    border-radius: 0.3em;
    border: #AE25DE;
@@ -634,18 +949,140 @@ a{
 }
 
 /* ***************            FORMULAIRE ADDPHOTO       ******************     */
-.block_formulaire_addphoto {
-   position: relative;
-   left: 100px;
+
+.form_addPhoto{
+   width: 100%;
+   height: 50%;
+   /* border: 2px solid black; */
+   display: flex;
+   flex-direction: column;
+   /* align-items: center; */
+   justify-content: space-around;
+   align-items: center;
 }
+
+.block_formulaire_addphoto {
+   width: 50%;
+   height: 25%;
+   /* border: 2px solid black; */
+   /* position: relative;
+   left: 100px; */
+}
+
+.div_btn_addphoto{
+   height: 10%;
+   width: 30%;
+   /* border: 2px solid black; */
+}
+
+.btn_submit_addPhoto{
+   height: 90%;
+   width: 20%;
+   /* margin-left: 10%; */
+   background-color: #AE25DE;
+   color: white;
+   /* border-radius: 10%; */
+   border: 2px solid #AE25DE;
+}
+
+.addphoto{
+   height: 40%;
+   width: 50%;
+}
+
 /* ***************            FORMULAIRE ADDPost      ******************     */
 
-.boutton_formulaire_post {
+.form_addPost{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   width: 100%;
+   height: 60%;
+}
+
+.title_post{
+   text-align: center;
+   margin-top: 2%;
+}
+
+.addpost_champ{
+   display: flex;
+   flex-direction: column;
+   /* align-items: center; */
+   
+   width: 30%;
+   height: 20%;
+   margin-top: 3%;
+}
+
+.input_addpost{
+   width: 100%;
+   height: 50%;
+}
+
+.addpost_champ_text{
+   display: flex;
+   width: 30%;
+   flex-direction: column;
+   
+   width: 30%;
+   height: 30%;
+   margin-top: 3%;
+}
+
+.textarea_post{
+   width: 100%;
+   height: 70%;
+   font-size: 20px;
+}
+
+.label_addpost{
+   font-size: 200%;
+}
+
+.contenu_post{
+   font-size: 200%;
+}
+
+.div_btn_addpost{
+   display: flex;
+   justify-content: center;
+   width: 30%;
+   height: 20%;
+   margin-top: 2%;
+
+}
+
+
+.btn_submit_post{
+   width:30%;
+   height: 40%;
+   background-color: #AE25DE;
+   color: white;
+   font-size: x-large;
+}
+
+
+.boutton_formulaire_post_editer {
    border-radius: 10px;
-   background-color: brown;
+   width: max-content;
+   font-size: 15px;
+   color: white;
+   background-color: rgb(73, 157, 5);
    margin: 10px;
-   position: relative;
-   left: 200px;
+   /* position: relative;
+   left: 100px; */
+}
+
+.boutton_formulaire_post_supprimer {
+   border-radius: 10px;
+   width: max-content;
+   font-size: 15px;
+   color: white;
+   background-color: rgb(215, 20, 20);
+   margin: 10px;
+   /* position: relative;
+   left: 100px; */
 }
 
 .boutton_formulaire {
@@ -653,16 +1090,37 @@ a{
    background-color: brown;
    margin: 10px;
    position: relative;
-   right: 200px;
+   right: 100px;
+}
+/* ######################### FORMULAIRE EDITER POST ####################### */
+.formulaire_editer_post{
+   position: relative;
+   left: 45%;
+   width: max-content;
+   background-color: rgb(105, 172, 170);
+   font-weight: bold;
+   border-radius: 10px;
+   text-decoration-line: underline;
+   margin-top: 5%;
 }
 
-.boutton_comment {
+.formulaire_supprimer_post{
    position: relative;
-   top: 20px;
-   background-color: greenyellow;
-   right: 150px;
-   border-radius: 10px;
+   left: 45%;
+   width: max-content;
+   margin-top: 2%;
 }
+.boutton_validation_editer_post{
+   background-color: rgb(93, 179, 8);
+   color: white;
+}
+
+.boutton_validation_supprimer_post{
+   background-color: rgb(179, 8, 94);
+   color: white;
+}
+
+
 
 /* ***************            FORMULAIRE ADDCOMMENTS      ******************     */
 .form_addComment {
@@ -685,12 +1143,23 @@ a{
 
 
 /* ********************** formulaire addcomment ********************* */
-.boutton_formulaire_comment {
+.boutton_formulaire_comment_editer {
    border-radius: 10px;
-   background-color: brown;
+   width: max-content;
+   font-size: 15px;
+   color: white;
+   background-color: rgb(73, 157, 5);
    margin: 10px;
-   position: relative;
-   /* left: 200px; */
+   
+}
+.boutton_formulaire_comment_supprimer {
+   border-radius: 10px;
+   width: max-content;
+   font-size: 15px;
+   color: white;
+   background-color: rgb(214, 20, 65);
+   margin: 10px;
+   
 }
 /****************************Formulaire mofifier user**************/
 
