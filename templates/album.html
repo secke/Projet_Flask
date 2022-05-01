@@ -2,12 +2,15 @@
 
 {% block content %}
 <nav class="principal">
-    <a href="{{ url_for('deconnexion') }}"><button class="deconnexion">Déconnexion</button></a>
-
+    <div class="div_logo_user">
+        <i class="fa-solid fa-user" id="iconhome"></i>
+        <span >User</span>
+    </div>
     <ul class="menu">
-        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addAlbum',userId=userId) }}">Ajouter Album</a></li>
+        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addAlbum', userId=userId) }}">Ajouter Album</a></li>
     </ul>
 </nav>
+<<<<<<< HEAD
 
 {% for album in albumsUser %}
     <div class="block_body_album">
@@ -24,5 +27,58 @@
     </div>
 {% endfor %}
 {% endblock %}
+=======
+<div class="body_album">
+    {% for i in range(n) %}
+    <div class="div_img_album">
+        <div class="div_album">
+            <span class="album_title">{{ albums[i]['title'] }}</span>
+            <div class="album_photo">
+                <div class="album_right">
 
+                    <div class="sous_div_img_album_top">
+                        <div class="album_photo_top">
+                            <img src="{{ photos[i][0] }}" alt="image" width="100%" height="100%">
+                            <!-- <p>{{ photo }}</p> -->
+                        </div>
+                    </div>
+>>>>>>> 85e87dea1642717b7e7b37798a800fa49439e0a5
 
+                    <div class="sous_div_img_album_botum">
+                        <div class="album_photo_botum">
+                            <img src="{{ photos[i+1][0] }}" alt="image" width="100%" height="100%">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="album_left">
+                    
+                    <div class="sous_div_img_album_top">
+                        <div class="album_photo_top" >
+                            <img src="{{ photos[i+2][0] }}" alt="image" width="100%" height="100%">
+                        </div>
+                    </div>
+
+                    <div class="sous_div_img_album_botum">
+                        <div class="album_photo_botum" >
+                            <img src="{{ photos[i+3][0] }}" alt="image" width="100%" height="100%">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <a href="/affiche_photo/{{ i+1 }}" class="album_bouton"><button class="button_album">More...</button></a>
+            <div class="modif_albums">
+                <a href="{{ url_for('modifierAlbum', id=albums[i]['id'],userId=userId) }}" class="edit_album">
+                    <button class="btn_edit_album">edit</button>
+                </a>
+                <a href="{{ url_for('supprimerAlbum', id=albums[i]['id'],userId=userId) }}" class="supprime_album">
+                    <button class="btn_suppress_album">Supprimer</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

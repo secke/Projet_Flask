@@ -6,6 +6,7 @@
     
     <form action="{{ url_for('modifierAlbum', id=album.id,userId=userId) }}" method="post" class="formulaire_modifier_album">
     <div class="element_edit">
+<<<<<<< HEAD
         <h5>Identifiant utilisateur</h5>
         <input type="text" name="userId" class="champ_edit" value="{{ request.form.get('userId') or album.userId }}">
     </div>
@@ -15,6 +16,17 @@
     </div>
     <div class="element_edit">
         <h5>Titre de l'Album</h5>
+=======
+        <label for="userId"> Identifiant utilisateur </label>
+        <input type="text" name="userId" class="champ_edit" value="{{ request.form.get('userId') or album.userId }}">
+    </div>
+    <div class="element_edit">
+        <label for="id">Identifiant de l'Album</label>
+        <input type="text" name="id" class = "champ_edit" value= "{{ album.id }}">
+    </div>
+    <div class="element_edit">
+        <label for="title"> Titre de l'Album </label>
+>>>>>>> 85e87dea1642717b7e7b37798a800fa49439e0a5
         <input type="text" name="title" class="champ_edit" value="{{ request.form.get('title') or album.title }}">
     </div>
     <div class="element_edit">

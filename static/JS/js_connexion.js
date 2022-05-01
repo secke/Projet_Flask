@@ -57,99 +57,111 @@ function valider(){
     
     
 }
+var form=document.querySelector(".choice_user")
+var affich=document.querySelector("#body_affichage")
+var imag=document.querySelector(".welcome")
+function activeblock() {
+  form.style.display="block";
+  imag.style.display="none"
+  
+}
+function desactiveblock(){
+  form.style.display="none";
+  affich.style.display="block"
+}
 
-var choice_nbr_user = document.querySelector('.choice_user')
+// var choice_nbr_user = document.querySelector('.choice_user')
 
-var btn_affiche = document.querySelector('.btn_affiche')
+// var btn_affiche = document.querySelector('.btn_affiche')
 
-var choice_user = document.querySelector('.btn_choice_user')
+// var choice_user = document.querySelector('.btn_choice_user')
 
-console.log(choice_user)
+// console.log(choice_user)
 
-choice_user.addEventListener('click', ()=>{
-    choice_nbr_user.style.display = 'none'
-    // alert("choix  effectue")
-})
+// choice_user.addEventListener('click', ()=>{
+//     choice_nbr_user.style.display = 'block'
+//     // alert("choix  effectue")
+// })
 
-btn_affiche.addEventListener('click', ()=>{
-    // choice_nbr_user.style.display ='flex'
-    document.body.appendChild(choice_nbr_user)
-    choice_user.classList.toggle('btn_affiche_visible')
-    // alert('ça marche')
-})
+// btn_affiche.addEventListener('click', ()=>{
+//     // choice_nbr_user.style.display ='flex'
+//     document.body.appendChild(choice_nbr_user)
+//     choice_user.classList.toggle('btn_affiche_visible')
+//     // alert('ça marche')
+// })
 
-// ################|||| Récupération des information du user après click ||||################
+// // ################|||| Récupération des information du user après click ||||################
 
-var article_user = document.querySelector('.div_article_user')
+// var article_user = document.querySelector('.div_article_user')
 
-console.log(article_user)
+// console.log(article_user)
 
 
-// bouttonValid.addEventListener('click',()=>{
+// // bouttonValid.addEventListener('click',()=>{
     
-// });
+// // });
 
 
 
-// ****************************************JS MAP******************************************* //
+// // ****************************************JS MAP******************************************* //
 
-// Note: This example requires that you consent to location sharing when
-// prompted by your browser. If you see the error "The Geolocation service
-// failed.", it means you probably did not give permission for the browser to
-// locate you.
-var map, infoWindow;
+// // Note: This example requires that you consent to location sharing when
+// // prompted by your browser. If you see the error "The Geolocation service
+// // failed.", it means you probably did not give permission for the browser to
+// // locate you.
+// var map, infoWindow;
 
-function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 6,
-  });
-  infoWindow = new google.maps.InfoWindow();
+// function initMap() {
+//   map = new google.maps.Map(document.getElementById("map"), {
+//     center: { lat: -34.397, lng: 150.644 },
+//     zoom: 6,
+//   });
+//   infoWindow = new google.maps.InfoWindow();
 
-  const locationButton = document.createElement("button");
+//   const locationButton = document.createElement("button");
 
-  locationButton.textContent = "Pan to Current Location";
-  locationButton.classList.add("custom-map-control-button");
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-  locationButton.addEventListener("click", () => {
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
+//   locationButton.textContent = "Pan to Current Location";
+//   locationButton.classList.add("custom-map-control-button");
+//   map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+//   locationButton.addEventListener("click", () => {
+//     // Try HTML5 geolocation.
+//     if (navigator.geolocation) {
+//       navigator.geolocation.getCurrentPosition(
+//         (position) => {
+//           const pos = {
+//             lat: position.coords.latitude,
+//             lng: position.coords.longitude,
+//           };
 
-          infoWindow.setPosition(pos);
-          infoWindow.setContent("Location found.");
-          infoWindow.open(map);
-          map.setCenter(pos);
-        },
-        () => {
-          handleLocationError(true, infoWindow, map.getCenter());
-        }
-      );
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-  });
-}
+//           infoWindow.setPosition(pos);
+//           infoWindow.setContent("Location found.");
+//           infoWindow.open(map);
+//           map.setCenter(pos);
+//         },
+//         () => {
+//           handleLocationError(true, infoWindow, map.getCenter());
+//         }
+//       );
+//     } else {
+//       // Browser doesn't support Geolocation
+//       handleLocationError(false, infoWindow, map.getCenter());
+//     }
+//   });
+// }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(
-    browserHasGeolocation
-      ? "Error: The Geolocation service failed."
-      : "Error: Your browser doesn't support geolocation."
-  );
-  infoWindow.open(map);
-}
+// function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+//   infoWindow.setPosition(pos);
+//   infoWindow.setContent(
+//     browserHasGeolocation
+//       ? "Error: The Geolocation service failed."
+//       : "Error: Your browser doesn't support geolocation."
+//   );
+//   infoWindow.open(map);
+// }
 
-var oldZoom = null;
-var oldCenter = null;
-google.maps.event.addListenerOnce(map, "zoom_changed", function() { oldZoom = map.getZoom(); });
-google.maps.event.addListenerOnce(map, "center_changed", function() { oldCenter = map.getCenter(); });
+// var oldZoom = null;
+// var oldCenter = null;
+// google.maps.event.addListenerOnce(map, "zoom_changed", function() { oldZoom = map.getZoom(); });
+// google.maps.event.addListenerOnce(map, "center_changed", function() { oldCenter = map.getCenter(); });
 
-window.initMap = initMap;
+// window.initMap = initMap;

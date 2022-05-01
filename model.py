@@ -1,4 +1,3 @@
-
 import sys
 sys.path.append('.')
 sys.path.append('..')
@@ -27,7 +26,7 @@ class User(base.base):
     # phone=Column(String(50))
     # company=Column(String(300))
     website=Column(String(100))
-    albums=relationship('Album')
+    # albums=relationship('Album')
     todos=relationship('Todo')
     posts=relationship('Post')
     def __init__(self,id,name,username,phone,email,address, companyName,catchPhrase,companyBs, website):
@@ -48,7 +47,7 @@ class User(base.base):
 
 class Album(base.base):
     __tablename__='album'
-    userId=Column(Integer, ForeignKey('users.id'))
+    userId=Column(Integer)
     id=Column(Integer, primary_key=True)
     title=Column(String(100))
     photos=relationship("Photo")
@@ -147,3 +146,4 @@ class Connexion(base.base):
 
 
 base.init_base()
+
