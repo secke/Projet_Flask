@@ -482,7 +482,6 @@ a{
    border: 1px solid #dee2e6;
    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
  }
-<<<<<<< HEAD
  /* ######################## Page album et addAlbum ############### */
 .block_album{
    width: 50%;
@@ -547,207 +546,6 @@ a{
    flex-direction: column;
    align-items: center;
    height: 60%;
-=======
-
- .body_album{
-    overflow: scroll;
-    width: 100%;
-    height: 88%;
-    display: flex;
-    flex-direction: row;
-    justify-content:last baseline;
-    align-items: stretch;
-    /*  */
-    /* flex-direction:unset; */
-   flex-wrap: wrap-reverse;
- }
-
- 
-
-.div_img_album{
-   width: 48%;
-   height: 45%;
-   /* border: 2px solid #F5D7FF; */
-   margin: 1%;
-   /* margin-left: 1%; */
-   display: flex;
-  
-}
-
-.div_album{
-   
-   width: 100%;
-   height: 100%;
-   display: flex;
-   flex-direction: column;
-   /* border: 2px solid #F5D7FF; */
-   justify-content: center;
-   align-items: center;
- }
-
- .album_photo{
-   width: 100%;
-   height: 83%;
-   display: flex;
-   flex-direction: row;
- }
-
- .album_bouton {
-    width: 8%;
-    height: 5%;
-    background-color: #532CA6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10%;
-
- }
-
- .button_album{
-    background-color: #532CA6;
-    color: white;
-    border-radius: 10%;
-    width: 100%;
- }
-
-.album_right{
-   width: 50%;
-   height: 100%;
-   display: flex;
-   flex-direction: column;
-   border: 2px solid #F5D7FF;
-}
-
-.album_left{
-   width: 50%;
-   height: 100%;
-   display: flex;
-   flex-direction: column;
-   border: 2px solid #F5D7FF;
-}
-
-.sous_div_img_album_top{
-   width: 100%;
-   height: 50%;
-   display: flex;
-   flex-direction: column;
-   border: 2px solid #F5D7FF;
-}
-
-.album_photo_top{
-   display: flex;
-   flex-direction: row;
-   width: 100%;
-   height: 100%;
-   border: 2px solid #F5D7FF;
-   
-}
-
-.album_photo_botum{
-   display: flex;
-   flex-direction: row;
-   width: 100%;
-   height: 100%;
-   border: 2px solid #F5D7FF;
-}
-
-.album_title{
-   /* border: 2px solid #F5D7FF; */
-   height: 12%;
-   font-size: 100%;
-   width: 100%;
-   font-size: 200%;
-}
-
-.sous_div_img_album_botum{
-   width: 100%;
-   height: 50%;
-   display: flex;
-   flex-direction: column;
-   border: 2px solid #F5D7FF;
-}
-
-.img_album{
-   border: 2px solid #F5D7FF;
-   width: 50%;
-   height: 100%;
-
-}
-
-.body_photo{
-   /* border: 2px solid black; */
-   width: 100%;
-   height: 88%;
-   overflow: scroll;
-   display: flex;
-   flex-direction: row;
-   flex-wrap: wrap;
-}
-
-.affiche_photo{
-   width: 46%;
-   height: 48%;
-   border: 2px solid black;
-   margin-top: 2%;
-   margin-left: 3%;
-}
-
-.modif_album{
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
-   flex-wrap: nowrap;
-   width: 22%;
-   height: 10%;
-   position: relative;
-   float: right;
-   top: -100%;
-   z-index: 4;
-}
-
-.modif_albums{
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
-   flex-wrap: nowrap;
-   width: 22%;
-   height: 10%;
-   position: relative;
-   right: -38%;
-   float: right;
-   top: -98%;
-   z-index: 4;
-}
-
-.edit_album{
-   width: 40%;
-   height: 100%;
-   /* background-color: green; */
-}
-
-.btn_edit_album{
-   width: 100%;
-   height: 100%;
-   color: white;
-   border-radius: 25%;
-   background-color: green;
-}
-
-
-.supprime_album{
-   width: 45%;
-   height: 100%;
-   /* background-color: red; */
-}
-
-
-.btn_suppress_album{
-   width: 100%;
-   height: 100%;
-   border-radius: 25%;
-   background-color: red;
-   color: white;
->>>>>>> 85e87dea1642717b7e7b37798a800fa49439e0a5
 }
 
 
@@ -1076,7 +874,6 @@ label .password-icon {
    height: 40%;
    width: 50%;
 }
-<<<<<<< HEAD
 /* ######################## page affiche photo ############## */
 .block_body_photo{
    display: flex;
@@ -1111,9 +908,6 @@ color: rgb(152, 11, 63);
    font-size: 25px;
    font-weight: bold;
 }
-=======
-
->>>>>>> 85e87dea1642717b7e7b37798a800fa49439e0a5
 /* ***************            FORMULAIRE ADDPost      ******************     */
 
 .form_addPost{
