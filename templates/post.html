@@ -2,11 +2,15 @@
 
 {% block content %}
 <nav class="principal">
-    <a href="{{ url_for('deconnexion') }}"><button class="deconnexion">Déconnexion</button></a>
-
+    <div class="div_logo_user">
+        <i class="fa-solid fa-user" id="iconhome"></i>
+        <span >User</span>
+    </div>
     <ul class="menu">
         <li class="list" style="font-size: 35px;"><a href="{{ url_for('createPost',userId=userId) }}">Ajouter Post</a></li>
     </ul>
+    <a href="{{ url_for('deconnexion') }}"><button class="deconnexion">Déconnexion</button></a>
+
 </nav>
 <div>
     {% with message=get_flashed_messages() %}
@@ -17,7 +21,7 @@
 </div>
 {% for post in postsUser %}
     <div class="contenu_post">
-        <h2 class="titre">{{ post.title }} <a href="{{ url_for('editerPost',id=post.id,userId=userId) }}"><button class="boutton_formulaire_post_editer">Editer</button></a><a href="{{ url_for('supprimerPost',id=post.id,userId=userId) }}"><button class="boutton_formulaire_post_supprimer">supprimer</button></a></h2>
+        <h2 class="titre">Titre: {{ post.title }} <a href="{{ url_for('editerPost',id=post.id,userId=userId) }}"><button class="boutton_formulaire_post_editer">Editer</button></a><a href="{{ url_for('supprimerPost',id=post.id,userId=userId) }}"><button class="boutton_formulaire_post_supprimer">supprimer</button></a></h2>
     </div>
     <div class="contenu_post">
        <p>{{ post.body }}</p>

@@ -3,8 +3,8 @@
 # from crypt import methods
 # from turtle import pos
 from cmath import log
+from crypt import methods
 import sys
-from turtle import pos
 from flask import session
 from unicodedata import name
 import folium
@@ -39,25 +39,43 @@ from flask_paginate import Pagination, get_page_args
 
 app=Flask(__name__)
 
-app.secret_key='Groupe_7_2022'
-############# fermeture de session #####################################
-# @app.teardown_appcontext
-# def stopSession():
-#     base.session.remove()
+app.config['SECRET_KEY']='Groupe_7_2022'
 
 
 ##########################Page Principale ##################################
 
-@app.route('/')
+@app.route('/',methods=('GET','POST'))
 def principal():
-    return render_template('principal.html')
+    fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
+    if request.method=='POST':
+         n=int(request.form.get('choice_user'))
+         k=0
+         for el in fiche:
+            k+=1
+         if n>k:
+            try:
+                for i in range(k, n):
+                    utilisateur(base.f0,i)
+                fiche = base.session.query(model.User).all()
+                return render_template('principal.html', fiche=fiche, n=n)
+                
+            except ConnectionError:
+                abort(404)
+        #### j'ai modifié ici #####        
+         elif k>=n:
+                fiche = base.session.query(model.User).all()
+                return render_template('principal.html', fiche=fiche, n=n)
+    else:
+        n=0
+    return render_template('principal.html',fiche=fiche,n=n)
 
 ################## AFFICHAGE DES USER ######## 
 
 @app.route('/affiche', methods=['POST','GET'])
 def affiche():
     n=int(request.form.get('choice_user'))
-    fiche = base.session.query(model.User).all()
+
+    fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
     k=0
     for el in fiche:
         k+=1
@@ -101,15 +119,9 @@ def adduser():
 
 ############ MODIFIER USERS ################################
 @app.route('/modifierUser/<int:id>', methods=('POST','GET'))
-# def recupUser(id):
-#     valByIdUser=base.session.query(model.User).filter(model.User.id==id).first()
-#     if valByIdUser is None:
-#         abort(404)
-#     return valByIdUser
-# x=recupUser(2)
-# print(x.name)
 def modifierUser(id):
     user=base.session.query(model.User).filter(model.User.id==id).first()
+    print(user)
     if request.method=='POST':
         name = request.form.get('nom')
         username =request.form.get('prenom')
@@ -356,6 +368,7 @@ def modifierPhoto(id,albumId):
         if not titre:
             flash('le titre est requis!')
         else:
+            photo.id = id
             photo.title=titre
             photo.url=url
             photo.thumbnailUrl=thum
@@ -506,27 +519,32 @@ def supprimerComments(id,postId):
 
 ############ PAGE DE CONNEXION ###########################################
 @app.route('/login/', defaults={'email': ""})
-@app.route('/login/<email>/<id>/<name>', methods=('GET','POST'))
-def connexion(email,id,name):
+@app.route('/login/<email>/<id>', methods=('GET','POST'))
+def connexion(email,id):
+
     if request.method=='POST':
         login=request.form['connect']
         userConnect=request.form['connect']
         session['email']=userConnect
         userId=base.session.query(model.User.id).filter(model.User.email==login).first()[0]
-        # print(userId)
+        name=base.session.query(model.User.name).filter(model.User.id==userId).first()[0]
         motPass=request.form['secur']
+        print("motPass:",motPass)
         notfistuser=base.session.query(Connexion.login).filter(Connexion.login==login).first()
+        print("username:",notfistuser)
         if notfistuser:
-            password=base.session.query(Connexion.password).filter(Connexion.login==login).first()
-            motPass=password
-            return redirect(url_for('userpost',userId=userId,name=name))
+            password=base.session.query(Connexion.password).filter(Connexion.login==login).first()[0]
+            print("password:",password)
+            if motPass==password:
+                print("OOOOKKKK")
+                return redirect(url_for('userpost',userId=userId, name=name))
             
         else:
             ajoutConnexion=Connexion(login=login, password=motPass,id_user=id)
             base.session.add(ajoutConnexion)
             base.session.commit()
             return redirect(url_for('userpost',userId=userId,name=name))
-    return render_template('connexion.html',mail=email,id=id,name=name)
+    return render_template('connexion.html',mail=email,id=id)
 
 ######################### PAGE DE DÉCONNEXION ################################
 
@@ -581,19 +599,18 @@ def affiche_infos_user(userId):
     # print(userId)
     # fiches = base.import_api('users')
     fiche = base.session.query(model.User.name, model.User.username, model.User.phone, 
-    model.User.email, model.User.address,model.User.companyName,model.User.catchPhrase,
-    model.User.companyBs).filter(model.User.id==userId).first()
+    model.User.email, model.User.address, model.User.companyName,model.User.catchPhrase,model.User.companyBs).filter(model.User.id==userId).first()
     
-    # namecompany = fiche['company'].split(',')[0].split(':')[-1]
-    # catchphrase = fiche['company'].split(',')[1].split(':')[-1]
-    # bs = fiche['company'].split(',')[2].split(':')[-1]
+    # namecompany = fiche['company'].split(',')[0].split(':')[-1].strip(' ').strip("'")
+    # catchphrase = fiche['company'].split(',')[1].split(':')[-1].strip(' ').strip("'")
+    # bs = fiche['company'].split(',')[2].split(':')[-1].split('}')[0].strip(' ').strip("'")
     
     phone = fiche['phone'].split('x')[0]
     lat = float(fiche['address'].split(',')[4].split(':')[-1].strip('}').strip(" ").strip("'"))
     long= float(fiche['address'].split(',')[5].split(':')[-1].strip('}').strip(" ").strip("'"))
+    rue= fiche['address'].split(',')[1].split(':')[1].strip('"')
+    ville= fiche['address'].split(',')[2].split(':')[1].strip('"').strip(' ').strip("'")
 
-
-    # bs = fiche['company']['bs']
     start_coords = (lat, long)
     map = folium.Map(
         location=start_coords, 
@@ -603,11 +620,8 @@ def affiche_infos_user(userId):
             popup="<i>Marker here</i>",
             tooltip="Click Here").add_to(map)
 
-
-    # company=[namecompany,catchphrase,bs]
-    
     map.save('templates/map.html')
-    return render_template('affiche_infos_user.html', fiche=fiche, phone=phone, map=map,userId=userId,lat=lat,long=long)
+    return render_template('affiche_infos_user.html', fiche=fiche, phone=phone, i=1, map=map,userId=userId,lat=lat,long=long, ville=ville)
 
 
 
@@ -635,7 +649,7 @@ def paginate():
 
     total = len(users)
     l=round(total/a)
-    userId=base.session.query(model.User.id).filter(model.User.username=='Bret').first()
+    userId=base.session.query(model.User.id).filter(model.User.email=='Bret').first()
     pagination_users = get_users(offset=offset, per_page=per_page)
 
     pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')

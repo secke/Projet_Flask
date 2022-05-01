@@ -77,7 +77,24 @@ span{
    color: white;
    background-color: #AE25DE;
 }
-
+.btn_affiche{
+   height: 40%;
+   width: 50%;
+   background-color: #AE25DE;
+   font-size: 24px;
+   color: white;
+   border-radius: 15px;
+   border: 2px solid #AE25DE;
+   margin-top: 14%;
+   margin-right: 10%;
+}
+.welcome{
+   height: 80%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+}
 /* ############Tout ce qui concerne l'ajout des users ################ */
 
 .title_adduser{
@@ -153,8 +170,13 @@ span{
    background-color: #532CA6;
    color: white;
    border-radius: 1em;
-   /* visibility: hidden; */
-   /* display: none;    */
+   display: none;
+}
+.champ_choice{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
 }
 
 #choice_user{
@@ -251,22 +273,17 @@ span{
 
 .edit_btn{
    width: max-content;
-   height: max-content;
-   background-color: #08b811;
+   height: 70%;
+   background-color: #F5D7FF;
    color: white;
    font-size: 15px;
-   border-radius: 10px;
-   /* display: flex;
-   justify-content: center;
-   align-items: center; */
 }
 .delete_btn{
    width: max-content;
-   height: max-content;
-   background-color: #b80866;
+   height: 70%;
+   background-color: #F5D7FF;
    color: white;
    font-size: 15px;
-   border-radius: 10px;
 }
 a{
    text-decoration: none;
@@ -279,7 +296,16 @@ a{
 #modif,#sup{
    font-size: 25px;
    color: #AE25DE;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding-top: 20%;
 }
+#modif{
+   padding-top: 90%;
+
+}
+
 
 
 /* ###################Fin de style concernant la page principale###################### */
@@ -357,7 +383,7 @@ a{
    width: 70%;
    height: max-content;
    margin-left: 2%;
-   /* border: 2px solid black; */
+   /*  */
    font-size: 150%;
 }
 
@@ -522,8 +548,57 @@ a{
    height: 60%;
 }
 
-/* ###################Debut de style concernant la page user Todo###################### */
+.formulaire_modifier_album{
+   width: max-content;
+   display: flex;
+   flex-direction: column;
+   height: 60%;
+   justify-content: space-around;
+   background-color: #3b7de0;
+   color: white;
+   text-decoration-line: underline;
+   border-radius: 10px;
+}
+.page_modifier_album{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   height: 80%;
+   color: rgb(179, 52, 6);
+}
+.but_validation_album{
+   background-color: #08b811;
+   color: #dee2e6;
+   font-size: large;
+   font-weight: bold;
+   border-style: dotted;
+}
+.but_supprimer_album{
+   background-color: red;
+   color: white;
+   font-size: large;
+   font-weight: bold;
+}
+.but_voir_photo{
+   background-color: rgba(218, 202, 202, 0.866);
+   color:rgb(31, 64, 231);
+   font-size: x-large;
+   font-weight:bold;
+   border-radius: 10px;
+   margin-top: 8%;
+   margin-left: 8%;
+}
 
+.block_body_album{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   height: 60%;
+}
+
+
+
+ /* ##############Fin de Style concernant la page user Album############# */
 
 
 .tblock{
@@ -558,12 +633,44 @@ a{
   
 }
 .champ input{
-   background-color: #F5D7FF;
-   width: 60%;
-   border: #F5D7FF;
+   width: 40%;
    align-items: flex-end;
    margin-left: 30px;
+   
 }
+
+.input_password{
+   font-size: 1em;
+  
+   width: 100%;
+   height: 60%;
+  /* transition: all 0.2s; */
+}
+
+.champ_password{
+   
+   position: relative;
+   height: 80%;
+}
+ 
+
+label .password-icon {
+   display: flex;
+   align-items: center;
+   position: absolute;
+   top: 20%;
+   left: 38%;
+   width: 20px;
+   color: black;
+ }
+
+ label .password-icon:hover {
+   cursor: pointer;
+ }
+
+ label .password-icon .feather-eye-off {
+   display: none;
+ }
 
 .champ .infouser{
    background-color: #F5D7FF;
@@ -622,7 +729,7 @@ a{
    display: flex;
    flex-direction: column;
    justify-content: space-evenly;
-   height: 30%;
+   height: 40%;
 }
 .login label,.password label{
    font-size: 46px;
@@ -630,7 +737,7 @@ a{
 }
 .login input ,.password input{
    width: 40%;
-   height: 30%;
+   /* height: 80%; */
    background-color: #F1F1F1;
    border: #F1F1F1;;
    box-shadow:  inset 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -640,7 +747,7 @@ a{
    cursor: pointer;
    color: white;
    background-color: #AE25DE;
-   width: 45%;
+   width: 30%;
    font-size: 64px;
    border-radius: 0.3em;
    border: #AE25DE;
@@ -775,9 +882,79 @@ a{
 }
 
 /* ***************            FORMULAIRE ADDPHOTO       ******************     */
+
+.form_addPhoto{
+   width: 100%;
+   height: 50%;
+   /* border: 2px solid black; */
+   display: flex;
+   flex-direction: column;
+   /* align-items: center; */
+   justify-content: space-around;
+   align-items: center;
+}
+
 .block_formulaire_addphoto {
-   position: relative;
-   left: 100px;
+   width: 50%;
+   height: 25%;
+   /* border: 2px solid black; */
+   /* position: relative;
+   left: 100px; */
+}
+
+.div_btn_addphoto{
+   height: 10%;
+   width: 30%;
+   /* border: 2px solid black; */
+}
+
+.btn_submit_addPhoto{
+   height: 90%;
+   width: 20%;
+   /* margin-left: 10%; */
+   background-color: #AE25DE;
+   color: white;
+   /* border-radius: 10%; */
+   border: 2px solid #AE25DE;
+}
+
+.addphoto{
+   height: 40%;
+   width: 50%;
+}
+/* ######################## page affiche photo ############## */
+.block_body_photo{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   height: 90%;
+}
+/* #################### ##### page modifier photo ################ */
+
+.modifier_photo{display: flex;
+flex-direction: column;
+align-items: center;
+height: 80%;
+color: rgb(152, 11, 63);
+}
+
+.formulaire_modifier_photo{
+   background-color: rgba(131, 148, 3, 0.86);
+}
+.but_validation_photo{
+   background-color: #08b81f;
+   color: rgb(218, 211, 211);
+   border-radius: 5px;
+   font-size: 20px;
+   font-weight: bold;
+
+}
+.but_supprimer_photo{
+   background-color: red;
+   color: white;
+   border-radius: 10px;
+   font-size: 25px;
+   font-weight: bold;
 }
 /* ######################## page affiche photo ############## */
 .block_body_photo{
@@ -814,6 +991,77 @@ color: rgb(152, 11, 63);
    font-weight: bold;
 }
 /* ***************            FORMULAIRE ADDPost      ******************     */
+
+.form_addPost{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   width: 100%;
+   height: 60%;
+}
+
+.title_post{
+   text-align: center;
+   margin-top: 2%;
+}
+
+.addpost_champ{
+   display: flex;
+   flex-direction: column;
+   /* align-items: center; */
+   
+   width: 30%;
+   height: 20%;
+   margin-top: 3%;
+}
+
+.input_addpost{
+   width: 100%;
+   height: 50%;
+}
+
+.addpost_champ_text{
+   display: flex;
+   width: 30%;
+   flex-direction: column;
+   
+   width: 30%;
+   height: 30%;
+   margin-top: 3%;
+}
+
+.textarea_post{
+   width: 100%;
+   height: 70%;
+   font-size: 20px;
+}
+
+.label_addpost{
+   font-size: 200%;
+}
+
+.contenu_post{
+   font-size: 200%;
+}
+
+.div_btn_addpost{
+   display: flex;
+   justify-content: center;
+   width: 30%;
+   height: 20%;
+   margin-top: 2%;
+
+}
+
+
+.btn_submit_post{
+   width:30%;
+   height: 40%;
+   background-color: #AE25DE;
+   color: white;
+   font-size: x-large;
+}
+
 
 .boutton_formulaire_post_editer {
    border-radius: 10px;

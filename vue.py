@@ -47,7 +47,7 @@ def donnees_photo(albumId):
     #     base.session.add(el)
     # base.session.commit()
 
-# photo()
+# Photos()
 
 def donnees_todo():
     for u in range(len(base.f3)):

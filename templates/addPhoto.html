@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <nav class="principal">
+        <div class="div_logo_user">
+            <i class="fa-solid fa-user" id="iconhome"></i>
+            <span >User</span>
+        </div>
+    </nav>
     <div class="title_post">
         <h1>Remplissez les champs ci-dessous et soumettez le formulaire</h1>
     </div>
@@ -8,18 +14,18 @@
         
         <div class="block_formulaire_addphoto">
             <h3>Titre</h3>
-            <input type="text" class="input_addphoto" name="title">
+            <input type="text" name="title" class="addphoto">
         </div>
         <div class="block_formulaire_addphoto">
             <h3>Le lien de la Photo</h3>
-            <input type="text" id="lienImg" name="url">
+            <input type="text" id="lienImg" name="url" class="addphoto">
         </div>
         <div class="block_formulaire_addphoto">
             <h3>Le thumbnailUrl de la Photo</h3>
-            <input type="text" name="thumbnailUrl">
+            <input type="text" name="thumbnailUrl" class="addphoto">
         </div>
         <div class="addphoto_champ div_btn_addphoto">
-            <button type="submit" class="btn_submit">Valider</button>
+            <button type="submit" class="btn_submit_addPhoto">Valider</button>
         </div>
     </form>
 {% endblock %}

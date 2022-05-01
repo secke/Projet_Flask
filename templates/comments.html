@@ -17,7 +17,7 @@
 {% for comment in commentsPost %}
     <div class="block_comment">
         <h2 class="titre">
-            {{ comment.name }} <a href="{{ url_for('modifierComments',id=comment.id,postId=postId) }}"><button class="boutton_formulaire_comment_editer">Editer</button></a><a href="{{ url_for('supprimerComments',id=comment.id,postId=postId) }}"><button class="boutton_formulaire_comment_supprimer">supprimer</button></a>
+            Name: {{ comment.name }} <a href="{{ url_for('modifierComments',id=comment.id,postId=postId) }}"><button class="boutton_formulaire_comment_editer">Editer</button></a><a href="{{ url_for('supprimerComments',id=comment.id,postId=postId) }}"><button class="boutton_formulaire_comment_supprimer">supprimer</button></a>
         </h2>
     </div>
     <div class="block_comment">

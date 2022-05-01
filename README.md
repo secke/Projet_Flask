@@ -24,4 +24,9 @@ qui prend en argument le string suivant:"postgresql://votre_nom_utilisateur_post
 Exécutez le fichier appFlask.py pour lancer l'application.
 
 
+#### Pour la connexion à un USER ##############
+Pour la première connexion le mot de passe vous est générer et vous n'avez qu'à appuyer sur le bouton Login.
+Par contre lors d'une tentative de connexion sur un USER qui s'est une fois connecté vous devez vous authentifier (allez sur votre base de données, sur la table connexions copier/coller le password du USER).
+
+
 
