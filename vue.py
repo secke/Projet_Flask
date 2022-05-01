@@ -12,18 +12,40 @@ def utilisateur(liste,u):
 # for i in range(5):
 #     utilisateur(base.f0,i)
 
-def album():
-    for u in range(len(base.f1)):
-        el=model.Album(base.f1[u]['userId'],base.f1[u]['id'],base.f1[u]['title'])
-        base.session.add(el)
-    base.session.commit()
+def donnees_album(userId):
+    f1=requests.get(f"https://jsonplaceholder.typicode.com/albums/?userId={userId}")
+    f1=f1.json()
+    for u in range(len(f1)):
+        idAlbumLocal=base.session.query(model.Album.id).filter(model.Album.id==f1[u]['id']).first()
+        if idAlbumLocal:
+            pass
+        else:
+            el=model.Album(f1[u]['userId'],f1[u]['id'],f1[u]['title'])
+            base.session.add(el)
+            base.session.commit()
+            base.session.close()
+    # for u in range(len(base.f1)):
+    #     el=model.Album(base.f1[u]['userId'],base.f1[u]['id'],base.f1[u]['title'])
+    #     base.session.add(el)
+    # base.session.commit()
 # album()
 
-def photo():
-    for u in range(len(base.f2)):
-        el=model.Photo(base.f2[u]['albumId'],base.f2[u]['id'],base.f2[u]['title'],base.f2[u]['url'],base.f2[u]['thumbnailUrl'])
-        base.session.add(el)
-    base.session.commit()
+def donnees_photo(albumId):
+    f2=requests.get(f"https://jsonplaceholder.typicode.com/photos/?albumId={albumId}")
+    f2=f2.json()
+    for u in range(len(f2)):
+        idPhotoLocal=base.session.query(model.Photo.id).filter(model.Photo.id==f2[u]['id']).first()
+        if idPhotoLocal:
+            pass
+        else:
+            el=model.Photo(f2[u]['albumId'],f2[u]['id'],f2[u]['title'],f2[u]['url'],f2[u]['thumbnailUrl'])
+            base.session.add(el)
+            base.session.commit()
+            base.session.close()
+    # for u in range(len(base.f2)):
+    #     el=model.Photo(base.f2[u]['albumId'],base.f2[u]['id'],base.f2[u]['title'],base.f2[u]['url'],base.f2[u]['thumbnailUrl'])
+    #     base.session.add(el)
+    # base.session.commit()
 
 # photo()
 

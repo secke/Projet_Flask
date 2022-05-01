@@ -456,10 +456,71 @@ a{
    border: 1px solid #dee2e6;
    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
  }
-
+ /* ######################## Page album et addAlbum ############### */
+.block_album{
+   width: 50%;
+   height: 55%;
+   /* margin-left: 5%; */
+   background-image: url("../images/couv_album.jpg") ;
+}
+.add_champ{
+   margin-left: 10%;
+}
+.but_addalbum{
+   margin-top: 5%;
+}
 /* ###################Fin de style concernant la page user Post###################### */
 
 
+/* ####################### formulaire modifier album ################ */
+
+.formulaire_modifier_album{
+   width: max-content;
+   display: flex;
+   flex-direction: column;
+   height: 60%;
+   justify-content: space-around;
+   background-color: #3b7de0;
+   color: white;
+   text-decoration-line: underline;
+   border-radius: 10px;
+}
+.page_modifier_album{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   height: 80%;
+   color: rgb(179, 52, 6);
+}
+.but_validation_album{
+   background-color: #08b811;
+   color: #dee2e6;
+   font-size: large;
+   font-weight: bold;
+   border-style: dotted;
+}
+.but_supprimer_album{
+   background-color: red;
+   color: white;
+   font-size: large;
+   font-weight: bold;
+}
+.but_voir_photo{
+   background-color: rgba(218, 202, 202, 0.866);
+   color:rgb(31, 64, 231);
+   font-size: x-large;
+   font-weight:bold;
+   border-radius: 10px;
+   margin-top: 8%;
+   margin-left: 8%;
+}
+
+.block_body_album{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   height: 60%;
+}
 
 /* ###################Debut de style concernant la page user Todo###################### */
 
@@ -696,18 +757,61 @@ a{
 
 /* ************************ Boutton Editer et Supprimer************** */
  
-.bouton_edit_supp {
+.bouton_edit_album {
+   /* margin-left: 15%; */
+   border-radius: 10px;
+   color: rgb(29, 184, 5);
+   font-weight: bold;
+   margin-top: 1%;
+   background-color:rgb(247, 243, 243);
+}
+.bouton_sup_album {
    margin-left: 15%;
    border-radius: 10px;
    color: red;
    font-weight: bold;
-   background-color:khaki;
+   margin-top: 1%;
+   background-color:white;
 }
 
 /* ***************            FORMULAIRE ADDPHOTO       ******************     */
 .block_formulaire_addphoto {
    position: relative;
    left: 100px;
+}
+/* ######################## page affiche photo ############## */
+.block_body_photo{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   height: 90%;
+}
+/* #################### ##### page modifier photo ################ */
+
+.modifier_photo{display: flex;
+flex-direction: column;
+align-items: center;
+height: 80%;
+color: rgb(152, 11, 63);
+}
+
+.formulaire_modifier_photo{
+   background-color: rgba(131, 148, 3, 0.86);
+}
+.but_validation_photo{
+   background-color: #08b81f;
+   color: rgb(218, 211, 211);
+   border-radius: 5px;
+   font-size: 20px;
+   font-weight: bold;
+
+}
+.but_supprimer_photo{
+   background-color: red;
+   color: white;
+   border-radius: 10px;
+   font-size: 25px;
+   font-weight: bold;
 }
 /* ***************            FORMULAIRE ADDPost      ******************     */
 
@@ -733,12 +837,26 @@ a{
    left: 100px; */
 }
 
-.boutton_formulaire {
+.boutton_sup_photo {
+   width: max-content;
+   height: max-content;
+   font-size: 20px;
+   color: white;
+   margin-right: 20px;
    border-radius: 10px;
    background-color: brown;
-   margin: 10px;
-   position: relative;
-   right: 100px;
+   /* margin: 10px; */
+}
+.boutton_editer_photo {
+   width: max-content;
+   height: max-content;
+   font-size: 20px;
+   color: white;
+   border-radius: 20px;
+   background-color: rgb(89, 165, 42);
+   /* margin: 10px; */
+   margin-right: 10px;
+
 }
 /* ######################### FORMULAIRE EDITER POST ####################### */
 .formulaire_editer_post{

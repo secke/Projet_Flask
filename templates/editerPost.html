@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 
-<h1>{% block title %} Editer "{{ post.title }}" {% endblock %}</h1>
 
 {% block content %}
+<h1>{% block title %} Editer "{{ post.title }}" {% endblock %}</h1>
+
+<div>
+    {% with message=get_flashed_messages() %}
+        {% if message %}
+            <h3>{{ message[0] }}</h3>
+        {% endif %}
+    {% endwith %}
+</div>
 <form action="{{ url_for('editerPost', id=post.id,userId=userId) }}" method="post" class="formulaire_editer_post">
     <div class="element_edit">
         <p>Identifiant utilisateur</p>

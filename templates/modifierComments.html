@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 
-<h1>{% block title %} Editer "{{ comment.name }}" {% endblock %}</h1>
-
 {% block content %}
+<h1>{% block title %} Editer "{{ comment.name }}" {% endblock %}</h1>
+<div>
+    {% with message=get_flashed_messages() %}
+        {% if message %}
+            <h3>{{ message[0] }}</h3>
+        {% endif %}
+    {% endwith %}
+</div>
 <form action="{{ url_for('modifierComments', id=comment.id,postId=postId) }}" method="post" class="formulaire_editer_comment">
     <div class="element_edit">
         <p>Identifiant Post</p>
