@@ -2,6 +2,7 @@
 # from asyncio import run_coroutine_threadsafe
 # from crypt import methods
 from cmath import log
+from crypt import methods
 import sys
 # from turtle import pos
 from unicodedata import name
@@ -58,11 +59,6 @@ def affiche():
     n=int(request.form.get('choice_user'))
 
     fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
-
-    # id = base.session.query(model.User.id)
-    # id= base.session.query(model.User.username=='Bret').first()
-    # id = model.User.query.filter_by(username = 'Bret').all()
-    # fiche = base.session.query(model.User.id,model.User.name, model.User.username, model.User.phone, model.User.email)
     k=0
     for el in fiche:
         k+=1
@@ -108,15 +104,9 @@ def adduser():
 
 ############ MODIFIER USERS ################################
 @app.route('/modifierUser/<int:id>', methods=('POST','GET'))
-# def recupUser(id):
-#     valByIdUser=base.session.query(model.User).filter(model.User.id==id).first()
-#     if valByIdUser is None:
-#         abort(404)
-#     return valByIdUser
-# x=recupUser(2)
-# print(x.name)
 def modifierUser(id):
     user=base.session.query(model.User).filter(model.User.id==id).first()
+    print(user)
     if request.method=='POST':
         name = request.form.get('nom')
         username =request.form.get('prenom')
