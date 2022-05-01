@@ -1,27 +1,29 @@
 {% extends 'base.html' %}
 
-<h1>{% block title %} Editer "{{ photo.title }}" {% endblock %}</h1>
 
 {% block content %}
-<form action="{{ url_for('modifierPhoto', id=photo.id) }}" method="post">
+<div class="modifier_photo">
+<h1>{% block title %} Editer "{{ photo.title }}" {% endblock %}</h1>
+<form action="{{ url_for('modifierPhoto', id=photo.id,albumId=albumId) }}" method="post" class="formulaire_modifier_photo">
     <div class="element_edit">
-        <label for="albumId">Identifiant Album</label>
+        <h5>Identifiant Album</h5>
         <input type="text" name="albumId" class="champ_edit" value="{{ request.form.get('albumId') or photo.albumId }}">
     </div>
     <div class="element_edit">
-        <label for="id">Identifiant de la photo</label>
+        <h5>Identifiant de la photo</h5>
         <input type="text" name="id" class="champ_edit" value="{{ photo.id }}">
     </div>
     <div class="element_edit">
-        <label for="title">Titre de la photo</label>
+        
+        <h5>Titre de la photo</h5>
         <input type="text" name="title" class="champ_edit" value="{{ request.form.get('title') or photo.title }}">
     </div>
     <div class="element_edit">
-        <label for="url">Le lien de la Photo</label>
+        <h5>Le lien de la Photo</h5>
         <input type="text" name="url" class="champ_edit" value="{{ request.form.get('url') or photo.url }}">
     </div>
     <div class="element_edit">
-        <label for="thumbnailUrl">Le thumbnailUrl</label>
+        <h5>Le thumbnailUrl</h5>
         <input type="text" name="thumbnailUrl" class="champ_edit" value="{{ request.form.get('thumbnailUrl') or photo.thumbnailUrl }}">
     </div>
     <div class="element_edit">
@@ -30,8 +32,8 @@
 </form>
 
 <hr>
-<form action="{{ url_for('supprimerPhoto', id=photo.id) }}" method="POST">
-    <input type="submit" value="Supprimer Photo" class="">
+<form action="{{ url_for('supprimerPhoto', id=photo.id,albumId=albumId) }}" method="POST">
+    <input type="submit" value="Supprimer Photo" class="but_supprimer_photo">
 </form>
-
+</div>
 {% endblock %}

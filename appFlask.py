@@ -83,11 +83,12 @@ def affiche():
 @app.route('/adduser', methods = ('GET', 'POST'))
 def adduser():
     if request.method == 'POST':
-        cle=base.session.query(model.User.id)
-        id=0
+        cle=base.session.query(model.User.id).all()
+        liste=[]
         for i in cle:
-            id=i['id']
-        id+=1
+            liste.append(i['id'])
+        m=max(liste)
+        id=m+1
         ajout=model.User(id,request.form['nom'],request.form['prenom'],request.form['tel'],request.form['mail'],request.form['address'], request.form['company'], request.form['site'])
         try:
             base.session.add(ajout)
@@ -129,6 +130,7 @@ def modifierUser(id):
             user.company=company
             user.website=website
             base.session.commit()
+            flash(f"l'utilisateur {name} a été modifié avec succès !")
             return redirect(url_for('principal'))
     return render_template('modifierUser.html', user=user)
 
@@ -141,8 +143,9 @@ def supprimerUser(id):
     base.session.delete(supuser)
     base.session.commit()
     base.session.close()
-    # for i in supUser:
-    #     flash('"{}" a été supprimé avec succès'.format(i['name']))
+    
+    flash(f"l'utilisateur {supuser.name} a été supprimé avec succès !")
+
     return redirect(url_for('principal'))
 
 
@@ -199,7 +202,7 @@ def editerPost(id,userId):
         titre=request.form.get('title')
         contenu=request.form.get('body')
         Id_util=request.form.get('userId')
-        if titre is None:
+        if not titre:
             flash('le titre est requis!')
         else:
             post.title=titre
@@ -221,7 +224,7 @@ def supprimerPost(id,userId):
     base.session.delete(suppost)
     base.session.commit()
     base.session.close()
-    flash("ce post a été supprimé avec succès!")
+    flash(f"le post {suppost.id} a été supprimé avec succès!")
     return redirect(url_for('post',userId=userId))
 
 
@@ -229,8 +232,22 @@ def supprimerPost(id,userId):
 
 @app.route('/album/<int:userId>')
 def album(userId):
-    albums=base.session.query(model.Album).all()
-    return render_template('album.html', albums=albums,userId=userId)
+    # albums=base.session.query(model.Album).all()
+    albumsUser=base.session.query(model.Album).filter(model.Album.userId==userId).all()
+    
+    if albumsUser:
+        albumUserId=base.session.query(model.Album.id).filter(model.Album.userId==userId).first()
+        albumId=albumUserId['id']
+        return render_template('album.html',userId=userId,albumsUser=albumsUser,albumId=albumId)
+    else:
+        donnees_album(userId)
+        # albumId=donnees_album(userId)
+        albumsUser=base.session.query(model.Album).filter(model.Album.userId==userId).all()
+        albumUserId=base.session.query(model.Album.id).filter(model.Album.userId==userId).first()
+        albumId=albumUserId['id']
+        # albumsUserApi=base.session.query(model.Post).filter(model.Post.userId==userId).all()
+        return render_template('album.html',userId=userId,albumsUser=albumsUser,albumId=albumId)
+    # return render_template('album.html', albums=albums,userId=userId)
 
 
 #################### AJOUTER ALBUM #############################
@@ -238,11 +255,12 @@ def album(userId):
 def addAlbum(userId):
     if request.method == 'POST':
         
-        cle=base.session.query(model.Album.id)
-        id=0
+        cle=base.session.query(model.Album.id).all()
+        liste=[]
         for i in cle:
-            id=i['id']
-        id+=1
+            liste.append(i['id'])
+        m=max(liste)
+        id=m+1
         ajout=model.Album(userId,id,request.form.get('title'))
         try:
             base.session.add(ajout)
@@ -288,46 +306,54 @@ def supprimerAlbum(id,userId):
 
 ######################## Page Photo ####################################
 
-@app.route('/photo')
-def photo():
-    photos=base.session.query(model.Photo).all()
-    return render_template('photo.html', photos=photos)
+@app.route('/photo/<int:albumId>', methods=['POST','GET'])
+def photo(albumId):
+    # photos=base.session.query(model.Photo).all()
+    photosAlbum=base.session.query(model.Photo).filter(model.Photo.albumId==albumId).all()
+    # commentalbumId=base.session.query(model.Comment.id).filter(model.Comment.albumId==albumId).first()
+    if photosAlbum:
+        return render_template('photo.html',photosAlbum=photosAlbum,albumId=albumId)
+    else:
+        donnees_photo(albumId)
+        photosAlbum=base.session.query(model.Photo).filter(model.Photo.albumId==albumId).all()
+        return render_template('photo.html',photosAlbum=photosAlbum,albumId=albumId)
+    # return render_template('photo.html', photos=photos,albumId=albumId)
 ############################### lien photo #############""
 
 
 ################### AJOUTER DE PHOTO #############################
 
-@app.route('/addPhoto', methods=('POST','GET'))
-def addPhoto():
+@app.route('/addPhoto/<int:albumId>', methods=('POST','GET'))
+def addPhoto(albumId):
     if request.method == 'POST':
-        albumId=''
         # lienPhoto=request.form.get('url')
-        cle=base.session.query(model.Photo.id)
-        id=0
+        cle=base.session.query(model.Photo.id).all()
+        liste=[]
         for i in cle:
-            id=i['id']
-        id+=1
-        ajout=model.Photo(1,id,request.form.get('title'),request.form.get('url'),request.form.get('thumbnailUrl'))
+            liste.append(i['id'])
+        m=max(liste)
+        id=m+1
+        ajout=model.Photo(albumId,id,request.form.get('title'),request.form.get('url'),request.form.get('thumbnailUrl'))
         try:
             base.session.add(ajout)
             base.session.commit()
         finally:
             base.session.close()
-            return redirect(url_for('photo'))
+            return redirect(url_for('photo',albumId=albumId))
 
-    return render_template('addPhoto.html')
+    return render_template('addPhoto.html',albumId=albumId)
 
 
 ################ MODOFIER PHOTO #########################
 
-@app.route('/modifierPhoto/<int:id>', methods=('GET','POST'))
-def modifierPhoto(id):
+@app.route('/modifierPhoto/<int:id>/<int:albumId>', methods=('GET','POST'))
+def modifierPhoto(id,albumId):
     photo=base.session.query(model.Photo).filter(model.Photo.id==id).first()
     if request.method=='POST':
         titre=request.form.get('title')
         url=request.form.get('url')
         thum=request.form.get('thumbnailUrl')
-        if titre is None:
+        if not titre:
             flash('le titre est requis!')
         else:
             photo.title=titre
@@ -335,21 +361,21 @@ def modifierPhoto(id):
             photo.thumbnailUrl=thum
             base.session.commit()
             base.session.close()
-            return redirect(url_for('photo'))
-    return render_template('modifierPhoto.html', photo=photo)
+            return redirect(url_for('photo',albumId=albumId))
+    return render_template('modifierPhoto.html', photo=photo,albumId=albumId)
 
 ################ SUPPRIMER PHOTO ##################
 
-@app.route('/supprimerPhoto/<int:id>', methods=('POST','GET'))
-def supprimerPhoto(id):
+@app.route('/supprimerPhoto/<int:id>/<int:albumId>', methods=('POST','GET'))
+def supprimerPhoto(id,albumId):
     supphoto=base.session.query(model.Photo).filter(model.Photo.id==id).first()
     
     # suppPhoto=base.session.query(model.Photo.id).filter(model.Photo.id==id).first()
     base.session.delete(supphoto)
     base.session.commit()
-    base.session.close()
     # flash('"{}" a été supprimé avec succès!'.format(photo.get('title')))
-    return redirect(url_for('photo'))
+    base.session.close()
+    return redirect(url_for('photo',albumId=albumId))
 
 ############### PAGE TODOS ##########################
 @app.route('/todo/<int:userId>')
@@ -363,11 +389,12 @@ def todo(userId):
 def addTodo(userId):
     if request.method == 'POST':
         
-        cle=base.session.query(model.Todo.id)
-        id=0
+        cle=base.session.query(model.Todo.id).all()
+        liste=[]
         for i in cle:
-            id=i['id']
-        id+=1
+            liste.append(i['id'])
+        m=max(liste)
+        id=m+1
         ajout=model.Todo(userId,id,request.form.get('title'),request.form.get('ETAT'))
         try:
             base.session.add(ajout)
@@ -428,11 +455,12 @@ def comments(postId):
 def addComments(postId):
     if request.method == 'POST':
         # postId=''
-        cle=base.session.query(model.Comment.id)
-        id=0
+        cle=base.session.query(model.Comment.id).all()
+        liste=[]
         for i in cle:
-            id=i['id']
-        id+=1
+            liste.append(i['id'])
+        m=max(liste)
+        id=m+1
         ajout=model.Comment(postId,id,request.form.get('name'),request.form.get('email'),request.form.get('body'))
         try:
             base.session.add(ajout)
@@ -451,13 +479,14 @@ def modifierComments(id,postId):
         nom=request.form.get('name')
         mail=request.form.get('email')
         corps=request.form.get('body')
-        if nom is None:
+        if not nom:
             flash('le nom est requis!')
         else:
             comment.name=nom
             comment.email=mail
             comment.body=corps
             base.session.commit()
+            flash(f"le commentaire {comment.id} a été modifié avec succès!")
             base.session.close()
             return redirect(url_for('comments',postId=postId))
     return render_template('modifierComments.html', comment=comment,postId=postId)
@@ -471,8 +500,8 @@ def supprimerComments(id,postId):
     # suppComment=base.session.query(model.Comment.id).filter(model.Comment.id==id).first()
     base.session.delete(supcomment)
     base.session.commit()
+    flash(f"le commentaire {supcomment.id} a été supprimé avec succès!")
     base.session.close()
-    # flash('"{}" a été supprimé avec succès!'.format(comment.get('title')))
     return redirect(url_for('comments',postId=postId))
 
 ############ PAGE DE CONNEXION ###########################################
@@ -504,6 +533,7 @@ def connexion(email,id,name):
 @app.route('/deconnexion')
 def deconnexion():
     session.pop('email',None)
+    flash("UTILISATEUR DÉCONNECTÉ AVEC SUCCÈS!")
     # if 'email' in session:
     #     print('OK')
     # else:

@@ -8,6 +8,13 @@
         <li class="list" style="font-size: 35px;"><a href="{{ url_for('createPost',userId=userId) }}">Ajouter Post</a></li>
     </ul>
 </nav>
+<div>
+    {% with message=get_flashed_messages() %}
+        {% if message %}
+            <h3>{{ message[0] }}</h3>
+        {% endif %}
+    {% endwith %}
+</div>
 {% for post in postsUser %}
     <div class="contenu_post">
         <h2 class="titre">{{ post.title }} <a href="{{ url_for('editerPost',id=post.id,userId=userId) }}"><button class="boutton_formulaire_post_editer">Editer</button></a><a href="{{ url_for('supprimerPost',id=post.id,userId=userId) }}"><button class="boutton_formulaire_post_supprimer">supprimer</button></a></h2>

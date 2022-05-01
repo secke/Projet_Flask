@@ -10,7 +10,9 @@ import requests
 
 
 
-engine=create_engine('postgresql://votre_nom_utilisateur_postgres:votre_mot_de_passe@localhost:5432/le_nom_votre_Base_de_données')
+# engine=create_engine('postgresql://secke:keita2022@localhost:5432/baseflask')
+
+engine=create_engine('postgresql://secke:keita2022@localhost:5432/test')
 base_session=sessionmaker(bind=engine,autocommit=False,autoflush=False)
 session=base_session()
 base=declarative_base()
@@ -28,9 +30,9 @@ def import_api(x):
 
 f0=import_api('users')
 
-f1=import_api('albums')
+# f1=import_api('albums')
 
-f2=import_api('photos')
+# f2=import_api('photos')
 
 f3=import_api('todos')
 

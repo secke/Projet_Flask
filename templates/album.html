@@ -8,11 +8,19 @@
         <li class="list" style="font-size: 35px;"><a href="{{ url_for('addAlbum',userId=userId) }}">Ajouter Album</a></li>
     </ul>
 </nav>
-{% for album in albums %}
-    <div class="block">
-       <a href="{{ url_for('photo') }}"> <button style="color:green;font-weight:bold;" >{{ album.title }}
-            <a href="{{ url_for('modifierAlbum',id=album.id,userId=userId) }}"><button class="bouton_edit_supp">Editer</button></a>
-            <a href="{{ url_for('supprimerAlbum',id=album.id,userId=userId) }}"><button class="bouton_edit_supp">Supprimer</button></a></button></a>
+
+{% for album in albumsUser %}
+    <div class="block_body_album">
+        <h3>Titre Album: {{ album.title }}</h3>
+        <div class="block_album">
+
+        </div>
+        <div class="block_bouton_album">
+            <a href="{{ url_for('modifierAlbum',id=album.id,userId=userId) }}"><button class="bouton_edit_album">Editer</button></a>
+            <a href="{{ url_for('supprimerAlbum',id=album.id,userId=userId) }}"><button class="bouton_sup_album">Supprimer</button></a>
+            <!-- <hr> -->
+            <a href="{{ url_for('photo',albumId=album.id) }}"> <button class="but_voir_photo">Voir Photos</button></a>
+        </div>
     </div>
 {% endfor %}
 {% endblock %}

@@ -5,19 +5,21 @@
     <a href="{{ url_for('deconnexion') }}"><button class="deconnexion">Déconnexion</button></a>
 
     <ul class="menu">
-        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addPhoto') }}">Ajouter Photo</a></li>
+        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addPhoto',albumId=albumId) }}">Ajouter Photo</a></li>
     </ul>
 </nav>
-{% for photo in photos %}
-    <div class="block_formulaire_addphoto">
-        <h2 class="titre"><a href="{{ url_for('modifierPhoto',id=photo.id) }}"><button class="boutton_formulaire">Editer</button></a><a href="{{ url_for('supprimerPhoto',id=photo.id) }}"><button class="boutton_formulaire">Supprimer</button></a>
-            {{ photo.title }}</h2>
-    </div>
-    <div class="">
-      <img src="{{ photo.url }}" alt="">
-    </div>
-    <div class="block_formulaire_addphoto">
-        <h2 class="titre">{{ photo.thumbnailUrl }}</h2>
+{% for photo in photosAlbum %}
+    <div class="block_body_photo">
+
+        <div class="block_formulaire_addphoto">
+            <h2 class="titre"><a href="{{ url_for('modifierPhoto',id=photo.id,albumId=albumId) }}"><button class="boutton_editer_photo">Editer</button></a><a href="{{ url_for('supprimerPhoto',id=photo.id,albumId=albumId) }}"><button class="boutton_sup_photo">Supprimer</button></a>
+               Titre Photo: {{ photo.title }}</h2>
+            <hr>
+            <img src="{{ photo.url }}" alt="">
+            <hr>
+            <h2 class="titre">thumbnailUrl: {{ photo.thumbnailUrl }}</h2>
+            
+        </div>
     </div>
 {% endfor %}
 {% endblock %}
