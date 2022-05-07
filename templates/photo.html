@@ -5,9 +5,16 @@
     <a href="{{ url_for('deconnexion') }}"><button class="deconnexion">Déconnexion</button></a>
 
     <ul class="menu">
-        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addPhoto',albumId=albumId) }}">Ajouter Photo</a></li>
+        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addPhoto',albumId=albumId) }}"><button class="ajouter_element">Ajouter Photo</button></a></li>
     </ul>
 </nav>
+<div>
+    {% with message=get_flashed_messages() %}
+        {% if message %}
+            <h3>{{ message[0] }}</h3>
+        {% endif %}
+    {% endwith %}
+</div>
 {% for photo in photosAlbum %}
     <div class="block_body_photo">
 
