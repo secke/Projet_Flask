@@ -5,12 +5,14 @@ import model,base
 import requests
 
 def utilisateur(liste,u):
-    el=model.User(liste[u]['id'],liste[u]['name'],liste[u]['username'],liste[u]['phone'],liste[u]['email'],str(liste[u]['address']),str(liste[u]['company']['name']),liste[u]['company']['catchPhrase'],liste[u]['company']['bs'], liste[u]['website'])
-    try:
+    idUserLocal=base.session.query(model.User.id).filter(model.User.id==liste[u]['id']).first()
+    if idUserLocal:
+        pass
+    else:
+        el=model.User(liste[u]['id'],liste[u]['name'],liste[u]['username'],liste[u]['email'],liste[u]['address']['street'],liste[u]['address']['suite'],liste[u]['address']['city'],liste[u]['address']['zipcode'],
+        liste[u]['address']['geo']['lat'],liste[u]['address']['geo']['lng'],liste[u]['phone'], liste[u]['website'],liste[u]['company']['name'],liste[u]['company']['catchPhrase'],liste[u]['company']['bs'],1)
         base.session.add(el)
         base.session.commit()
-    except:
-        base.session.rollback()
 
 # for i in range(5):
 #     utilisateur(base.f0,i)
@@ -23,7 +25,7 @@ def donnees_album(userId):
         if idAlbumLocal:
             pass
         else:
-            el=model.Album(f1[u]['userId'],f1[u]['id'],f1[u]['title'])
+            el=model.Album(f1[u]['userId'],f1[u]['id'],f1[u]['title'],1)
             base.session.add(el)
             base.session.commit()
             base.session.close()
@@ -41,7 +43,7 @@ def donnees_photo(albumId):
         if idPhotoLocal:
             pass
         else:
-            el=model.Photo(f2[u]['albumId'],f2[u]['id'],f2[u]['title'],f2[u]['url'],f2[u]['thumbnailUrl'])
+            el=model.Photo(f2[u]['albumId'],f2[u]['id'],f2[u]['title'],f2[u]['url'],f2[u]['thumbnailUrl'],1)
             base.session.add(el)
             base.session.commit()
             base.session.close()
@@ -67,7 +69,7 @@ def donnees_post(userId):
         if idPostLocal:
             pass
         else:
-            el=model.Post(f4[u]['userId'],f4[u]['id'],f4[u]['title'],f4[u]['body'])
+            el=model.Post(f4[u]['userId'],f4[u]['id'],f4[u]['title'],f4[u]['body'],1)
             base.session.add(el)
             base.session.commit()
             base.session.close()
@@ -84,7 +86,7 @@ def donnees_comment(postId):
         if idCommentLocal:
             pass
         else:
-            el=model.Comment(f5[u]['postId'],f5[u]['id'],f5[u]['name'],f5[u]['email'],f5[u]['body'])
+            el=model.Comment(f5[u]['postId'],f5[u]['id'],f5[u]['name'],f5[u]['email'],f5[u]['body'],1)
             base.session.add(el)
             base.session.commit()
             base.session.close()
