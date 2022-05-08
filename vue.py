@@ -6,8 +6,11 @@ import requests
 
 def utilisateur(liste,u):
     el=model.User(liste[u]['id'],liste[u]['name'],liste[u]['username'],liste[u]['phone'],liste[u]['email'],str(liste[u]['address']),str(liste[u]['company']['name']),liste[u]['company']['catchPhrase'],liste[u]['company']['bs'], liste[u]['website'])
-    base.session.add(el)
-    base.session.commit()
+    try:
+        base.session.add(el)
+        base.session.commit()
+    except:
+        base.session.rollback()
 
 # for i in range(5):
 #     utilisateur(base.f0,i)
