@@ -25,7 +25,6 @@ import werkzeug
 from werkzeug.exceptions import abort
 from flask import Blueprint
 from flask_paginate import Pagination, get_page_parameter
-from sqlalchemy.exc import IdentifierError
 
 # *****************************************************************************
 
@@ -45,84 +44,56 @@ app.config['SECRET_KEY']='Groupe_7_2022'
 
 ##########################Page Principale ##################################
 
-# def get_users(offset=0, per_page=5):
-#     return users[offset: offset + per_page]
-
-
 @app.route('/',methods=('GET','POST'))
 def principal():
     fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.website)
     if request.method=='POST':
-            n=int(request.form.get('choice_user'))
-            if 'N' not in session:
-                session['N'] = n
-                # N1=n
-            elif n: 
-                page=request.args.get('page')
-                # session['N'] =0
-                session['N'] += n
-                # N1+=a
-            print(session)
-            N=session['N']
-            if N<=5:
-                deb=0
-                fin=N
-                test = 0
-            else:
-                deb=1
-                fin=6
-                test =1
-                if page:
-                    deb=(page+1)*page-1
-                    if N/page>=page:
-                        fin =deb+5
-                    else:
-                        fin=deb+N%page
-            k=0
-            for el in fiche:
-                k+=1
-            if N>k:
-                try:
-                    for i in range(k, N):
-                        utilisateur(base.f0,i)
-                    fiche = base.session.query(model.User)
-                    return render_template('principal.html',n=n,N=N,deb=deb,fin=fin, test=test,fiche=fiche)
-                except (ConnectionError):
-                    abort(404)
-            elif k>=N:
-                
+         n=int(request.form.get('choice_user'))
+         k=0
+         for el in fiche:
+            k+=1
+         if n>k:
+            try:
+                for i in range(k, n):
+                    utilisateur(base.f0,i)
                 fiche = base.session.query(model.User).all()
-                return render_template('principal.html', n=n,N=N,deb=deb,fin=fin, test=test, fiche=fiche)
-    else:
-        if 'N' not in session:
-            deb=0
-            fin=0
-            N=0
-            test=0
-        else:
-            fiche = base.session.query(model.User)
-            k=0
-            for el in fiche:
-                k+=1
-            N=session['N']
-            if N:
-                page=(request.args.get('page'))
-                if page :
-                    page=int(page)
+                return render_template('principal.html', fiche=fiche, n=n)
                 
-                    test =1
-                    deb=(page+1)*page-1
-                    print('n:',N,page,deb)
-                    if k/page>=5:
-                        fin =deb+5
-                        print(fin)
-                    else:
-                        rest=k-deb
-                        fin= deb+rest
-                    print('n:',N,page,deb,fin,k)
-            print(fiche)
-        return render_template('principal.html',deb=deb,fin=fin,fiche=fiche, N=N,test=test)
+            except ConnectionError:
+                abort(404)
+        #### j'ai modifié ici #####        
+         elif k>=n:
+                fiche = base.session.query(model.User).all()
+                return render_template('principal.html', fiche=fiche, n=n)
+    else:
+        n=0
+    return render_template('principal.html',fiche=fiche,n=n)
 
+################## AFFICHAGE DES USER ######## 
+
+@app.route('/affiche', methods=['POST','GET'])
+def affiche():
+    n=int(request.form.get('choice_user'))
+
+    fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.website).filter(model.User.etat==1)
+    k=0
+    for el in fiche:
+        k+=1
+    if n>k:
+        # if k>=n:
+        #     return render_template('afiche.html', fiche=fiche, n=n, id=id)
+        try:
+            for i in range(k+1, n+1):
+                utilisateur(base.f0,i)            
+            fiche = base.session.query(model.User).filter(model.User.etat==1).all()
+            return render_template('afiche.html', fiche=fiche, n=n)
+            
+        except ConnectionError:
+            abort(404)
+    #### j'ai modifié ici #####        
+    elif k>=n:
+        fiche = base.session.query(model.User).filter(model.User.etat==1).all()
+        return render_template('afiche.html', fiche=fiche, n=n)
 
 
 ######## AJOUT DES USERS########
@@ -605,13 +576,12 @@ def connexion(email,id):
 @app.route('/deconnexion')
 def deconnexion():
     session.pop('email',None)
-    page=1
     flash("UTILISATEUR DÉCONNECTÉ AVEC SUCCÈS!")
     # if 'email' in session:
     #     print('OK')
     # else:
     #     print('OOPS')
-    return redirect(url_for('principal',page=page))
+    return redirect(url_for('principal'))
 
 
 
@@ -639,6 +609,15 @@ def usertodo():
     return render_template('usertodo.html')
 
 
+#############################Page user Info##############################
+
+@app.route('/userinfo')
+def userinfo():
+    fiche = base.session.query(model.User.name, model.User.username, model.User.phone, 
+    model.User.email, model.User.street).all()
+   
+    return render_template('userinfo.html')
+
 
 @app.route('/affiche_infos_user/<int:userId>')
 def affiche_infos_user(userId):
@@ -648,9 +627,19 @@ def affiche_infos_user(userId):
     model.User.email, model.User.city,model.User.lat, 
     model.User.lng,model.User.companyName,model.User.catchPhrase,model.User.companyBs).filter(model.User.id==userId).first()
     
+    # namecompany = fiche['company'].split(',')[0].split(':')[-1].strip(' ').strip("'")
+    # catchphrase = fiche['company'].split(',')[1].split(':')[-1].strip(' ').strip("'")
+    # bs = fiche['company'].split(',')[2].split(':')[-1].split('}')[0].strip(' ').strip("'")
+    
     phone = fiche['phone'].split('x')[0]
     lat=fiche['lat']
     long=fiche['lng']
+    # lat = float(fiche['address'].split(',')[4].split(':')[-1].strip('}').strip(" ").strip("'"))
+    # long= float(fiche['address'].split(',')[5].split(':')[-1].strip('}').strip(" ").strip("'"))
+    # rue= fiche['address'].split(',')[1].split(':')[1].strip('"')
+    # ville= fiche['address'].split(',')[2].split(':')[1].strip('"').strip(' ').strip("'")
+    # rue=fiche['street']
+    # ville=fiche['city']
     start_coords = (lat, long)
     map = folium.Map(
         location=start_coords, 
@@ -662,6 +651,63 @@ def affiche_infos_user(userId):
 
     map.save('templates/map.html')
     return render_template('affiche_infos_user.html', fiche=fiche, phone=phone, i=1, map=map,userId=userId)
+
+
+
+
+##########################" PAGE DE PAGINATION ##################################"
+
+# app.template_folder = 'templates'
+# users = list(range(200))
+users = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.id).all()
+
+
+def get_users(offset=0, per_page=5):
+    return users[offset: offset + per_page]
+
+
+@app.route('/paginate', methods=["POST","GET"])
+@app.route('/paginate')
+def paginate():
+    n=request.form.get('choice_user')
+    a = int(n)
+#### J'ai modifié beaucoup de choses ici (importation d'éléments depuis la fonction "affiche")###
+
+    fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
+    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter= 'per_page')
+
+    total = len(users)
+    l=round(total/a)
+    userId=base.session.query(model.User.id).filter(model.User.email=='Bret').first()
+    pagination_users = get_users(offset=offset, per_page=per_page)
+
+    pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
+    k=0
+    for el in fiche:
+        k+=1
+    # l = round(k/n)
+    if a>k:
+        if k>=a:
+            return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
+
+        else:
+            try:
+                for i in range(k, a):
+                    utilisateur(base.f0,i)
+                fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
+                return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
+                
+            except ConnectionError:
+                abort(404)
+    else:
+        a=5
+        fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
+        return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
+
+
+    # return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
+
+# *********************************************************************************
 
 ############## DEBOGUER ################################################
 if __name__=='__main__':
