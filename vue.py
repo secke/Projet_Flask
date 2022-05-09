@@ -1,3 +1,4 @@
+import random
 import sys
 sys.path.append('.')
 sys.path.append('..')
@@ -49,13 +50,23 @@ def donnees_photo(albumId):
 
 # Photos()
 
-def donnees_todo():
-    for u in range(len(base.f3)):
-        el=model.Todo(base.f3[u]['userId'],base.f3[u]['id'],base.f3[u]['title'],base.f3[u]['completed'])
-        base.session.add(el)
-    base.session.commit()
-# donnees_todo()
-
+def donnees_todo(userId):
+    f3=requests.get(f"https://jsonplaceholder.typicode.com/todos/?userId={userId}")
+    f3=f3.json()
+    for u in range(len(f3)):
+        print(f3[u])
+        idtodos=base.session.query(model.Todo.id).filter(model.Todo.id==f3[u]['id']).first()
+        if idtodos:
+            pass
+        else:
+            if f3[u]['completed']==True:
+                etat="Termine"
+            else:
+                etat=random.choice(["En cours","A faire"])
+            el=model.Todo(base.f3[u]['userId'],base.f3[u]['id'],base.f3[u]['title'],etat)
+            base.session.add(el)
+            base.session.commit()
+            base.session.close
 def donnees_post(userId):
     f4=requests.get(f"https://jsonplaceholder.typicode.com/posts/?userId={userId}")
     f4=f4.json()

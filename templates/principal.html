@@ -11,11 +11,12 @@
            <button class="btn_affiche" onclick="activeblock()">Afficher des users</button>
         </div>
     </nav>
-    <div>{% with message=get_flashed_messages() %}
+    <div>
+        {% with message=get_flashed_messages() %}
             {% if message %}
                 <h1>{{ message[0] }}</h1>
             {% endif %}
-         {% endwith %}
+        {% endwith %}
     </div>
     <form class="choice_user" method="post" action="{{ url_for('affiche',fiche=fiche,n=n) }}">
         <div class="champ_choice">

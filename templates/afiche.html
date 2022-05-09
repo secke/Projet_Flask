@@ -7,8 +7,8 @@
             <span >User</span>
         </div>
         <div class="div_bouton_page_principal">
-            <a href="{{ url_for('adduser') }}"  class=" bouton_principal"><button class="btn_ajout">+Ajouter un user</button></a>
-            <a href="" class="bouton_principal"><button class="btn_ajout">Afficher des users</button></a>
+            <a href="{{ url_for('adduser') }}"  class=" bouton_principal"><button class="btn_ajout">+Ajouter user</button></a>
+            <a href="" class="bouton_principal"><button class="btn_ajout">Afficher users</button></a>
         </div>
     </nav>
    <div  id="body_affichage">
@@ -34,6 +34,28 @@
                 </div>
             </div>
             {% endfor %}
+            {% if n>5 %}
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    {% for i in range(2) %}
+                    <li class="page-item"><a class="page-link" href="">{{ i+1 }}</a></li>
+                    {% endfor %}
+                    <li class="page-item">
+                        <a class="page-link" href="" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    </ul>
+                </nav>
+            {% endif %}
       </div>
+
 
 {% endblock %}

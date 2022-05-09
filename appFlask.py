@@ -170,14 +170,15 @@ def post(userId):
     
     if postsUser:
         postUserId=base.session.query(model.Post.id).filter(model.Post.userId==userId).first()
-        postId=postUserId['id']
-        return render_template('post.html',userId=userId,postsUser=postsUser,postId=postId)
+        postId=postUserId[0]
+        return render_template('post.html',userId=userId,postsUser=postsUser,postId=2)
     else:
         donnees_post(userId)
         # postId=donnees_post(userId)
         postsUser=base.session.query(model.Post).filter(model.Post.userId==userId).all()
         postUserId=base.session.query(model.Post.id).filter(model.Post.userId==userId).first()
-        postId=postUserId['id']
+        print("mafe****",postUserId)
+        # postId=postUserId['id']
         # postsUserApi=base.session.query(model.Post).filter(model.Post.userId==userId).all()
         return render_template('post.html',userId=userId,postsUser=postsUser,postId=postId)
     # return render_template('post.html', posts=posts,userId=userId)
@@ -249,14 +250,14 @@ def album(userId):
     
     if albumsUser:
         albumUserId=base.session.query(model.Album.id).filter(model.Album.userId==userId).first()
-        albumId=albumUserId['id']
+        albumId=albumUserId[0]
         return render_template('album.html',userId=userId,albumsUser=albumsUser,albumId=albumId)
     else:
         donnees_album(userId)
         # albumId=donnees_album(userId)
         albumsUser=base.session.query(model.Album).filter(model.Album.userId==userId).all()
         albumUserId=base.session.query(model.Album.id).filter(model.Album.userId==userId).first()
-        albumId=albumUserId['id']
+        albumId=albumUserId[0]
         # albumsUserApi=base.session.query(model.Post).filter(model.Post.userId==userId).all()
         return render_template('album.html',userId=userId,albumsUser=albumsUser,albumId=albumId)
     # return render_template('album.html', albums=albums,userId=userId)
@@ -393,11 +394,20 @@ def supprimerPhoto(id,albumId):
 ############### PAGE TODOS ##########################
 @app.route('/todo/<int:userId>')
 def todo(userId):
-    todos=base.session.query(model.Todo).all()
-    return render_template('todo.html', todos=todos,userId=userId)
+    todos=base.session.query(model.Todo).filter(model.Todo.userId==userId).all()
+    taille=len(todos)
+    if todos:
+        todosUserId=base.session.query(model.Todo).filter(model.Todo.userId==userId).first()
+        return render_template('todo.html',todos=todos,userId=userId,taille=taille)
+    else:
+        print(userId)
+        donnees_todo(userId)
+        todos=base.session.query(model.Todo).filter(model.Todo.userId==userId).all()
+        todosUserId=base.session.query(model.Todo).filter(model.Todo.userId==userId).first()
+        # todosId=todosUserId[0]
+        return render_template('todo.html',todos=todos,userId=userId,taille=taille)
 
 ################## AJOUTER TODOS ########################
-
 @app.route('/addTodo/<int:userId>', methods=('POST','GET'))
 def addTodo(userId):
     if request.method == 'POST':
