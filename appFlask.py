@@ -86,12 +86,14 @@ def principal():
                         for i in range(k, N):
                             utilisateur(base.f0,i)
                     fiche = base.session.query(model.User)
+                    # session.pop('N',None)
                     return render_template('principal.html',n=n,N=N,deb=deb,fin=fin, test=test,fiche=fiche)
                 except (ConnectionError):
                     abort(404)
             elif k>=N:
             
                 fiche = base.session.query(model.User).all()
+                # session.pop('N',None)
                 return render_template('principal.html', N=N,deb=deb,fin=fin, test=test,fiche=fiche, n=n)
     else:
         # if 'N' not in session:
@@ -124,6 +126,7 @@ def principal():
                         fin= N
                     print('n:',N,page,deb,fin,k)
             print(fiche)
+        # session.pop('N',None)
         return render_template('principal.html',deb=deb,fin=fin,fiche=fiche, N=N,test=test)
 
 
