@@ -542,7 +542,7 @@ def addComments(postId):
             liste.append(i['id'])
         m=max(liste)
         id=m+1
-        ajout=model.Comment(postId,id,request.form.get('name'),request.form.get('email'),request.form.get('body'))
+        ajout=model.Comment(postId,id,request.form.get('name'),request.form.get('email'),request.form.get('body'),1)
         try:
             base.session.add(ajout)
             base.session.commit()
