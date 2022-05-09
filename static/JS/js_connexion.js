@@ -76,31 +76,27 @@ function desactiveblock(){
   affich.style.display="block"
 }
 
-function chargement(){
-    welcome.style.display="bloc"
-}
+var choice_nbr_user = document.querySelector('.choice_user')
 
-// var choice_nbr_user = document.querySelector('.choice_user')
-
-// var btn_affiche = document.querySelector('.btnaffiche')
+var btn_affiche = document.querySelector('.btn_ajout')
 
 // // var choice_user = document.querySelector('.btn_choice_user')
 
-// console.log(btn_affiche)
+console.log(btn_affiche)
 
 // choice_user.addEventListener('click', ()=>{
 //     choice_nbr_user.style.display = 'block'
 //     // alert("choix  effectue")
 // })
 
-// btn_affiche.addEventListener('click', ()=>{
-//     alert('ça marche')
-//     console.log(btn_affiche)
-//     // choice_nbr_user.style.display ='flex'
-//     document.body.appendChild(choice_nbr_user)
-//     choice_user.classList.toggle('btn_affiche_visible')
+btn_affiche.addEventListener('click', ()=>{
+    alert('ça marche')
+    console.log(btn_affiche)
+    // choice_nbr_user.style.display ='flex'
+    document.body.appendChild(choice_nbr_user)
+    choice_user.classList.toggle('btn_affiche_visible')
     
-// })
+})
 
 // // ################|||| Récupération des information du user après click ||||################
 
