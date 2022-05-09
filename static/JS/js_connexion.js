@@ -60,10 +60,16 @@ function valider(){
 var form=document.querySelector(".choice_user")
 var affich=document.querySelector("#body_affichage")
 var imag=document.querySelector(".welcome")
+// console.log(document.body)
+
 function activeblock() {
   form.style.display="block";
+  document.body.style.opacity="0.5"
+  form.style.position="absolute";
+  form.style.zIndex = "1";
   imag.style.display="none"
-  
+//   document.body.style.backgroundColor="black"
+//   alert("ok")
 }
 function desactiveblock(){
   form.style.display="none";
@@ -74,7 +80,7 @@ var choice_nbr_user = document.querySelector('.choice_user')
 
 var btn_affiche = document.querySelector('.btn_ajout')
 
-// var choice_user = document.querySelector('.btn_choice_user')
+// // var choice_user = document.querySelector('.btn_choice_user')
 
 console.log(btn_affiche)
 

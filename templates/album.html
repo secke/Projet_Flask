@@ -7,12 +7,18 @@
         <span >User</span>
     </div>
     <ul class="menu">
-        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addAlbum', userId=userId) }}">Ajouter Album</a></li>
+        <li class="list" style="font-size: 35px;"><a href="{{ url_for('addAlbum', userId=userId) }}"><button class="ajouter_element">Ajouter Album</button></a></li>
     </ul>
     <a href="{{ url_for('deconnexion') }}"><button class="deconnexion">Déconnexion</button></a>
 
 </nav>
-
+<div>
+    {% with message=get_flashed_messages() %}
+        {% if message %}
+            <h3>{{ message[0] }}</h3>
+        {% endif %}
+    {% endwith %}
+</div>
 {% for album in albumsUser %}
     <div class="block_body_album">
         <h3>Titre Album: {{ album.title }}</h3>

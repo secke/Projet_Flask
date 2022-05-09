@@ -18,20 +18,48 @@
             <input type="email" class="input_edituser" name="mail" value="{{ request.form.get('mail') or user.email }}">
         </div>
         <div class="edituser_champ">
-            <label for=""  class="label_adduser">Adresse</label>
-            <input type="text" class="input_edituser" name="address" value="{{ request.form.get('address') or user.address }}">
+            <label for=""  class="label_adduser">Street</label>
+            <input type="text" class="input_edituser" name="street" value="{{ request.form.get('street') or user.street }}">
+        </div>
+        <div class="edituser_champ">
+            <label for=""  class="label_adduser">Suite</label>
+            <input type="text" class="input_edituser" name="suite" value="{{ request.form.get('suite') or user.suite }}">
+        </div>
+        <div class="edituser_champ">
+            <label for=""  class="label_adduser">City</label>
+            <input type="text" class="input_edituser" name="city" value="{{ request.form.get('city') or user.city }}">
+        </div>
+        <div class="edituser_champ">
+            <label for=""  class="label_adduser">Zipcode</label>
+            <input type="text" class="input_edituser" name="zipcode" value="{{ request.form.get('zipcode') or user.zipcode }}">
+        </div>
+        <div class="edituser_champ">
+            <label for=""  class="label_adduser">Latitude</label>
+            <input type="text" class="input_edituser" name="lat" value="{{ request.form.get('lat') or user.lat }}">
+        </div>
+        <div class="edituser_champ">
+            <label for=""  class="label_adduser">Longitude</label>
+            <input type="text" class="input_edituser" name="lng" value="{{ request.form.get('lng') or user.lng }}">
         </div>
         <div class="edituser_champ">
             <label for=""  class="label_adduser">Phone</label>
             <input type="text" class="input_edituser" name="tel" value="{{ request.form.get('tel') or user.phone }}">
         </div>
         <div class="edituser_champ">
-            <label for=""  class="label_adduser">Company</label>
-            <input type="text" class="input_edituser" name="company" value="{{ request.form.get('company') or user.email }}">
-        </div>
-        <div class="edituser_champ">
             <label for=""  class="label_adduser">Website</label>
             <input type="text" class="input_edituser" name="site" value="{{ request.form.get('site') or user.website }}">
+        </div>
+        <div class="edituser_champ">
+            <label for=""  class="label_adduser">Company Name</label>
+            <input type="text" class="input_edituser" name="companyName" value="{{ request.form.get('companyName') or user.companyName }}">
+        </div>
+        <div class="edituser_champ">
+            <label for=""  class="label_adduser">CatchPhrase</label>
+            <input type="text" class="input_edituser" name="catchPhrase" value="{{ request.form.get('catchPhrase') or user.catchPhrase }}">
+        </div>
+        <div class="edituser_champ">
+            <label for=""  class="label_adduser">Bs</label>
+            <input type="text" class="input_edituser" name="bs" value="{{ request.form.get('bs') or user.companyBs }}">
         </div>
 
         <div class="btn_edituser">
