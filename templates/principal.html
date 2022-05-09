@@ -25,7 +25,7 @@
         <div class="div_article_user">
             <div class="champ_user">
             <a href="{{ url_for('connexion', email=  fiche[i]['email'],id= fiche[i]['id']) }}" class="article_user" >
-                <span class="paragraphe_user">{{ fiche[i]['name'], N }}</span>
+                <span class="paragraphe_user">{{ fiche[i]['name'] }}</span>
                 <span class="paragraphe_user" name="username" id="username">{{ fiche[i]['username'] }}</span>
                 <span class="paragraphe_user">{{ fiche[i]['phone'].split('x')[0] }}</span>
                 <span class="paragraphe_user">{{ fiche[i]['email'] }}</span>

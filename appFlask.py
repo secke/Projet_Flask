@@ -61,9 +61,11 @@ def principal():
                 page=request.args.get('page')
                 # session['N'] =0
                 session['N'] += n
-                # N1+=a
             print(session)
+            nbr_user=len(base.f0)
             N=session['N']
+            nbr_page=round(N/5)
+            print('nbr:',nbr_user,nbr_page)
             if N<=5:
                 deb=0
                 fin=N
@@ -83,8 +85,11 @@ def principal():
                 k+=1
             if N>k:
                 try:
-                    for i in range(k, N):
-                        utilisateur(base.f0,i)
+                    nbr_user=len(base.f0)
+                    print(nbr_user)
+                    if N<nbr_user:
+                        for i in range(k, N):
+                            utilisateur(base.f0,i)
                     fiche = base.session.query(model.User)
                     return render_template('principal.html',n=n,N=N,deb=deb,fin=fin, test=test,fiche=fiche)
                 except (ConnectionError):
@@ -94,17 +99,20 @@ def principal():
                 fiche = base.session.query(model.User).all()
                 return render_template('principal.html', n=n,N=N,deb=deb,fin=fin, test=test, fiche=fiche)
     else:
+        # if 'N' not in session:
+        deb=0
+        fin=0
+        N=0
+        test=0
         if 'N' not in session:
-            deb=0
-            fin=0
-            N=0
-            test=0
+            pass
         else:
             fiche = base.session.query(model.User)
             k=0
             for el in fiche:
                 k+=1
             N=session['N']
+            nbr_page=round(N/5)
             if N:
                 page=(request.args.get('page'))
                 if page :
@@ -112,13 +120,13 @@ def principal():
                 
                     test =1
                     deb=(page+1)*page-1
-                    print('n:',N,page,deb)
-                    if k/page>=5:
+                    print('n:',N,page,deb,nbr_page)
+                    if N/page>=5:
                         fin =deb+5
                         print(fin)
                     else:
-                        rest=k-deb
-                        fin= deb+rest
+                        rest=N-deb
+                        fin= N
                     print('n:',N,page,deb,fin,k)
             print(fiche)
         return render_template('principal.html',deb=deb,fin=fin,fiche=fiche, N=N,test=test)
