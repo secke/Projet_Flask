@@ -9,14 +9,83 @@
     <a href="{{ url_for('deconnexion') }}"><button class="deconnexion">Déconnexion</button></a>
 
     </nav>
-    {% for todo in todos %}
-        <div class="block">
-            <h2 class="titre"><a href="{{ url_for('modifierTodo',id=todo.id,userId=userId) }}"><button class="boutton_formulaire">Editer</button></a><a href="{{ url_for('supprimerTodo',id=todo.id,userId=userId) }}"><button class="boutton_formulaire">Supprimer</button></a>
-            {{ todo.title }}</h2>
+ <div class="maintodo">
+    <div class="todoblock">
+        <h2 class="todotblock">A faire</h2>
+        <div class="todosbloc">
+            <ul>
+                {% for i in range(taille) %}
+                   {% if todos[i].ETAT== "A faire" %}
+                   <div class="liste">
+                    <li>{{ todos[i].title }}</li>
+                        <div class="bouton">
+                         <a href="{{ url_for('modifierTodo',id=todos[i].id,userId=userId) }}">
+                             <i class="fa-solid fa-pen" id="modiftodo"></i>
+                         </a>
+                         <a href="{{ url_for('supprimerTodo',id=todos[i].id,userId=userId) }}">
+                             <i class="fa-solid fa-trash-can" id="suptodo"></i>
+                         </a>
+                        </div>
+                   </div>
+                   {% endif %}
+                {% endfor %}
+            </ul>
+               
         </div>
-        <div class="block">
-        <textarea >{{ todo.ETAT }}</textarea>
+    </div>
+    <div class="todoblock">
+        <h2 class="todotblock">En cours</h2>
+        <div class="todosbloc">
+            <ul>
+                {% for i in range(taille) %}
+                   {% if todos[i].ETAT== "En cours" %}
+                       <div class="liste">
+                        <li>{{ todos[i].title }}</li>
+                            <div class="bouton">
+                             <a href="{{ url_for('modifierTodo',id=todos[i].id,userId=userId) }}">
+                                 <i class="fa-solid fa-pen" id="modiftodo"></i>
+                             </a>
+                             <a href="{{ url_for('supprimerTodo',id=todos[i].id,userId=userId) }}">
+                                 <i class="fa-solid fa-trash-can" id="suptodo"></i>
+                             </a>
+                            </div>
+                       </div>
+                   {% endif %}
+                {% endfor %}
+            </ul>
+               
         </div>
-        
-    {% endfor %}
+    </div>
+    <div class="todoblock">
+        <h2 class="todotblock">Terminé</h2>
+        <div class="todosbloc">
+            <ul>
+                {% for i in range(taille) %}
+                   {% if todos[i].ETAT== "Termine" %}
+                   <div class="liste">
+                    <li>{{ todos[i].title }}</li>
+                        <div class="bouton">
+                         <a href="{{ url_for('modifierTodo',id=todos[i].id,userId=userId) }}">
+                             <i class="fa-solid fa-pen" id="modiftodo"></i>
+                         </a>
+                         <a href="{{ url_for('supprimerTodo',id=todos[i].id,userId=userId) }}">
+                             <i class="fa-solid fa-trash-can" id="suptodo"></i>
+                         </a>
+                        </div>
+                   </div>
+                   {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+ </div>
 {% endblock %}
+
+<!-- <div class="block">
+    <h2 class="titre"><a href="{{ url_for('modifierTodo',id=todo.id,userId=userId) }}"><button class="boutton_formulaire">Editer</button></a><a href="{{ url_for('supprimerTodo',id=todo.id,userId=userId) }}"><button class="boutton_formulaire">Supprimer</button></a>
+    {{ todo.title }}</h2>
+</div>
+<div class="block">
+<textarea >{{ todo.ETAT }}</textarea>
+</div> -->
+

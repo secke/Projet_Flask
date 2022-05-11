@@ -2,15 +2,15 @@
 # from asyncio import run_coroutine_threadsafe
 # from crypt import methods
 # from turtle import pos
-from cmath import log
+# from cmath import log
 from crypt import methods
 import sys
 from flask import jsonify, session
 from unicodedata import name
 import folium
 
-from sqlalchemy import create_engine
-from tabnanny import check
+from sqlalchemy import create_engine, func
+# from tabnanny import check
 sys.path.append('.')
 sys.path.append('..')
 
@@ -23,7 +23,7 @@ from flask import Flask, redirect, url_for,render_template,request,flash
 import requests
 import werkzeug
 from werkzeug.exceptions import abort
-from flask import Blueprint
+# from flask import Blueprint
 from flask_paginate import Pagination, get_page_parameter
 
 # *****************************************************************************
@@ -86,12 +86,14 @@ def principal():
                         for i in range(k, N):
                             utilisateur(base.f0,i)
                     fiche = base.session.query(model.User)
+                    # session.pop('N',None)
                     return render_template('principal.html',n=n,N=N,deb=deb,fin=fin, test=test,fiche=fiche)
                 except (ConnectionError):
                     abort(404)
             elif k>=N:
             
                 fiche = base.session.query(model.User).all()
+                # session.pop('N',None)
                 return render_template('principal.html', N=N,deb=deb,fin=fin, test=test,fiche=fiche, n=n)
     else:
         # if 'N' not in session:
@@ -124,6 +126,7 @@ def principal():
                         fin= N
                     print('n:',N,page,deb,fin,k)
             print(fiche)
+        # session.pop('N',None)
         return render_template('principal.html',deb=deb,fin=fin,fiche=fiche, N=N,test=test)
 
 
@@ -221,14 +224,14 @@ def post(userId):
     
     if postsUser:
         postUserId=base.session.query(model.Post.id).filter(model.Post.userId==userId).first()
-        postId=postUserId['id']
-        return render_template('post.html',userId=userId,postsUser=postsUser,postId=postId)
+        postId=postUserId[0]
+        return render_template('post.html',userId=userId,postsUser=postsUser,postId=2)
     else:
         donnees_post(userId)
         # postId=donnees_post(userId)
         postsUser=base.session.query(model.Post).filter(model.Post.userId==userId).filter(model.Post.etat==1).all()
         postUserId=base.session.query(model.Post.id).filter(model.Post.userId==userId).first()
-        postId=postUserId['id']
+        # postId=postUserId['id']
         # postsUserApi=base.session.query(model.Post).filter(model.Post.userId==userId).all()
         return render_template('post.html',userId=userId,postsUser=postsUser,postId=postId)
     # return render_template('post.html', posts=posts,userId=userId)
@@ -301,14 +304,14 @@ def album(userId):
     
     if albumsUser:
         albumUserId=base.session.query(model.Album.id).filter(model.Album.userId==userId).first()
-        albumId=albumUserId['id']
+        albumId=albumUserId[0]
         return render_template('album.html',userId=userId,albumsUser=albumsUser,albumId=albumId)
     else:
         donnees_album(userId)
         # albumId=donnees_album(userId)
         albumsUser=base.session.query(model.Album).filter(model.Album.userId==userId).filter(model.Album.etat==1).all()
         albumUserId=base.session.query(model.Album.id).filter(model.Album.userId==userId).first()
-        albumId=albumUserId['id']
+        albumId=albumUserId[0]
         # albumsUserApi=base.session.query(model.Post).filter(model.Post.userId==userId).all()
         return render_template('album.html',userId=userId,albumsUser=albumsUser,albumId=albumId)
     # return render_template('album.html', albums=albums,userId=userId)
@@ -449,11 +452,20 @@ def supprimerPhoto(id,albumId):
 ############### PAGE TODOS ##########################
 @app.route('/todo/<int:userId>')
 def todo(userId):
-    todos=base.session.query(model.Todo).all()
-    return render_template('todo.html', todos=todos,userId=userId)
+    todos=base.session.query(model.Todo).filter(model.Todo.userId==userId).all()
+    taille=len(todos)
+    if todos:
+        todosUserId=base.session.query(model.Todo).filter(model.Todo.userId==userId).first()
+        return render_template('todo.html',todos=todos,userId=userId,taille=taille)
+    else:
+        print(userId)
+        donnees_todo(userId)
+        todos=base.session.query(model.Todo).filter(model.Todo.userId==userId).all()
+        todosUserId=base.session.query(model.Todo).filter(model.Todo.userId==userId).first()
+        # todosId=todosUserId[0]
+        return render_template('todo.html',todos=todos,userId=userId,taille=taille)
 
 ################## AJOUTER TODOS ########################
-
 @app.route('/addTodo/<int:userId>', methods=('POST','GET'))
 def addTodo(userId):
     if request.method == 'POST':
@@ -530,7 +542,7 @@ def addComments(postId):
             liste.append(i['id'])
         m=max(liste)
         id=m+1
-        ajout=model.Comment(postId,id,request.form.get('name'),request.form.get('email'),request.form.get('body'))
+        ajout=model.Comment(postId,id,request.form.get('name'),request.form.get('email'),request.form.get('body'),1)
         try:
             base.session.add(ajout)
             base.session.commit()
@@ -717,6 +729,32 @@ def donnee_photos(userId):
     # return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
 
 # *********************************************************************************
+
+
+
+#####################Dashboard###########################################################
+
+@app.route('/donnes',methods=['GET','POST'])
+def donnes():
+    donne={}
+    li=[]
+    donnees=base.session.query(func.count(model.User.id),model.User.name).join(model.User.posts).group_by(model.User.name).all()
+    for i in donnees:
+        donne["name"]=i[1]
+        donne["nbr"]=i[0]
+        li.append(donne)
+
+    return jsonify(li)
+
+@app.route('/dashbord')
+def dashbord():
+    return render_template('dashbord.html')
+
+@app.route('/donnespost')
+def donnespost():
+    donnepost=base.session.query(model.Post.userId,model.Post.id,model.Post.title,model.Post.body,model.Post.etat).all()
+    return 
+
 
 ############## DEBOGUER ################################################
 if __name__=='__main__':

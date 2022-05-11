@@ -12,7 +12,6 @@ body{
    
    width: 100%;
    height: 900px;
-   background-color: #b4dcda;
 }
 .bienvenue{
    font-size: 50px;
@@ -624,6 +623,46 @@ a{
 }
 
 /* ###################Fin de style concernant la page user Todo###################### */
+.maintodo{
+   width: 100%;
+   height: 80%;
+   display: flex;
+   justify-content: space-evenly;
+   flex-wrap: wrap;
+}
+.todoblock{
+   background-color: #F5D7FF;
+   width: 45%;
+   margin-top: 2%;
+}
+.liste{
+   display: flex;
+}
+.todosbloc ul{
+   list-style:square;
+}
+.todosbloc li{
+
+   color: black;
+   font-size: 25px;
+}
+.bouton{
+   margin-left: 1%;
+   margin-top: 1%;
+}
+.todosbloc a{
+   text-decoration: none;
+   color: #AE25DE;
+   font-size: 15px;
+}
+.todotblock{
+   margin-left: 40%;
+   color: #AE25DE;
+}
+#modiftodo,#suptodo{
+   text-decoration: none;
+}
+
 
 /* ###################Fin de style concernant la page user Info###################### */
 .block1{

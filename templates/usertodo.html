@@ -5,15 +5,36 @@
 
     <div class="block">
         <h2 class="tblock">A faire</h2>
-        <div class="sbloc"></div>
+        <div class="sbloc">
+            <ul>
+                {% for i in range(taille) %}
+                   {% if todos[i].ETAT== "A faire" %}
+                        <li>{{ todos[i].title }}</li>
+                   {% endif %}
+                {% endfor %}
+            </ul>
+               
+        </div>
     </div>
     <div class="block">
         <h2 class="tblock">En cours</h2>
-        <div class="sbloc"></div>
+        <div class="sbloc">
+            {% for i in range(taille) %}
+            {% if todos[i].ETAT== "En cours" %}
+                 <li>{{ todos[i].title }}</li>
+            {% endif %}
+         {% endfor %}
+        </div>
     </div>
     <div class="block">
         <h2 class="tblock">Terminé</h2>
-        <div class="sbloc"></div>
+        <div class="sbloc">
+            {% for i in range(taille) %}
+            {% if todos[i].ETAT== "Termine" %}
+                 <li>{{ todos[i].title }}</li>
+            {% endif %}
+         {% endfor %}
+        </div>
     </div>
   
 {% endblock main %}
