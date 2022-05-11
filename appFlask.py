@@ -5,7 +5,7 @@
 from cmath import log
 from crypt import methods
 import sys
-from flask import session
+from flask import jsonify, session
 from unicodedata import name
 import folium
 
@@ -607,7 +607,7 @@ def connexion(email,id):
 
 @app.route('/deconnexion')
 def deconnexion():
-    session.pop('email',None)
+    # session.pop('email',None)
     flash("UTILISATEUR DÉCONNECTÉ AVEC SUCCÈS!")
     # if 'email' in session:
     #     print('OK')
@@ -687,54 +687,31 @@ def affiche_infos_user(userId):
 
 
 
-##########################" PAGE DE PAGINATION ##################################"
-
-# app.template_folder = 'templates'
-# users = list(range(200))
-users = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.id).all()
+##########################" PAGE DE VISUALISATION DES DONNEES ##################################"
 
 
-def get_users(offset=0, per_page=5):
-    return users[offset: offset + per_page]
+@app.route('/diagramme/<int:userId>')
+def diagramme(userId):
+    return render_template('diagramme.html')
 
 
-@app.route('/paginate', methods=["POST","GET"])
-@app.route('/paginate')
-def paginate():
-    n=request.form.get('choice_user')
-    a = int(n)
-#### J'ai modifié beaucoup de choses ici (importation d'éléments depuis la fonction "affiche")###
-
-    fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
-    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter= 'per_page')
-
-    total = len(users)
-    l=round(total/a)
-    userId=base.session.query(model.User.id).filter(model.User.email=='Bret').first()
-    pagination_users = get_users(offset=offset, per_page=per_page)
-
-    pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
-    k=0
-    for el in fiche:
-        k+=1
-    # l = round(k/n)
-    if a>k:
-        if k>=a:
-            return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
-
-        else:
-            try:
-                for i in range(k, a):
-                    utilisateur(base.f0,i)
-                fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
-                return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
-                
-            except ConnectionError:
-                abort(404)
-    else:
-        a=5
-        fiche = base.session.query(model.User.name, model.User.username, model.User.phone, model.User.email, model.User.address)
-        return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
+@app.route('/donnee_photos/<int:userId>')
+def donnee_photos(userId):
+    albums = base.session.query(model.Album.id,model.Album.title).filter(model.User.id == userId)
+    tab = []
+    dictionnaire={}
+    for el in albums:
+        photos = base.session.query(model.Photo.id).filter(model.Album.id == el['id'])
+        k=0
+        for photo in photos:
+            k+=1
+        
+        dictionnaire[el['title']]=k
+        # print(el['title'], el['id'],k)
+    tab.append(dictionnaire)
+    # print(len(tab))
+    return jsonify(tab)
+    
 
 
     # return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)

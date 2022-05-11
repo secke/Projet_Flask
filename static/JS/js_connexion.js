@@ -80,6 +80,13 @@ function chargement(){
     welcome.style.display="bloc"
 }
 
+diagramme_album = d3.select('#diagramme_album')
+diagramme_album.data([12,24])
+    .text(function(d) { return d;})
+    .style('width',function(d) {
+    return d*10 + 'px'
+    });
+
 // var choice_nbr_user = document.querySelector('.choice_user')
 
 // var btn_affiche = document.querySelector('.btnaffiche')
@@ -92,7 +99,6 @@ function chargement(){
 //     choice_nbr_user.style.display = 'block'
 //     // alert("choix  effectue")
 // })
-
 // btn_affiche.addEventListener('click', ()=>{
 //     alert('ça marche')
 //     console.log(btn_affiche)
