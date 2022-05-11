@@ -154,7 +154,7 @@ class Connexion(base.base):
         self.id_user=id_user
 
 
-    
+
 
 
 # print(model.User.query.all())

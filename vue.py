@@ -113,7 +113,26 @@ def donnees_comment(postId):
 def recup_mot_de_pass(email):
     mdp=base.session.query(model.User.mot_de_pass )
 
+def remplirUserPost():
+    f=requests.get(f"https://jsonplaceholder.typicode.com/users")
+    f2=requests.get(f"https://jsonplaceholder.typicode.com/posts")
+    f=f.json()
+    f2=f2.json()
+    for u in range(len(f)):
+        el=model.User(f[u]['id'],f[u]['name'],f[u]['username'],f[u]['email'],f[u]['address']['street'],f[u]['address']['suite'],f[u]['address']['city'],f[u]['address']['zipcode'],
+        f[u]['address']['geo']['lat'],f[u]['address']['geo']['lng'],f[u]['phone'], f[u]['website'],f[u]['company']['name'],f[u]['company']['catchPhrase'],f[u]['company']['bs'],1)
+        base.session.add(el)
+        base.session.commit()
+    for i in range(len(f2)):
+         el=model.Post(f2[i]['userId'],f2[i]['id'],f2[i]['title'],f2[i]['body'],1)
+         base.session.add(el)
+         base.session.commit()
+         base.session.close()
 
+
+
+
+# remplirUserPost()
 
 
 

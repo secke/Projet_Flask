@@ -2,15 +2,15 @@
 # from asyncio import run_coroutine_threadsafe
 # from crypt import methods
 # from turtle import pos
-from cmath import log
+# from cmath import log
 from crypt import methods
 import sys
-from flask import session
-from unicodedata import name
+from this import d
+from flask import jsonify, session
 import folium
 
-from sqlalchemy import create_engine
-from tabnanny import check
+from sqlalchemy import create_engine, func
+# from tabnanny import check
 sys.path.append('.')
 sys.path.append('..')
 
@@ -23,7 +23,7 @@ from flask import Flask, redirect, url_for,render_template,request,flash
 import requests
 import werkzeug
 from werkzeug.exceptions import abort
-from flask import Blueprint
+# from flask import Blueprint
 from flask_paginate import Pagination, get_page_parameter
 
 # *****************************************************************************
@@ -752,6 +752,32 @@ def paginate():
     # return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
 
 # *********************************************************************************
+
+
+
+#####################Dashboard###########################################################
+
+@app.route('/donnes',methods=['GET','POST'])
+def donnes():
+    donne={}
+    li=[]
+    donnees=base.session.query(func.count(model.User.id),model.User.name).join(model.User.posts).group_by(model.User.name).all()
+    for i in donnees:
+        donne["name"]=i[1]
+        donne["nbr"]=i[0]
+        li.append(donne)
+
+    return jsonify(li)
+
+@app.route('/dashbord')
+def dashbord():
+    return render_template('dashbord.html')
+
+@app.route('/donnespost')
+def donnespost():
+    donnepost=base.session.query(model.Post.userId,model.Post.id,model.Post.title,model.Post.body,model.Post.etat).all()
+    return 
+
 
 ############## DEBOGUER ################################################
 if __name__=='__main__':
