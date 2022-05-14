@@ -55,23 +55,23 @@ def donnees_photo(albumId):
 
 # Photos()
 
-def donnees_todo(userId):
-    f3=requests.get(f"https://jsonplaceholder.typicode.com/todos/?userId={userId}")
+def donnees_todo(idUser):
+    f3=requests.get(f"https://jsonplaceholder.typicode.com/todos/?userId={idUser}")
     f3=f3.json()
     for u in range(len(f3)):
-        print(f3[u])
-        idtodos=base.session.query(model.Todo.id).filter(model.Todo.id==f3[u]['id']).first()
-        if idtodos:
-            pass
-        else:
+         idtodos=base.session.query(model.Todo.id).filter(model.Todo.id==f3[u]['id']).first()
+         if idtodos:
+             pass
+         else:
             if f3[u]['completed']==True:
                 etat="Termine"
             else:
                 etat=random.choice(["En cours","A faire"])
-            el=model.Todo(base.f3[u]['userId'],base.f3[u]['id'],base.f3[u]['title'],etat)
-            base.session.add(el)
+            elem=model.Todo(f3[u]['userId'],f3[u]['id'],f3[u]['title'],etat)
+            base.session.add(elem)
             base.session.commit()
             base.session.close
+
 def donnees_post(userId):
     f4=requests.get(f"https://jsonplaceholder.typicode.com/posts/?userId={userId}")
     f4=f4.json()
@@ -113,23 +113,36 @@ def donnees_comment(postId):
 def recup_mot_de_pass(email):
     mdp=base.session.query(model.User.mot_de_pass )
 
-def remplirUserPost():
+def remplirTable():
     f=requests.get(f"https://jsonplaceholder.typicode.com/users")
     f2=requests.get(f"https://jsonplaceholder.typicode.com/posts")
+    f3=requests.get(f"https://jsonplaceholder.typicode.com/todos")
     f=f.json()
     f2=f2.json()
-    for u in range(len(f)):
-        el=model.User(f[u]['id'],f[u]['name'],f[u]['username'],f[u]['email'],f[u]['address']['street'],f[u]['address']['suite'],f[u]['address']['city'],f[u]['address']['zipcode'],
-        f[u]['address']['geo']['lat'],f[u]['address']['geo']['lng'],f[u]['phone'], f[u]['website'],f[u]['company']['name'],f[u]['company']['catchPhrase'],f[u]['company']['bs'],1)
-        base.session.add(el)
-        base.session.commit()
-    for i in range(len(f2)):
-         el=model.Post(f2[i]['userId'],f2[i]['id'],f2[i]['title'],f2[i]['body'],1)
-         base.session.add(el)
-         base.session.commit()
-         base.session.close()
+    f3=f3.json()
+    print(f3)
+    # for u in range(len(f)):
+    #     el=model.User(f[u]['id'],f[u]['name'],f[u]['username'],f[u]['email'],f[u]['address']['street'],f[u]['address']['suite'],f[u]['address']['city'],f[u]['address']['zipcode'],
+    #     f[u]['address']['geo']['lat'],f[u]['address']['geo']['lng'],f[u]['phone'], f[u]['website'],f[u]['company']['name'],f[u]['company']['catchPhrase'],f[u]['company']['bs'],1)
+    #     base.session.add(el)
+    #     base.session.commit()
+    # for i in range(len(f2)):
+    #      el=model.Post(f2[i]['userId'],f2[i]['id'],f2[i]['title'],f2[i]['body'],1)
+    #      base.session.add(el)
+    #      base.session.commit()
+    #      base.session.close()    
+    for k in range(len(f3)):
+          if f3[k]['completed']==True:
+                etat="Termine"
+                print(f3[k]['completed'],)
+          else:
+            etat=random.choice(["En cours","A faire"])
 
-
+          el=model.Todo(base.f3[k]['userId'],base.f3[k]['id'],base.f3[k]['title'],etat)
+          base.session.add(el)
+          base.session.commit()
+          base.session.close
+# remplirTable()
 
 
 # remplirUserPost()
