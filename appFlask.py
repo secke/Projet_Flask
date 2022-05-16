@@ -1,16 +1,10 @@
 # ############### IMPORTATION DES MODULES ET FONCTIONS ######################
-# from asyncio import run_coroutine_threadsafe
-# from crypt import methods
-# from turtle import pos
-# from cmath import log
-from crypt import methods
 import sys
 from flask import jsonify, session
 from unicodedata import name
 import folium
 
 from sqlalchemy import create_engine, func
-# from tabnanny import check
 sys.path.append('.')
 sys.path.append('..')
 
@@ -454,19 +448,18 @@ def supprimerPhoto(id,albumId):
 @app.route('/todo/<int:userId>')
 def todo(userId):
     todos=base.session.query(model.Todo).filter(model.Todo.userId==userId).all()
-    taille=len(todos)
+  
     if todos:
-        todosUserId=base.session.query(model.Todo).filter(model.Todo.userId==userId).first()
+        todos=base.session.query(model.Todo).filter(model.Todo.userId==userId).all()
+        taille=len(todos)
         return render_template('todo.html',todos=todos,userId=userId,taille=taille)
     else:
-        print(userId)
         donnees_todo(userId)
         todos=base.session.query(model.Todo).filter(model.Todo.userId==userId).all()
-        todosUserId=base.session.query(model.Todo).filter(model.Todo.userId==userId).first()
-        # todosId=todosUserId[0]
+        taille=len(todos)
         return render_template('todo.html',todos=todos,userId=userId,taille=taille)
 
-################## AJOUTER TODOS ########################
+################# AJOUTER TODOS ########################
 @app.route('/addTodo/<int:userId>', methods=('POST','GET'))
 def addTodo(userId):
     if request.method == 'POST':
@@ -718,10 +711,11 @@ def diagramme(userId):
 
 @app.route('/donnes',methods=['GET','POST'])
 def donnes():
-    donne={}
+   
     li=[]
     donnees=base.session.query(func.count(model.User.id),model.User.name).join(model.User.posts).group_by(model.User.name).all()
     for i in donnees:
+        donne={}
         donne["name"]=i[1]
         donne["nbr"]=i[0]
         li.append(donne)

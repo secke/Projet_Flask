@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 
+{% block head %}
+
+<script src="/static/JS/apptodo.js" defer></script>
+<script src="/static/JS/d3.min.js"></script>
+
+{% endblock %}
+
 {% block content %}
     <nav class="principal">
         <div class="div_logo_user">
@@ -17,7 +24,7 @@
                 {% for i in range(taille) %}
                    {% if todos[i].ETAT== "A faire" %}
                    <div class="liste">
-                    <li>{{ todos[i].title }}</li>
+                    <li id="A_faire">{{ todos[i].title }}</li>
                         <div class="bouton">
                          <a href="{{ url_for('modifierTodo',id=todos[i].id,userId=userId) }}">
                              <i class="fa-solid fa-pen" id="modiftodo"></i>
@@ -40,7 +47,7 @@
                 {% for i in range(taille) %}
                    {% if todos[i].ETAT== "En cours" %}
                        <div class="liste">
-                        <li>{{ todos[i].title }}</li>
+                        <li id="En_cours">{{ todos[i].title }}</li>
                             <div class="bouton">
                              <a href="{{ url_for('modifierTodo',id=todos[i].id,userId=userId) }}">
                                  <i class="fa-solid fa-pen" id="modiftodo"></i>
@@ -63,7 +70,7 @@
                 {% for i in range(taille) %}
                    {% if todos[i].ETAT== "Termine" %}
                    <div class="liste">
-                    <li>{{ todos[i].title }}</li>
+                    <li id="Termine">{{ todos[i].title }}</li>
                         <div class="bouton">
                          <a href="{{ url_for('modifierTodo',id=todos[i].id,userId=userId) }}">
                              <i class="fa-solid fa-pen" id="modiftodo"></i>
@@ -78,14 +85,10 @@
             </ul>
         </div>
     </div>
+    
  </div>
+ <div class="graph">
+</div>
 {% endblock %}
 
-<!-- <div class="block">
-    <h2 class="titre"><a href="{{ url_for('modifierTodo',id=todo.id,userId=userId) }}"><button class="boutton_formulaire">Editer</button></a><a href="{{ url_for('supprimerTodo',id=todo.id,userId=userId) }}"><button class="boutton_formulaire">Supprimer</button></a>
-    {{ todo.title }}</h2>
-</div>
-<div class="block">
-<textarea >{{ todo.ETAT }}</textarea>
-</div> -->
 
