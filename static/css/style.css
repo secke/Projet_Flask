@@ -1182,7 +1182,7 @@ color: rgb(152, 11, 63);
 
 
 
-/* ***************            FORMULAIRE ADDCOMMENTS      ******************     */
+/* ***************         FORMULAIRE ADDCOMMENTS      ******************     */
 .form_addComment {
    display: flex;
    height: 500px;
@@ -1227,8 +1227,10 @@ color: rgb(152, 11, 63);
    width: 100%;
    height: 100%;
    display: flex;
-   align-items: center;
    flex-direction: column;
+   /* align-items: center; */
+   justify-content: center;
+   
 }
 
 .diagramme_album{

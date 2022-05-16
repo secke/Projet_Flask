@@ -8,7 +8,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from flask_paginate import Pagination, get_page_parameter
 import requests 
 
-
+print(sys.path)
 
 # engine=create_engine('postgresql://secke:keita2022@localhost:5432/baseflask')
 #engine=create_engine('postgresql://secke:keita2022@localhost:5432/baseflask')

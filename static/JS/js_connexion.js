@@ -53,7 +53,7 @@ function valider(){
                 }
         motPass=document.getElementById("mp")
         motPass.value=rfinal;
-        console.log(rfinal);
+        // console.log(rfinal);
     
     
 }
@@ -93,7 +93,7 @@ var btn_affiche = document.querySelector('.btn_ajout')
 
 // // var choice_user = document.querySelector('.btn_choice_user')
 
-console.log(btn_affiche)
+// console.log(btn_affiche)
 
 // choice_user.addEventListener('click', ()=>{
 //     choice_nbr_user.style.display = 'block'

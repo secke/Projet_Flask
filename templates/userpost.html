@@ -11,7 +11,7 @@
         <li class="list" ><a href="{{ url_for('album', userId=userId) }}">Album</a></li>
         <li class="list"><a href="{{ url_for('todo', userId=userId) }}">Todo</a></li>
         <li class="list"><a href="{{ url_for('affiche_infos_user',userId=userId) }}"> Info</a> </li>
-        <li class="list"><a href="{{ url_for('donnee_photos', userId=userId) }}">diagramme</a></li>
+        <li class="list"><a href="{{ url_for('diagramme', userId=userId) }}">diagramme</a></li>
     </ul>
     <a href="{{ url_for('deconnexion', page = 1) }}"><button class="deconnexion">Déconnexion</button></a>
 </nav>

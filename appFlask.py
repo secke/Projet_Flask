@@ -30,6 +30,7 @@ from flask_paginate import Pagination, get_page_parameter
 
 from flask import Flask, render_template
 from flask_paginate import Pagination, get_page_args
+import json
 
 # ****************************************************************************
 
@@ -641,9 +642,9 @@ def userpost(userId,name):
 
 ########################Page user Album##################################
 
-@app.route('/useralbum')
-def useralbum():
-    return render_template('useralbum.html')
+# @app.route('/useralbum')
+# def useralbum():
+#     return render_template('useralbum.html')
 
 
 ##########################Page user Todo#################################
@@ -671,19 +672,10 @@ def affiche_infos_user(userId):
     model.User.email, model.User.city,model.User.lat, 
     model.User.lng,model.User.companyName,model.User.catchPhrase,model.User.companyBs).filter(model.User.id==userId).first()
     
-    # namecompany = fiche['company'].split(',')[0].split(':')[-1].strip(' ').strip("'")
-    # catchphrase = fiche['company'].split(',')[1].split(':')[-1].strip(' ').strip("'")
-    # bs = fiche['company'].split(',')[2].split(':')[-1].split('}')[0].strip(' ').strip("'")
-    
     phone = fiche['phone'].split('x')[0]
     lat=fiche['lat']
     long=fiche['lng']
-    # lat = float(fiche['address'].split(',')[4].split(':')[-1].strip('}').strip(" ").strip("'"))
-    # long= float(fiche['address'].split(',')[5].split(':')[-1].strip('}').strip(" ").strip("'"))
-    # rue= fiche['address'].split(',')[1].split(':')[1].strip('"')
-    # ville= fiche['address'].split(',')[2].split(':')[1].strip('"').strip(' ').strip("'")
-    # rue=fiche['street']
-    # ville=fiche['city']
+    
     start_coords = (lat, long)
     map = folium.Map(
         location=start_coords, 
@@ -704,35 +696,25 @@ def affiche_infos_user(userId):
 
 @app.route('/diagramme/<int:userId>')
 def diagramme(userId):
-    return render_template('diagramme.html')
+    albums = base.session.query(model.Album.id,model.Album.title,model.Album.userId).filter(model.Album.userId == userId)
 
-
-@app.route('/donnee_photos/<int:userId>')
-def donnee_photos(userId):
-    albums = base.session.query(model.Album.id,model.Album.title).filter(model.User.id == userId)
+    print('ALBUM',albums)
     tab = []
     dictionnaire={}
     for el in albums:
-        photos = base.session.query(model.Photo.id).filter(model.Album.id == el['id'])
+        photos = base.session.query(model.Photo).filter(model.Photo.albumId == el['id'])
         k=0
         for photo in photos:
             k+=1
+        dictionnaire[el['id']]=k
         
-        dictionnaire[el['title']]=k
-        # print(el['title'], el['id'],k)
-    tab.append(dictionnaire)
-    # print(len(tab))
-    return jsonify(tab)
-    
+    print(dictionnaire)
+    with open('static/data.json', 'w') as file:
+        json.dump(dictionnaire,file)
+    return render_template('diagramme.html', photos=photos)
 
 
-    # return render_template('paginate.html', users=pagination_users, page=page, per_page=5, pagination=pagination, a=a,l=l,userId=userId)
-
-# *********************************************************************************
-
-
-
-#####################Dashboard###########################################################
+##################### Dashboard en barre ###########################
 
 @app.route('/donnes',methods=['GET','POST'])
 def donnes():

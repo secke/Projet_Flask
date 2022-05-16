@@ -1,28 +1,17 @@
 {% extends 'base.html' %}
 
+{% block head %}
+
+<script src="/static/JS/app.js" defer></script>
+<script src="/static/JS/d3.min.js"></script>
+
+{% endblock %}
+
 {% block content %}
+<script src="https://d3js.org/d3.v4.js"></script>
 <div class="body_diagramme">
     <h1>Visualisation des photos par album</h1>
-    <div id="diagramme_album">
-
-    </div>
-    <script>
-        var width = 500;
-        var height = 500;
-        var data = tab;
-        var color = []
-        var svg = d3.select(".diagramme_album")
-                    .append("svg")
-                    .attr("width", width)
-                    .attr("height", height);
-
-        var g = svg.selectAll("g")
-                    .data(data)
-                    .enter()
-                    .append("g")
-                    .attr("transform", function(d, i) {
-                        return "translate(0,0)";
-                    })
-    </script>
+    <div id="my_dataviz"></div>
 </div>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 {% endblock %}
